@@ -8,3 +8,9 @@ from django.http import HttpResponse
 
 def index(request):
     return render(request, 'index.html')
+
+def guias(request):
+    return render(request, 'guias.html')
+
+def tutoriais(request):
+    return render(request, 'tutoriais.html')

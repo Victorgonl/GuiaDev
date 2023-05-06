@@ -6,17 +6,161 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <link rel="stylesheet" href="style.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <title>Sender Mail</title>
+  <title>Guia Dev</title>
 </head>
 <style>
-  *{
-  margin: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
 
+  :root {
+    --color-app: rgb(180, 175, 175);
+    --color-hover: rgb(112, 110, 110);
+  }
+  
+  *{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .displayFlexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  /* HEARDER  ==========================\ */
+  #header {
+    background-color: var(--color-app);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+  } 
+
+  #nav-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+  } 
+  
+  .item-menu {
+    padding: 8px;
+    border-radius: 5px;
+  }
+  
+  .item-menu:hover {
+    background-color: var(--color-hover);
+  }
+  
+  .details {
+    position: relative;
+  }
+  
+  .itens {
+    position: absolute;
+    display: none;
+    margin-top: 8px;
+    border-radius: 5px;
+    background-color: var(--color-app);
+    width: 250px;
+  }
+  
+  .details:hover .itens{
+    display: block;
+  } 
+  
+  .item-details {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+  }
+  
+  .item-details:hover {
+    background-color: var(--color-hover);
+  }
+
+  #input-pesquisa {
+    border: none;
+    border-radius: 2px;
+    height: 25px;
+    width: 200px;
+    padding-left: 25px;
+    outline: none;
+  }
+
+  #button-pesquisar {
+    height: 25px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  #div-pesquisa {
+    position: relative;
+  }
+
+  .icon-lupa {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 5px;
+  }
+
+  #button-pesquisar:focus .icon-lupa {
+    animation: move 2s ease-in-out;
+  }
+
+  @keyframes move {
+    0% {
+      left: 5px;
+    }
+    50% {
+      left: 185px;
+    }
+    100% {
+      left: 5px;
+    }
+  }
+  
+  /* HEARDER  ========================== */
+  
+  
+  
+  
+  
 </style>
 <body>
-  <h1>HTML </h1>
+  <header id="header">
+    <nav id="nav-header">
+      
+      <div class="details item-menu">
+        <did>
+          Guia
+        </did> 
+        <div class="itens">
+          <div class="item item-details"><a href="guias/">Guias de instalação</a></div>
+          <div class="item item-details"><a href="tutoriais/">Tutoriais de programação</a></div>
+          <div class="item item-details">Ferramentas</div>
+        </div>        
+      </div>     
+      <span class="details item-menu">
+        <did>
+          Contribuídores
+        </did> 
+        <div class="itens">
+          <div class="item item-details">Ranking </div>
+          <div class="item item-details">Contribua</div>
+        </div>     
+      </span>
+      
+    </nav>
+    <div id="div-pesquisa">
+      
+      <input type="text" id="input-pesquisa">
+      <button id="button-pesquisar"><i class="fa fa-search icon-lupa" aria-hidden="true"></i> Pesquisar</button>
+    </div>
+  </header>
 </body>
 </html>
