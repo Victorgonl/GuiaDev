@@ -184,13 +184,9 @@
   </header>
 
   <div id="body-content">
-    <div class="card-tecnologia"></div>
-    <div class="card-tecnologia"></div>
-    <div class="card-tecnologia"></div>
-    <div class="card-tecnologia"></div>
-    <div class="card-tecnologia"></div>
-    <div class="card-tecnologia"></div>
-    <div class="card-tecnologia"></div>
+    {% for guia in guias %}
+    <div class="card-tecnologia displayFlexCenter">{{guia.guia_titulo}}</div>
+    {% endfor %}
   </div>
 
 </body>
