@@ -126,10 +126,30 @@
   
   /* HEARDER  ========================== */
   
+  /* BODY ============================== */
   
+  #body-content {
+    width: 100%;
+    height: auto;
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  .card-tecnologia {
+    width: 220px;
+    height: 350px;
+    border-radius: 15px;
+    cursor: pointer;    
+    background-color: var(--color-app);
+  }
+
+  .card-tecnologia:hover {
+    outline: 2px solid #4d4d4d;
+  }
   
-  
-  
+  /* BODY ============================== */
 </style>
 <body>
   <header id="header">
@@ -162,5 +182,16 @@
       <button id="button-pesquisar"><i class="fa fa-search icon-lupa" aria-hidden="true"></i> Pesquisar</button>
     </div>
   </header>
+
+  <div id="body-content">
+    <div class="card-tecnologia"></div>
+    <div class="card-tecnologia"></div>
+    <div class="card-tecnologia"></div>
+    <div class="card-tecnologia"></div>
+    <div class="card-tecnologia"></div>
+    <div class="card-tecnologia"></div>
+    <div class="card-tecnologia"></div>
+  </div>
+
 </body>
 </html>
