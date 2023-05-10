@@ -143,6 +143,9 @@
     border-radius: 15px;
     cursor: pointer;    
     background-color: var(--color-app);
+    justify-content: space-evenly;
+    flex-direction: column;
+    padding: 20px;
   }
 
   .card-tecnologia:hover {
@@ -181,11 +184,19 @@
       <input type="text" id="input-pesquisa">
       <button id="button-pesquisar"><i class="fa fa-search icon-lupa" aria-hidden="true"></i> Pesquisar</button>
     </div>
+    <div><a href="admin/">Admin</a></div>
   </header>
 
   <div id="body-content">
-    {% for guia in guias %}
-    <div class="card-tecnologia displayFlexCenter">{{guia.guia_titulo}}</div>
+    {% for tecnologia in tecnologias %}
+    <div class="card-tecnologia displayFlexCenter">
+      <div>
+        {{tecnologia.nome}}
+      </div>
+      <div>
+        {{tecnologia.resumo}}
+      </div>
+    </div>
     {% endfor %}
   </div>
 
