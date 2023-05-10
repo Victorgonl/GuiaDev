@@ -138,7 +138,7 @@
   }
 
   .card-tecnologia {
-    width: 220px;
+    width: 100%;
     height: 350px;
     border-radius: 15px;
     cursor: pointer;    
@@ -188,7 +188,7 @@
   </header>
 
   <div id="body-content">
-    {% for tecnologia in tecnologias %}
+    <!-- {% for tecnologia in tecnologias %} -->
     <div class="card-tecnologia displayFlexCenter">
       <div>
         {{tecnologia.nome}}
@@ -197,7 +197,7 @@
         {{tecnologia.resumo}}
       </div>
     </div>
-    {% endfor %}
+    <!-- {% endfor %} -->
   </div>
 
 </body>
