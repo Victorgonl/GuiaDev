@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 
 from django.http import HttpResponse
-from .models import Tecnologia
+from .models import Tecnologia, Tutorial
 
 
 
@@ -20,18 +20,25 @@ def tutoriais(request):
 
 def index(request):
   tecnologias = Tecnologia.objects.all()
+  tutoriais = Tutorial.objects.all()
   palavra = ''
 
+  print(request)
+  tutoriais_filtrados = []
+  tecnologias_filtradas = []
   if request.method=='POST':
     palavra = request.POST['palavra']
-    tecnologias_filtradas = []
-    for tec in tecnologias:
-      if (tec.nome.upper().find(palavra.upper()) == 0):
-        tecnologias_filtradas.append(tec)
-        print(tec.nome.upper(), palavra.upper())
-    
+    for tut in tutoriais:
+      if (tut.titulo.upper().find(palavra.upper()) == 0):
+        tutoriais_filtrados.append(tut)
+  if request.method=='POST/LIKE':
+    print('like')
+      
+    # like = request.POST['like']
+    # print(like)
+    # if request.POST['like']:
   context = {
-    'tecnologias' : tecnologias_filtradas
+    'tutoriais': tutoriais_filtrados
   }
 
   return render(request, 'index.html', context=context)
