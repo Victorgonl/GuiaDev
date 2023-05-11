@@ -181,14 +181,17 @@
     </nav>
     <div id="div-pesquisa">
       
-      <input type="text" id="input-pesquisa">
-      <button id="button-pesquisar"><i class="fa fa-search icon-lupa" aria-hidden="true"></i> Pesquisar</button>
+      <form method="POST">
+        {% csrf_token %}
+        <input type="text" id="input-pesquisa" name="palavra" value=""/>
+        <input type="submit" id="button-pesquisar" value="Pesquisar"><i class="fa fa-search icon-lupa" aria-hidden="true"></i> 
+    </form>
     </div>
     <div><a href="admin/">Admin</a></div>
   </header>
 
   <div id="body-content">
-    <!-- {% for tecnologia in tecnologias %} -->
+    {% for tecnologia in tecnologias %}
     <div class="card-tecnologia displayFlexCenter">
       <div>
         {{tecnologia.nome}}
@@ -197,8 +200,9 @@
         {{tecnologia.resumo}}
       </div>
     </div>
-    <!-- {% endfor %} -->
+    {% endfor %}
   </div>
+  
 
 </body>
 </html>
