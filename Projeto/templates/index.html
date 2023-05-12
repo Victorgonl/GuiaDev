@@ -201,12 +201,11 @@
         {{tutorial.descricao}}
       </div>
       <div>{{tutorial.total_likes}}</div>
-      <form method="POST" id="LIKE" >
-        {% csrf_token %}
-        <input type="text" id="input-pesquisa" name="palavra" value=""/>
-        <input type="submit" id="button-pesquisar" value="Pesquisar">
-        <i class="fa fa-search icon-lupa" aria-hidden="true"></i> 
+
+      <form action="." method="get">
+        <input name="mytest" type="submit" value="ok">
       </form>
+  
     </div>
     {% endfor %}
   </div>

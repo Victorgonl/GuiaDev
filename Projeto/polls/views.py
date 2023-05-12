@@ -15,7 +15,9 @@ def tutoriais(request):
     return render(request, 'tutoriais.html')
 
 
-
+def teste(request):
+  if request.GET.get('mytest'):
+    print('OK')
     
 
 def index(request):
@@ -23,7 +25,9 @@ def index(request):
   tutoriais = Tutorial.objects.all()
   palavra = ''
 
-  print(request)
+  
+  print(request.GET.get('mytest'))
+
   tutoriais_filtrados = []
   tecnologias_filtradas = []
   if request.method=='POST':
@@ -31,12 +35,8 @@ def index(request):
     for tut in tutoriais:
       if (tut.titulo.upper().find(palavra.upper()) == 0):
         tutoriais_filtrados.append(tut)
-  if request.method=='POST/LIKE':
-    print('like')
       
-    # like = request.POST['like']
-    # print(like)
-    # if request.POST['like']:
+
   context = {
     'tutoriais': tutoriais_filtrados
   }
