@@ -135,6 +135,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 25px;
+    position: relative;
   }
 
   .card-tecnologia {
@@ -146,10 +147,29 @@
     justify-content: space-evenly;
     flex-direction: column;
     padding: 20px;
+    position: relative;
   }
 
   .card-tecnologia:hover {
     outline: 2px solid #4d4d4d;
+  }
+
+  .likes {
+    flex-direction: column;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .button-like {
+    cursor: pointer;
+    border: none;
+    background-color:rgb(19, 71, 214);
+    border-radius: 5px;
+  }
+
+  .icone-like {
+    color: white;
   }
   
   /* BODY ============================== */
@@ -200,11 +220,18 @@
       <div>
         {{tutorial.descricao}}
       </div>
-      <div>{{tutorial.total_likes}}</div>
+      
+      <div class="likes displayFlexCenter">
 
-      <form action="." method="get">
-        <input name="mytest" type="submit" value="ok">
-      </form>
+        <div>{{tutorial.total_likes}}</div>
+        <form method="post">
+          {% csrf_token %}       
+          <button class="button-like" name="like" value="{{tutorial.id}}">
+            <i class="fa fa-thumbs-up icone-like" aria-hidden="true"></i>
+          </button>       
+        </form>
+      </div>
+        
   
     </div>
     {% endfor %}
