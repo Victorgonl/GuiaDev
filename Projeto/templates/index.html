@@ -11,6 +11,11 @@
 <style>
 
   :root {
+    --cor1: #222831;
+    --cor2: #393E46;
+    --cor3: #0092CA;
+    --cor4: #EEEEEE;
+
     --color-app: rgb(180, 175, 175);
     --color-hover: rgb(112, 110, 110);
   }
@@ -19,6 +24,7 @@
     margin: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+    
   }
 
   .displayFlexCenter {
@@ -27,10 +33,15 @@
     align-items: center;
   }
 
+  body {
+    background-color: var(--cor1);
+  }
+
 
   /* HEARDER  ==========================\ */
   #header {
-    background-color: var(--color-app);
+    color: var(--cor4);
+    background-color: var(--cor2);
     height: 50px;
     display: flex;
     align-items: center;
@@ -65,6 +76,7 @@
     border-radius: 5px;
     background-color: var(--color-app);
     width: 250px;
+    z-index: 2;
   }
   
   .details:hover .itens{
@@ -80,6 +92,8 @@
   .item-details:hover {
     background-color: var(--color-hover);
   }
+
+
 
   #input-pesquisa {
     border: none;
@@ -107,22 +121,6 @@
     transform: translateY(-50%);
     left: 5px;
   }
-
-  #button-pesquisar:focus .icon-lupa {
-    animation: move 2s ease-in-out;
-  }
-
-  @keyframes move {
-    0% {
-      left: 5px;
-    }
-    50% {
-      left: 185px;
-    }
-    100% {
-      left: 5px;
-    }
-  }
   
   /* HEARDER  ========================== */
   
@@ -137,41 +135,36 @@
     gap: 25px;
     position: relative;
   }
-
-  .card-tecnologia {
+  .form-card {
     width: 100%;
-    height: 350px;
-    border-radius: 15px;
+  }
+
+  .button-card-tutorial {
+    background-color: var(--cor1);
+    width: 100%;
+    height: 100px;
+    border: none;
+  }
+
+  .card-tutorial {
+    color: var(--cor4);
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
     cursor: pointer;    
-    background-color: var(--color-app);
+    background-color: var(--cor2);
     justify-content: space-evenly;
     flex-direction: column;
     padding: 20px;
     position: relative;
+    z-index: 0;
   }
 
-  .card-tecnologia:hover {
-    outline: 2px solid #4d4d4d;
+  .card-tutorial:hover {
+    outline: 1px solid var(--cor4);
   }
 
-  .likes {
-    flex-direction: column;
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-  }
-
-  .button-like {
-    cursor: pointer;
-    border: none;
-    background-color:rgb(19, 71, 214);
-    border-radius: 5px;
-  }
-
-  .icone-like {
-    color: white;
-  }
-  
+   
   /* BODY ============================== */
 </style>
 <body>
@@ -210,33 +203,29 @@
     </div>
     <div><a href="admin/">Admin</a></div>
   </header>
-
   <div id="body-content">
     {% for tutorial in tutoriais %}
-    <div class="card-tecnologia displayFlexCenter">
-      <div>
-        {{tutorial.titulo}}
-      </div>
-      <div>
-        {{tutorial.descricao}}
-      </div>
-      
-      <div class="likes displayFlexCenter">
-
-        <div>{{tutorial.total_likes}}</div>
-        <form method="post">
-          {% csrf_token %}       
-          <button class="button-like" name="like" value="{{tutorial.id}}">
-            <i class="fa fa-thumbs-up icone-like" aria-hidden="true"></i>
-          </button>       
-        </form>
-      </div>
-        
-  
-    </div>
+    <form class="form-card" method="post">
+      {% csrf_token %}       
+      <button type="submit" class="button-card-tutorial" name="id-tutorial" value="{{tutorial.id}}">            
+        <div class="card-tutorial displayFlexCenter">
+          <div>
+            <strong>
+              {{tutorial.titulo}}
+            </strong>
+          </div>          
+        </div>        
+      </button>       
+    </form>
+    
+    
+    
+    
+    
     {% endfor %}
+    {{tutorial.titulo}} 
   </div>
   
-
+  
 </body>
 </html>

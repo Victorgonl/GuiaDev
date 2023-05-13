@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutoriais</title>
+</head>
+<style>
+
+  :root {
+    --cor1: #222831;
+    --cor2: #393E46;
+    --cor3: #0092CA;
+    --cor4: #EEEEEE;
+
+    --color-app: rgb(180, 175, 175);
+    --color-hover: rgb(112, 110, 110);
+  }
+  
+  *{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  div{
+    display: flex;
+  }
+  .displayFlexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  body {
+    background-color: var(--cor1);
+  }
+
+
+ 
+  
+  /* BODY ============================== */
+  
+  .body-content {
+    width: 100%;
+    height: auto;
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    position: relative;
+  }
+
+
+  .form-card {
+    width: 100%;
+  }
+
+  .card-tutorial {
+    color: var(--cor4);
+    width: 100%;
+    height: max-content;
+    border-radius: 5px;
+    cursor: pointer; 
+    gap: 20px;   
+    background-color: var(--cor2);
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 20px;    
+    padding-bottom: 70px;
+    position: relative;
+  }
+
+  .card-tutorial:hover {
+    outline: 1px solid var(--cor4);
+  }
+
+  .likes {
+    color: var(--cor4);
+    flex-direction: column;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .button-like {
+    cursor: pointer;
+    border: none;
+    background-color: var(--cor3);
+    border-radius: 5px;
+  }
+
+  .icone-like {
+    color: var(--cor4);
+  }
+  
+  .code-div {
+    position: relative;
+    background-color: var(--cor3);
+    color: #fff;
+    width: 100%;
+    height: max-content;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .code {    
+    background-color: #000000;
+    padding: 4px;
+    border-radius: 4px;
+  }
+
+  .icone-copy:hover {
+    scale: 1.2;
+    cursor: pointer;
+  }
+
+  .button-copy {
+    width: 25px;
+    height: 25px;
+    color: var(--cor4);
+    background-color: #000000;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    border-radius: 4px;
+  }  
+
+  .voltar {
+    margin: 20px;
+  }
+
+  .voltar a {
+    color: var(--cor3);
+  }
+  /* BODY ============================== */
+</style>
+<body>
+  <div class="voltar">
+    <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+  </div>
+  {% for tutorial in tutorial %}
+  <div class="body-content">
+    <div class="card-tutorial">      
+      <div>
+        <strong>
+          {{tutorial.titulo}}
+        </strong>
+      </div>
+      <div>
+        {{tutorial.descricao}}
+      </div>     
+      <div class="code-div">
+        <code class="code">
+          {{tutorial.codigo}}          
+        </code>
+        <form method="post" action="{% url 'tutorial' %}">
+          {% csrf_token %}       
+          <button class="button-copy displayFlexCenter" name="copy" value="{{tutorial.id}}">            
+            <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
+          </button>       
+        </form>        
+      </div>     
+      <div class="likes displayFlexCenter">        
+        <div>{{tutorial.total_likes}}</div>
+        <form method="post" action="{% url 'tutorial' %}">
+          {% csrf_token %}       
+          <button class="button-like" name="like" value="{{tutorial.id}}">
+            <i class="fa fa-thumbs-up icone-like" aria-hidden="true"></i>
+          </button>       
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+</body>
+</html>
