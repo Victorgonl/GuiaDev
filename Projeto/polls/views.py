@@ -4,7 +4,7 @@ import pyperclip as pc
 
 
 from django.http import HttpResponse
-from .models import Tecnologia, Tutorial
+from .models import Tecnologia, Tutorial, Comentario
 
 
 def index(request):
@@ -47,7 +47,16 @@ def tutorial(request):
     if(keys.find('id-tutorial') != -1):     
       id = request.POST['id-tutorial']
       tutorial = Tutorial.objects.filter(id=id)
+
+      todosComentarios = Comentario.objects.all()
+      comentarios = []
+      for com in todosComentarios:
+        if int(com.tutorial.id) == int(id):
+          comentarios.append(com)
+      print(comentarios)
+
       context = {
+        'comentarios': comentarios,
         'tutorial': tutorial
       }
       return render(request, 'tutorial.html', context=context)
