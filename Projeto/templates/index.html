@@ -193,10 +193,9 @@
       
     </nav>
     <div id="div-pesquisa">
-      
-      <form method="POST" id="PESQUISAR">
+      <form method="post">
         {% csrf_token %}
-        <input type="text" id="input-pesquisa" name="palavra" value=""/>
+        <input type="text" id="input-pesquisa" name="pesquisa" value=""/>
         <input type="submit" id="button-pesquisar" value="Pesquisar">
         <i class="fa fa-search icon-lupa" aria-hidden="true"></i> 
       </form>
