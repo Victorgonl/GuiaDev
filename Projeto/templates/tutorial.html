@@ -153,6 +153,8 @@
     position: relative;
   }
 
+  
+
   .user {
     display: flex;
     flex-direction: column;
@@ -175,6 +177,60 @@
     text-align: center;
   }
 
+
+  .card-adicionar-comentario {
+    color: var(--cor4);
+    width: 100%;
+    height: max-content;
+    border-radius: 5px;
+    background-color: var(--cor2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;    
+    position: relative;
+    gap: 20px;
+  }
+
+  .form-comentario {
+    width: 100%;
+    padding-left: 20px;    
+  }
+
+  .nome-autor {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .input-nome-autor {
+    outline: none;
+    height: 22px;
+  }
+  
+  .texto-novo-comentario {
+    display: flex;
+    width: 100%;
+  }
+
+  .input-novo-comentario {
+    width: 100%;
+    height: 100px;
+    border-radius: 5px;
+    outline: none;
+    padding: 20px;
+  }
+
+  .button-comentar {
+    display: flex;
+    color: var(--cor4);
+    background-color: var(--cor3);
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+  }
+  
   /* BODY ============================== */
 </style>
 <body>
@@ -239,22 +295,28 @@
       </span>
     </div>
     {% endfor %}
-    {% for comentario in comentarios %}
-    
-    <div id="comentarios">
-      <span class="card-comentario">
-        <div class="user">
-          <i class="fa fa-regular fa-user icone-user"></i>
-          <div class="autor-comentario">
-            {{comentario.autor}}
-          </div>
+   
+    {% for tutorial in tutorial %}
+    <form method="post" class="form-comentario" action="{% url 'tutorial' %}">
+      {% csrf_token %}   
+      <input type="text" hidden name="id" value="{{tutorial.id}}" >
+      <div class="card-adicionar-comentario">        
+        <div class="nome-autor">
+          <label>Seu nome</label>
+          <input class="input-nome-autor" type="text" name="nome_autor">
         </div>
-        <div class="texto-comentario">
-          {{comentario.texto}}
+        <div class="texto-novo-comentario">
+          <textarea class="input-novo-comentario" type="text" name="comentario"></textarea>
         </div>
-      </span>
-    </div>
+        <div  >
+          <button class="button-comentar" type="submit" value="Submit">
+            Comentar
+          </button>
+        </div>
+      </div>
+    </form>
     {% endfor %}
+
   </div>
 </body>
 </html>
