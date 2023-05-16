@@ -206,8 +206,9 @@
   <div id="body-content">
     {% for tutorial in tutoriais %}
     <form class="form-card" method="post">
-      {% csrf_token %}       
-      <button type="submit" class="button-card-tutorial" name="id-tutorial" value="{{tutorial.id}}">            
+      {% csrf_token %}  
+           
+      <button type="submit" class="button-card-tutorial" name="id" value="{{tutorial.id}}">            
         <div class="card-tutorial displayFlexCenter">
           <div>
             <strong>

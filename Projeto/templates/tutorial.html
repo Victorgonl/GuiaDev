@@ -64,7 +64,6 @@
     width: 100%;
     height: max-content;
     border-radius: 5px;
-    cursor: pointer; 
     gap: 20px;   
     background-color: var(--cor2);
     justify-content: space-between;
@@ -166,9 +165,14 @@
     font-size: 60px;
     margin-bottom: 20px;
   }
+
   .texto-comentario {
     width: 90%;
     padding: 20px;
+  }
+
+  .autor-comentario {
+    text-align: center;
   }
 
   /* BODY ============================== */
@@ -193,8 +197,12 @@
           {{tutorial.codigo}}          
         </code>
         <form method="post" action="{% url 'tutorial' %}">
-          {% csrf_token %}       
-          <button class="button-copy displayFlexCenter" name="copy" value="{{tutorial.id}}">            
+          {% csrf_token %} 
+          <input type="text" hidden name="id" value="{{tutorial.id}}" >
+          <input type="text" hidden name="like" value='' >
+          <input type="text" hidden name="copy" value='True' >  
+              
+          <button class="button-copy displayFlexCenter" type="submit" value="Submit">
             <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
           </button>       
         </form>        
@@ -203,9 +211,13 @@
         <div>{{tutorial.total_likes}}</div>
         <form method="post" action="{% url 'tutorial' %}">
           {% csrf_token %}       
-          <button class="button-like" name="like" value="{{tutorial.id}}">
+          <input type="text" hidden name="id" value="{{tutorial.id}}" >
+          <input type="text" hidden name="like" value=True >
+          <input type="text" hidden name="copy" value='' >
+
+          <button class="button-like" type="submit" value="Submit">
             <i class="fa fa-thumbs-up icone-like" aria-hidden="true"></i>
-          </button>       
+          </button>
         </form>
       </div>
     </div>
@@ -217,7 +229,7 @@
       <span class="card-comentario">
         <div class="user">
           <i class="fa fa-regular fa-user icone-user"></i>
-          <div class="auto-comentario">
+          <div class="autor-comentario">
             {{comentario.autor}}
           </div>
         </div>
@@ -233,7 +245,7 @@
       <span class="card-comentario">
         <div class="user">
           <i class="fa fa-regular fa-user icone-user"></i>
-          <div class="auto-comentario">
+          <div class="autor-comentario">
             {{comentario.autor}}
           </div>
         </div>
