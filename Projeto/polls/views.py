@@ -68,10 +68,8 @@ def tutorial(request):
       for c in codigos:
         tutos = c.tutoriais.all()
         for t in tutos:
-
           if int(t.id) == int(id):
             codigos_tutorial.append(c)  
-            print(c)
 
 
       if like:
@@ -80,8 +78,9 @@ def tutorial(request):
         tutorial.save()
 
       if copy:
-        print(copy)
-        pc.copy(tutorial.codigo)
+        id_codigo = data.get('copy')
+        codigo_copy = Codigo.objects.get(id=id_codigo)
+        pc.copy(codigo_copy.texto)
 
       nome_autor = data.get('nome_autor')
       if(bool(nome_autor)):

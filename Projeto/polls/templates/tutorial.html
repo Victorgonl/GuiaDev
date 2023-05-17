@@ -26,22 +26,23 @@
       <div>
         {{tutorial.descricao}}
       </div>     
+      {% for codigo in codigos %}
       <div class="code-div">
-        {% for codigo in codigos %}
         <code class="code">
           {{codigo.texto}}          
         </code>
-        {% endfor %}
         <form method="post" action="{% url 'tutorial' %}">
           {% csrf_token %} 
           <input type="text" hidden name="id" value="{{tutorial.id}}" >
           <input type="text" hidden name="like" value='' >
-          <input type="text" hidden name="copy" value='True' >  
-              
+          <input type="text" hidden name="copy" value='{{codigo.id}}' >  
+          
           <button class="button-copy displayFlexCenter" type="submit" value="Submit">
             <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
           </button>       
-        </form>        
+        </form>    
+      </div>    
+      {% endfor %}
       </div>     
       <div class="likes displayFlexCenter">        
         <div>{{tutorial.total_likes}}</div>
