@@ -3,7 +3,7 @@ import pyperclip as pc
 from .forms import FormTutorial
 
 from django.http import HttpResponse
-from .models import Tecnologia, Tutorial, Comentario, Autor
+from .models import Tecnologia, Tutorial, Comentario, Autor, Codigo
 
 
 def index(request):
@@ -30,12 +30,26 @@ def index(request):
         'tutoriais': tutoriais_filtrados
       }
       return render(request, 'index.html', context=context)
-  else:
+  else:    
     tutoriais = Tutorial.objects.all()
     context = {
       'tutoriais': tutoriais
     }
-    return render(request, 'index.html', context=context)
+    return render(request, 'tutoriais_index.html', context=context)
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def tutorial(request):
 
@@ -47,9 +61,18 @@ def tutorial(request):
       like =  bool(data.get('like'))
       copy = bool(data.get('copy'))
 
-      print(data)
 
       tutorial = Tutorial.objects.get(id=id)
+      codigos = Codigo.objects.all()
+      codigos_tutorial = []
+      for c in codigos:
+        tutos = c.tutoriais.all()
+        for t in tutos:
+
+          if int(t.id) == int(id):
+            codigos_tutorial.append(c)  
+            print(c)
+
 
       if like:
         likes = tutorial.total_likes
@@ -76,9 +99,9 @@ def tutorial(request):
         novo_comentario.tutorial = tutorial
         novo_comentario.save()
 
-        print(novo_comentario)
       comentarios = Comentario.objects.filter(tutorial_id=id)
       context = {
+        'codigos': codigos_tutorial,
         'comentarios': comentarios,
         'tutorial': [tutorial],
         'id': id

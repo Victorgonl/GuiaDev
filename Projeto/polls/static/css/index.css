@@ -1,0 +1,153 @@
+:root {
+  --cor1: #222831;
+  --cor2: #393E46;
+  --cor3: #0092CA;
+  --cor4: #EEEEEE;
+
+  --color-app: rgb(180, 175, 175);
+  --color-hover: rgb(112, 110, 110);
+}
+
+*{
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+.displayFlexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  background-color: var(--cor1);
+}
+
+
+/* HEARDER  ==========================\ */
+#header {
+  color: var(--cor4);
+  background-color: var(--cor2);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+} 
+
+#nav-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+} 
+
+.item-menu {
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.item-menu:hover {
+  background-color: var(--color-hover);
+}
+
+.details {
+  position: relative;
+}
+
+.itens {
+  position: absolute;
+  display: none;
+  margin-top: 8px;
+  border-radius: 5px;
+  background-color: var(--color-app);
+  width: 250px;
+  z-index: 2;
+}
+
+.details:hover .itens{
+  display: block;
+} 
+
+.item-details {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.item-details:hover {
+  background-color: var(--color-hover);
+}
+
+
+
+#input-pesquisa {
+  border: none;
+  border-radius: 2px;
+  height: 25px;
+  width: 200px;
+  padding-left: 25px;
+  outline: none;
+}
+
+#button-pesquisar {
+  height: 25px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+#div-pesquisa {
+  position: relative;
+}
+
+.icon-lupa {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 5px;
+}
+
+/* HEARDER  ========================== */
+
+/* BODY ============================== */
+
+#body-content {
+  width: 100%;
+  height: auto;
+  padding: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  position: relative;
+}
+.form-card {
+  width: 100%;
+}
+
+.button-card-tutorial {
+  background-color: var(--cor1);
+  width: 100%;
+  height: 100px;
+  border: none;
+}
+
+.card-tutorial {
+  color: var(--cor4);
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  cursor: pointer;    
+  background-color: var(--cor2);
+  justify-content: space-evenly;
+  flex-direction: column;
+  padding: 20px;
+  position: relative;
+  z-index: 0;
+}
+
+.card-tutorial:hover {
+  outline: 1px solid var(--cor4);
+}

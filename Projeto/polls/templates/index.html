@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{%  static 'css/index.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Guia Dev</title>
+</head>
+<body>
+  <header id="header">
+    <nav id="nav-header">
+      
+      <div class="details item-menu">
+        <did>
+          Guia
+        </did> 
+        <div class="itens">
+          <div class="item item-details"><a href="guias/">Guias de instalação</a></div>
+          <div class="item item-details"><a href="tutoriais/">Tutoriais de programação</a></div>
+          <div class="item item-details">Ferramentas</div>
+        </div>        
+      </div>     
+      <span class="details item-menu">
+        <did>
+          Contribuídores
+        </did> 
+        <div class="itens">
+          <div class="item item-details">Ranking </div>
+          <div class="item item-details">Contribua</div>
+        </div>     
+      </span>
+      
+    </nav>
+    <div id="div-pesquisa">
+      <form method="post">
+        {% csrf_token %}
+        <input type="text" id="input-pesquisa" name="pesquisa" value=""/>
+        <input type="submit" id="button-pesquisar" value="Pesquisar">
+        <i class="fa fa-search icon-lupa" aria-hidden="true"></i> 
+      </form>
+    </div>
+    <div><a href="admin/">Admin</a></div>
+  </header>
+  <div id="body-content">
+    <!-- {% for tutorial in tutoriais %}
+    <form class="form-card" method="post">
+      {% csrf_token %}  
+           
+      <button type="submit" class="button-card-tutorial" name="id" value="{{tutorial.id}}">            
+        <div class="card-tutorial displayFlexCenter">
+          <div>
+            <strong>
+              {{tutorial.titulo}}
+            </strong>
+          </div>          
+        </div>        
+      </button>       
+    </form>        
+    {% endfor %} -->
+    {% block tutoriais_index%}
+    {% endblock %}
+  </div> 
+</body>
+</html>

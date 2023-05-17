@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="{%  static 'css/tutorial.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutoriais</title>
+</head>
+<body>
+  <div class="voltar">
+    <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+  </div>
+  {% for tutorial in tutorial %}
+  <div class="body-content">
+    <div class="card-tutorial">      
+      <div>
+        <strong>
+          {{tutorial.titulo}}
+        </strong>
+      </div>
+      <div>
+        {{tutorial.descricao}}
+      </div>     
+      <div class="code-div">
+        {% for codigo in codigos %}
+        <code class="code">
+          {{codigo.texto}}          
+        </code>
+        {% endfor %}
+        <form method="post" action="{% url 'tutorial' %}">
+          {% csrf_token %} 
+          <input type="text" hidden name="id" value="{{tutorial.id}}" >
+          <input type="text" hidden name="like" value='' >
+          <input type="text" hidden name="copy" value='True' >  
+              
+          <button class="button-copy displayFlexCenter" type="submit" value="Submit">
+            <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
+          </button>       
+        </form>        
+      </div>     
+      <div class="likes displayFlexCenter">        
+        <div>{{tutorial.total_likes}}</div>
+        <form method="post" action="{% url 'tutorial' %}">
+          {% csrf_token %}       
+          <input type="text" hidden name="id" value="{{tutorial.id}}" >
+          <input type="text" hidden name="like" value=True >
+          <input type="text" hidden name="copy" value='' >
+
+          <button class="button-like" type="submit" value="Submit">
+            <i class="fa fa-thumbs-up icone-like" aria-hidden="true"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+    
+    {% for comentario in comentarios %}
+    
+    <div id="comentarios">
+      <span class="card-comentario">
+        <div class="user">
+          <i class="fa fa-regular fa-user icone-user"></i>
+          <div class="autor-comentario">
+            {{comentario.autor}}
+          </div>
+        </div>
+        <div class="texto-comentario">
+          {{comentario.texto}}
+        </div>
+      </span>
+    </div>
+    {% endfor %}
+   
+    {% for tutorial in tutorial %}
+    <form method="post" class="form-comentario" action="{% url 'tutorial' %}">
+      {% csrf_token %}   
+      <input type="text" hidden name="id" value="{{tutorial.id}}" >
+      <div class="card-adicionar-comentario">        
+        <div class="nome-autor">
+          <label>Seu nome</label>
+          <input class="input-nome-autor" type="text" name="nome_autor">
+        </div>
+        <div class="texto-novo-comentario">
+          <textarea class="input-novo-comentario" type="text" name="comentario"></textarea>
+        </div>
+        <div  >
+          <button class="button-comentar" type="submit" value="Submit">
+            Comentar
+          </button>
+        </div>
+      </div>
+    </form>
+    {% endfor %}
+
+  </div>
+</body>
+</html>

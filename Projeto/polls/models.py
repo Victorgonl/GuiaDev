@@ -43,6 +43,13 @@ class Codigo(models.Model):
   autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
 
 
+class Ordem(models.Model):
+  id = models.AutoField(primary_key=True)
+  posicao = models.IntegerField()
+  codigo = models.ForeignKey(Codigo, on_delete=models.CASCADE)
+  tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
+
+
 class Comentario(models.Model):
   id = models.AutoField(primary_key=True)
   texto = models.CharField(max_length=200)
