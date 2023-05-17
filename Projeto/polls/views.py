@@ -7,7 +7,7 @@ from .models import Tecnologia, Tutorial, Comentario, Autor
 
 
 def index(request):
-  
+
 
   if request.method == 'POST':
     form = FormTutorial(request.POST)
@@ -17,7 +17,7 @@ def index(request):
       id = data.get('id')
       if bool(id):
         return tutorial(request)
-      
+
       pesquisa = data.get('pesquisa')
       print(pesquisa)
       tutoriais = Tutorial.objects.all()
@@ -25,12 +25,12 @@ def index(request):
       for tut in tutoriais:
         if (pesquisa.upper() in tut.titulo.upper()):
           tutoriais_filtrados.append(tut)
-      
+
       context = {
         'tutoriais': tutoriais_filtrados
       }
       return render(request, 'index.html', context=context)
-  else: 
+  else:
     tutoriais = Tutorial.objects.all()
     context = {
       'tutoriais': tutoriais
@@ -46,11 +46,11 @@ def tutorial(request):
       id = data.get('id')
       like =  bool(data.get('like'))
       copy = bool(data.get('copy'))
-      
+
       print(data)
 
       tutorial = Tutorial.objects.get(id=id)
-        
+
       if like:
         likes = tutorial.total_likes
         tutorial.__setattr__('total_likes', 1+likes)
@@ -69,7 +69,7 @@ def tutorial(request):
         novo_autor.email = 'email@email'
         novo_autor.total_contribuicoes = 0
         novo_autor.save()
-                
+
         novo_comentario = Comentario()
         novo_comentario.autor = novo_autor
         novo_comentario.texto = comentario
@@ -82,7 +82,7 @@ def tutorial(request):
         'comentarios': comentarios,
         'tutorial': [tutorial],
         'id': id
-      } 
+      }
       return render(request, 'tutorial.html', context=context)
 
-    
+
