@@ -1,10 +1,12 @@
 # Projeto de Programção WEB
 
-# Ambiente (Ubuntu)
+# Ambiente (Linux)
 
 ## pip & venv
 
     sudo apt install python3-pip
+
+<p></p>
 
     sudo apt install python3-venv
 
@@ -12,15 +14,13 @@
 
     python3 -m venv .venv
 
-    source .venv/bin/activate
+<p></p>
 
-    cd Projeto
+    source .venv/bin/activate
 
 ## Pacotes Python
 
-    pip install django
-
-    pip install pyperclip
+    pip install -r requirements.txt
 
 # Aplicação
 
@@ -36,8 +36,10 @@
 
     python3 manage.py makemigrations polls
 
+<p></p>
+
     python3 manage.py sqlmigrate polls 0001
 
 ## Criação de administrador
 
-    python manage.py createsuperuser
+    python3 manage.py createsuperuser
