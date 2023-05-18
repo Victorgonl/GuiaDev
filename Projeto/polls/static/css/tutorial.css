@@ -1,5 +1,5 @@
 :root {
-  --cor1: #312e22;
+  --cor1: #252525;
   --cor2: #393E46;
   --cor3: #0092CA;
   --cor4: #EEEEEE;
@@ -68,6 +68,7 @@ body {
   position: absolute;
   bottom: 10px;
   left: 10px;
+  
 }
 
 .button-like {
@@ -93,7 +94,7 @@ body {
 
 .code {    
   background-color: #000000;
-  padding: 20px 4px;
+  padding: 4px 20px;
   border-radius: 4px;
 }
 

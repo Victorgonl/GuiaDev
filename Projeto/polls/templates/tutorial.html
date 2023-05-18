@@ -43,7 +43,6 @@
         </form>    
       </div>    
       {% endfor %}
-      </div>     
       <div class="likes displayFlexCenter">        
         <div>{{tutorial.total_likes}}</div>
         <form method="post" action="{% url 'tutorial' %}">
@@ -51,12 +50,13 @@
           <input type="text" hidden name="id" value="{{tutorial.id}}" >
           <input type="text" hidden name="like" value=True >
           <input type="text" hidden name="copy" value='' >
-
+          
           <button class="button-like" type="submit" value="Submit">
             <i class="fa fa-thumbs-up icone-like" aria-hidden="true"></i>
           </button>
         </form>
       </div>
+    </div>     
     </div>
     {% endfor %}
     
