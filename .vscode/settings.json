@@ -5,7 +5,7 @@
             "path": "bash",
             "args": [
                 "-c",
-                "sh .venv.sh"
+                "sh .vscode/.venv.sh"
             ]
         }
     },
