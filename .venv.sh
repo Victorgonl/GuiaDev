@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ -d ".venv" ]; then
+if [ -f ".venv/bin/django-admin" ]; then
     cd src; exec bash
 else
-    python3 -m venv .venv && pip install -r requirements.txt
+    exec bash
 fi

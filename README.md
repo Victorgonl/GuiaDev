@@ -24,6 +24,8 @@
 
 # Aplicação
 
+    cd src
+
 ## Execução do servidor
 
     python3 manage.py runserver
