@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('polls', '0001_initial'),
+        ('base', '0001_initial'),
     ]
 
     operations = [
@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('texto', models.CharField(max_length=10000)),
-                ('tutorial', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.tutorial')),
+                ('tutorial', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.tutorial')),
             ],
         ),
         migrations.CreateModel(
@@ -28,8 +28,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('texto', models.CharField(max_length=10000)),
-                ('autor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.autor')),
-                ('tutoriais', models.ManyToManyField(to='polls.tutorial')),
+                ('autor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.autor')),
+                ('tutoriais', models.ManyToManyField(to='base.tutorial')),
             ],
         ),
     ]

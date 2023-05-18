@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('polls', '0002_remove_tutorial_codigo_marcacao_codigo'),
+        ('base', '0002_remove_tutorial_codigo_marcacao_codigo'),
     ]
 
     operations = [
@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('posicao', models.IntegerField(max_length=200)),
-                ('codigo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.codigo')),
-                ('tutorial', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.tutorial')),
+                ('codigo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.codigo')),
+                ('tutorial', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.tutorial')),
             ],
         ),
     ]
