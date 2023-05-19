@@ -1,2 +1,5 @@
 django==4.2.1
+django-extensions==3.2.1
 pyperclip==1.8.2
+pyparsing==3.0.9
+pydot==1.4.2

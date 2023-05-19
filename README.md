@@ -10,6 +10,10 @@
 
     sudo apt install python3-venv
 
+## Graphviz
+
+    sudo apt install graphviz
+
 ## Ambiente virtual
 
     python3 -m venv .venv
@@ -45,3 +49,7 @@
 ## Criação de administrador
 
     python3 manage.py createsuperuser
+
+# Diagrama Relacional dos Modelos
+
+<img src="./src/relational_model.png">
