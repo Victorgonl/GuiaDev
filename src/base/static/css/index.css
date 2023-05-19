@@ -148,6 +148,7 @@ body {
   padding: 20px;
   position: relative;
   z-index: 0;
+  font-size: 22px;
 }
 
 .card-tutorial:hover {
@@ -177,4 +178,26 @@ body {
 .card {
   width: 100%;
   position: relative;
+}
+
+.button-adicionar-tutorial-content {
+  width: 100%;
+  height: 100px;
+  padding-inline: 60px;
+  display: flex;
+  align-items: end;
+}
+
+.button-adicionar-tutorial {
+  
+  cursor: pointer;
+  border-radius: 10px;
+  width: max-content;
+  background-color: var(--cor3);
+  color: var(--cor4);
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 20px;
+  gap: 20px;
 }

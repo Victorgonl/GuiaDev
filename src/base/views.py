@@ -120,3 +120,7 @@ def tutorial(request):
       return render(request, 'tutorial.html', context=context)
 
 
+
+
+def adicionar_tutorial(request):  
+  return render(request, 'adicionar_tutorial.html')

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="{%  static 'css/adicionar_tutorial.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Tutoriais</title>
+</head>
+<body>
+    <div class="body-content">
+
+        <div class="voltar">
+            <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+        </div>
+        <form method="post" action="{% url 'tutorial' %}">
+            {% csrf_token %}   
+            <input type="text" hidden name="id" value="{{tutorial.id}}" >
+            <div class="card-adicionar-comentario">        
+                <div class="nome-autor">
+                    <label>Seu nome</label>
+                    <input class="input-nome-autor" type="text" name="nome_autor">
+                </div>
+                <div class="texto-novo-comentario">
+                    <textarea class="input-novo-comentario" type="text" name="comentario"></textarea>
+                </div>
+                <div  >
+                    <button class="button-adicionar" type="submit" value="Submit">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </body>
+    </html>

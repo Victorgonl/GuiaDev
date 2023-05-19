@@ -40,13 +40,22 @@
         <input type="text" id="input-pesquisa" name="pesquisa" value=""/>
         <input type="submit" id="button-pesquisar" value="Pesquisar">
         <i class="fa fa-search icon-lupa" aria-hidden="true"></i> 
-      </form>
-    </div>
+      </div>
+    </form>
     <div><a href="admin/">Admin</a></div>
   </header>
-  <div id="body-content">
-    {% block tutoriais_index%}
-    {% endblock %}
+  <div class="button-adicionar-tutorial-content">
+    
+    <a href="adicionar_tutorial/">
+      <button class="button-adicionar-tutorial">
+        <i class="fa fa-solid fa-plus" aria-hidden="true"></i> 
+        Adicionar Tutorial
+      </button>
+    </a>
+  </div>
+    <div id="body-content">
+      {% block tutoriais_index%}
+      {% endblock %}
   </div> 
 </body>
 </html>
