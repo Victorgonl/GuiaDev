@@ -45,21 +45,6 @@
     <div><a href="admin/">Admin</a></div>
   </header>
   <div id="body-content">
-    <!-- {% for tutorial in tutoriais %}
-    <form class="form-card" method="post">
-      {% csrf_token %}  
-           
-      <button type="submit" class="button-card-tutorial" name="id" value="{{tutorial.id}}">            
-        <div class="card-tutorial displayFlexCenter">
-          <div>
-            <strong>
-              {{tutorial.titulo}}
-            </strong>
-          </div>          
-        </div>        
-      </button>       
-    </form>        
-    {% endfor %} -->
     {% block tutoriais_index%}
     {% endblock %}
   </div> 
