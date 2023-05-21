@@ -1,4 +1,4 @@
-# Projeto de Programção WEB
+# Projeto de Programação WEB
 
 # Ambiente (Linux)
 
@@ -51,5 +51,7 @@
     python3 manage.py createsuperuser
 
 # Diagrama Relacional dos Modelos
+
+    ./manage.py graph_models base -g -o relational_model.png
 
 <img src="./src/relational_model.png">
