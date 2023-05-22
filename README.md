@@ -34,17 +34,13 @@
 
     python3 manage.py runserver
 
-## Criação do banco de dados
+## Banco de dados
 
-    python3 manage.py migrate
-
-## Atualização no banco de dados
-
-    python3 manage.py makemigrations polls
+    python3 manage.py makemigrations
 
 <p></p>
 
-    python3 manage.py sqlmigrate polls 0001
+    python3 manage.py migrate
 
 ## Criação de administrador
 
