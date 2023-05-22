@@ -1,31 +1,66 @@
 :root {
-    --cor1: #252525;
-    --cor2: #393E46;
-    --cor3: #0092CA;
-    --cor4: #EEEEEE;
-    --color-app: rgb(180, 175, 175);
-    --color-hover: rgb(112, 110, 110);
+  --cor1: #252525;
+  --cor2: #393E46;
+  --cor3: #0092CA;
+  --cor4: #EEEEEE;
+  --color-app: rgb(180, 175, 175);
+  --color-hover: rgb(112, 110, 110);
 }
 
 *{
-margin: 0;
-box-sizing: border-box;
-font-family: Arial, Helvetica, sans-serif;
-
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 
 .body-content {
-    background-color: var(--cor1);
-    height: 100vh;
-    width: 100vw;
-    padding: 50px;
+  background-color: var(--cor1);
+  height: 100vh;
+  width: 100vw;
+  padding: 50px;
 }
 
 .voltar {
-    margin: 20px;
-  }
+  margin: 20px;
+}
   
-  .voltar a {
-    color: var(--cor3);
-  }
+.voltar a {
+  color: var(--cor3);
+}
+
+.card-adicionar-tutorial {
+  background-color: var(--cor2);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.button-adicionar{
+  cursor: pointer;
+  border-radius: 5px;
+  width: max-content;
+  background-color: var(--cor3);
+  color: var(--cor4);
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.collumstyle {
+  color: var(--cor4);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.collumstyle textarea {
+  height: 100px;
+  outline: none;
+  padding: 10px;
+}
+
+.collumstyle input {
+  outline: none;
+  padding: 5px;
+}

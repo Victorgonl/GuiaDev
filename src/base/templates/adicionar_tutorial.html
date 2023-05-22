@@ -18,22 +18,31 @@
             <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
         </div>
         <form method="post" action="{% url 'tutorial' %}">
-            {% csrf_token %}   
-            <input type="text" hidden name="id" value="{{tutorial.id}}" >
-            <div class="card-adicionar-comentario">        
-                <div class="nome-autor">
-                    <label>Seu nome</label>
-                    <input class="input-nome-autor" type="text" name="nome_autor">
+            {% csrf_token %} 
+            <div class="card-adicionar-tutorial">
+                <div class="nome-autor collumstyle">
+                  <label>Seu nome:</label>
+                  <input class="input-nome-autor" type="text" name="nome_autor">
                 </div>
-                <div class="texto-novo-comentario">
-                    <textarea class="input-novo-comentario" type="text" name="comentario"></textarea>
+                <div class="titulo-tutorial collumstyle">
+                  <label>Dê um titulo para o tutorial:</label>
+                  <input class="input-titulo-tutorial" type="text" name="titulo">
                 </div>
-                <div  >
-                    <button class="button-adicionar" type="submit" value="Submit">
-                        Adicionar
-                    </button>
+                <div class="descricao-tutorial collumstyle">
+                  <label>Descrição do tutorial:</label>
+                  <textarea class="input-descricao-tutoria" type="text" name="descricao"></textarea>
                 </div>
-            </div>
+                <div class="codigo-tutorial collumstyle">
+                  <label>Código do tutorial:</label>
+                  <textarea class="input-codigo-tutorial" type="text" name="codigo"></textarea>
+                </div>
+                <div class="div-button-adicionar">
+                  <button class="button-adicionar" type="submit" value="Submit">
+                    Adicionar
+                  </button>
+                </div>
+              </div>
+            </div>  
         </form>
     </div>
     </body>
