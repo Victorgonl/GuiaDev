@@ -60,6 +60,7 @@ class TutorialConteudo(models.Model):
     ordem = models.PositiveIntegerField()
 
     class Meta:
+        unique_together = (('tutorial', 'ordem'))
         ordering = ['ordem']
 
 
