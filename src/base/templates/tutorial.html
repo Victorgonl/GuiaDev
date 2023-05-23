@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load class_tag %}
 
 <html lang="en">
 
@@ -28,21 +29,39 @@
                 {{tutorial.descricao}}
             </div>
             {% for conteudo in conteudos %}
-            <div class="code-div">
-                <code class="code">
-        {{conteudo.texto}}
-        </code>
-                <form method="post" action="{% url 'tutorial' %}">
-                    {% csrf_token %}
-                    <input type="text" hidden name="id" value="{{tutorial.id}}">
-                    <input type="text" hidden name="like" value=''>
-                    <input type="text" hidden name="copy" value='{{conteudo.id}}'>
+              {% if conteudo|get_class == 'Codigo' %}
+                <div class="code-div">
+                    <code class="code">
+                            {{conteudo.texto}}
+                    </code>
+                    <form method="post" action="{% url 'tutorial' %}">
+                        {% csrf_token %}
+                        <input type="text" hidden name="id" value="{{tutorial.id}}">
+                        <input type="text" hidden name="like" value=''>
+                        <input type="text" hidden name="copy" value='{{conteudo.id}}'>
 
-                    <button class="button-copy displayFlexCenter" type="submit" value="Submit">
-                        <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
-                    </button>
-                </form>
-            </div>
+                        <button class="button-copy displayFlexCenter" type="submit" value="Submit">
+                            <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+              {% elif conteudo|get_class == 'Marcacao' %}
+                <div class="code">
+                    <code class="code">
+                            {{conteudo.texto}}
+                    </code>
+                    <form method="post" action="{% url 'tutorial' %}">
+                        {% csrf_token %}
+                        <input type="text" hidden name="id" value="{{tutorial.id}}">
+                        <input type="text" hidden name="like" value=''>
+                        <input type="text" hidden name="copy" value='{{conteudo.id}}'>
+
+                        <button class="button-copy displayFlexCenter" type="submit" value="Submit">
+                            <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+              {% endif %}
             {% endfor %}
             <div class="likes displayFlexCenter">
                 <div>{{tutorial.total_likes}}</div>
@@ -61,19 +80,19 @@
     </div>
 
     {% for comentario in comentarios %}
-    <div id="comentarios">
-        <span class="card-comentario">
-            <div class="user">
-                <i class="fa fa-regular fa-user icone-user"></i>
-                <div class="autor-comentario">
-                    {{comentario.autor}}
-                </div>
-            </div>
-            <div class="texto-comentario">
-                {{comentario.texto}}
-            </div>
-        </span>
-    </div>
+      <div id="comentarios">
+          <span class="card-comentario">
+              <div class="user">
+                  <i class="fa fa-regular fa-user icone-user"></i>
+                  <div class="autor-comentario">
+                      {{comentario.autor}}
+                  </div>
+              </div>
+              <div class="texto-comentario">
+                  {{comentario.texto}}
+              </div>
+          </span>
+      </div>
     {% endfor %}
 
     <form method="post" class="form-comentario" action="{% url 'tutorial' %}">
