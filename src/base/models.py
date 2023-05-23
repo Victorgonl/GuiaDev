@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models import Max
+from django.dispatch import receiver
+from django.db.models.signals import pre_delete
 
 
 class Tecnologia(models.Model):
@@ -74,8 +76,10 @@ class Codigo(Conteudo):
 class TutorialConteudo(models.Model):
     id = models.AutoField(primary_key=True)
     tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
-    codigo = models.ForeignKey(Codigo, null=True, blank=True, on_delete=models.CASCADE)
-    marcacao = models.ForeignKey(Marcacao, null=True, blank=True, on_delete=models.CASCADE)
+    codigo = models.ForeignKey(
+        Codigo, null=True, blank=True, on_delete=models.CASCADE)
+    marcacao = models.ForeignKey(
+        Marcacao, null=True, blank=True, on_delete=models.CASCADE)
     ordem = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta:
@@ -88,7 +92,8 @@ class TutorialConteudo(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.ordem:
-            max_ordem = TutorialConteudo.objects.filter(tutorial=self.tutorial).aggregate(Max('ordem'))['ordem__max']
+            max_ordem = TutorialConteudo.objects.filter(
+                tutorial=self.tutorial).aggregate(Max('ordem'))['ordem__max']
             if max_ordem is not None:
                 self.ordem = max_ordem + 1
             else:
@@ -108,3 +113,13 @@ class Comentario(models.Model):
     class Meta:
         verbose_name_plural = "Comentários"
 
+
+@receiver(pre_delete, sender=TutorialConteudo)
+def reorder_on_delete(sender, instance, **kwargs):
+    remaining_objects = TutorialConteudo.objects.filter(
+        tutorial=instance.tutorial).exclude(pk=instance.pk).order_by('ordem')
+    instance.ordem = None
+    instance.save()
+    for index, obj in enumerate(remaining_objects):
+        obj.ordem = index + 1
+        obj.save()
