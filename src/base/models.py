@@ -54,7 +54,7 @@ class Codigo(Conteudo):
 
 class TutorialConteudo(models.Model):
     id = models.AutoField(primary_key=True)
-    tutorial = models.OneToOneField(Tutorial, on_delete=models.CASCADE)
+    tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
     codigo = models.ForeignKey(Codigo, null=True, blank=True, on_delete=models.CASCADE)
     marcacao = models.ForeignKey(Marcacao, null=True, blank=True, on_delete=models.CASCADE)
     ordem = models.PositiveIntegerField()
