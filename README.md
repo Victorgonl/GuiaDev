@@ -51,3 +51,5 @@
     ./manage.py graph_models base -g -o relational_model.png
 
 <img src="./src/relational_model.png">
+
+https://github.com/jsonform/jsonform

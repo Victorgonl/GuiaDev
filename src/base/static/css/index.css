@@ -11,7 +11,7 @@
   margin: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
-  
+
 }
 
 .displayFlexCenter {
@@ -34,14 +34,14 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-} 
+}
 
 #nav-header {
   display: flex;
   align-items: center;
   gap: 20px;
   cursor: pointer;
-} 
+}
 
 .item-menu {
   padding: 8px;
@@ -68,7 +68,7 @@ body {
 
 .details:hover .itens{
   display: block;
-} 
+}
 
 .item-details {
   width: 100%;
@@ -141,7 +141,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 5px;
-  cursor: pointer;    
+  cursor: pointer;
   background-color: var(--cor2);
   justify-content: space-evenly;
   flex-direction: column;
@@ -161,7 +161,7 @@ body {
   flex-direction: column;
   position: absolute;
   bottom: 10px;
-  left: 10px;  
+  left: 10px;
 }
 
 .button-like {
@@ -189,7 +189,7 @@ body {
 }
 
 .button-adicionar-tutorial {
-  
+
   cursor: pointer;
   border-radius: 10px;
   width: max-content;

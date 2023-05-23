@@ -106,4 +106,9 @@ def tutorial(request):
 
 
 def adicionar_tutorial(request):
+    print('aqui')
+
+    if request.method == 'POST':
+        form = FormTutorial(request.POST)
+
     return render(request, 'adicionar_tutorial.html')

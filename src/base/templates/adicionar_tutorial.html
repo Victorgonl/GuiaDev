@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="{%  static 'css/adicionar_tutorial.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adicionar Tutoriais</title>
 </head>
@@ -17,8 +17,8 @@
         <div class="voltar">
             <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
         </div>
-        <form method="post" action="{% url 'tutorial' %}">
-            {% csrf_token %} 
+        <form method="post" action="{% url 'adicionar_tutorial' %}">
+            {% csrf_token %}
             <div class="card-adicionar-tutorial">
                 <div class="nome-autor collumstyle">
                   <label>Seu nome:</label>
@@ -32,17 +32,60 @@
                   <label>Descrição do tutorial:</label>
                   <textarea class="input-descricao-tutoria" type="text" name="descricao"></textarea>
                 </div>
-                <div class="codigo-tutorial collumstyle">
+                <!-- <div class="codigo-tutorial collumstyle">
                   <label>Código do tutorial:</label>
                   <textarea class="input-codigo-tutorial" type="text" name="codigo"></textarea>
+                </div> -->
+                <div class="div-button-adicionar">
+                  <button class="button-adicionar" type="submit" value="Submit">
+                    + código
+                  </button>
+                </div>
+                <div class="div-button-adicionar">
+                  <button class="button-adicionar" type="submit" value="Submit">
+                    + marcação
+                  </button>
                 </div>
                 <div class="div-button-adicionar">
                   <button class="button-adicionar" type="submit" value="Submit">
                     Adicionar
                   </button>
                 </div>
+                <form></form>
+    <div id="res" class="alert"></div>
+    <script type="text/javascript" src=""></script>
+
+    <script type="text/javascript" src="./deps/jquery.min.js"></script>
+    <script type="text/javascript" src="./deps/underscore.js"></script>
+    <script type="text/javascript" src="./deps/opt/jsv.js"></script>
+    <script type="text/javascript" src="./lib/jsonform.js"></script>
+    <script type="text/javascript">
+      $('form').jsonForm({
+        schema: {
+          name: {
+            type: 'string',
+            title: 'Name',
+            required: true
+          },
+          age: {
+            type: 'number',
+            title: 'Age'
+          }
+        },
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>I beg your pardon?</p>');
+          }
+          else {
+            $('#res').html('<p>Hello ' + values.name + '.' +
+              (values.age ? '<br/>You are ' + values.age + '.' : '') +
+              '</p>');
+          }
+        }
+      });
+    </script>
               </div>
-            </div>  
+            </div>
         </form>
     </div>
     </body>

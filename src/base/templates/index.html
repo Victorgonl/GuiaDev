@@ -12,43 +12,43 @@
 <body>
   <header id="header">
     <nav id="nav-header">
-      
+
       <div class="details item-menu">
         <did>
           Guia
-        </did> 
+        </did>
         <div class="itens">
           <div class="item item-details"><a href="guias/">Guias de instalação</a></div>
           <div class="item item-details"><a href="tutoriais/">Tutoriais de programação</a></div>
           <div class="item item-details">Ferramentas</div>
-        </div>        
-      </div>     
+        </div>
+      </div>
       <span class="details item-menu">
         <did>
           Contribuídores
-        </did> 
+        </did>
         <div class="itens">
           <div class="item item-details">Ranking </div>
           <div class="item item-details">Contribua</div>
-        </div>     
+        </div>
       </span>
-      
+
     </nav>
     <div id="div-pesquisa">
       <form method="post">
         {% csrf_token %}
         <input type="text" id="input-pesquisa" name="pesquisa" value=""/>
         <input type="submit" id="button-pesquisar" value="Pesquisar">
-        <i class="fa fa-search icon-lupa" aria-hidden="true"></i> 
+        <i class="fa fa-search icon-lupa" aria-hidden="true"></i>
       </div>
     </form>
     <div><a href="admin/">Admin</a></div>
   </header>
   <div class="button-adicionar-tutorial-content">
-    
+
     <a href="adicionar_tutorial/">
       <button class="button-adicionar-tutorial">
-        <i class="fa fa-solid fa-plus" aria-hidden="true"></i> 
+        <i class="fa fa-solid fa-plus" aria-hidden="true"></i>
         Adicionar Tutorial
       </button>
     </a>
@@ -56,6 +56,6 @@
     <div id="body-content">
       {% block tutoriais_index%}
       {% endblock %}
-  </div> 
+  </div>
 </body>
 </html>

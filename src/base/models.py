@@ -95,7 +95,7 @@ class TutorialConteudo(models.Model):
         if self.codigo is None and self.marcacao is None:
             raise ValidationError("É necessário fornecer um valor para 'código' ou 'marcação'.")
         if self.codigo is not None and self.marcacao is not None:
-            raise ValidationError("Apenas um dos campos 'código' ou 'marcacao' pode ser preenchido.")
+            raise ValidationError("Apenas um dos campos 'código' ou 'marcaçao' pode ser preenchido.")
         if not self.ordem:
             max_ordem = TutorialConteudo.objects.filter(
                 tutorial=self.tutorial).aggregate(Max('ordem'))['ordem__max']
