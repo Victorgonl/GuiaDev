@@ -36,6 +36,21 @@
             ],
             "django": true,
             "justMyCode": true
+        },
+        {
+            "name": "graph_models",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/manage.py",
+            "args": [
+                "graph_models",
+                "base",
+                "-g",
+                "-o",
+                "relational_model.png"
+            ],
+            "django": true,
+            "justMyCode": true
         }
     ]
 }
