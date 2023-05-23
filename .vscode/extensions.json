@@ -1,7 +1,5 @@
 {
     "recommendations": [
-        "ms-python.python",
-        "kevinrose.vsc-python-indent",
-        "batisteo.vscode-django"
+        "ms-python.python"
     ]
 }
