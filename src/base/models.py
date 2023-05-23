@@ -10,6 +10,9 @@ class Tecnologia(models.Model):
     def __str__(self):
         return self.nome
 
+    class Meta:
+        verbose_name_plural = "Tecnologias"
+
 
 class Autor(models.Model):
     id = models.AutoField(primary_key=True)
@@ -21,6 +24,9 @@ class Autor(models.Model):
 
     def __str__(self):
         return self.nome_usuario + " " + "(" + self.nome + " " + self.sobrenome + ")"
+
+    class Meta:
+        verbose_name_plural = "Autores"
 
 
 class Tutorial(models.Model):
@@ -34,22 +40,35 @@ class Tutorial(models.Model):
     def __str__(self):
         return self.titulo + " (by: " + self.autor.nome_usuario + ")"
 
+    class Meta:
+        verbose_name_plural = "Tutoriais"
+
 
 class Conteudo(models.Model):
     id = models.AutoField(primary_key=True)
     texto = models.CharField(max_length=10000)
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.texto
+
     class Meta:
         abstract = True
+        verbose_name_plural = "Conteúdos"
 
 
 class Marcacao(Conteudo):
     pass
 
+    class Meta:
+        verbose_name_plural = "Marcações"
+
 
 class Codigo(Conteudo):
     linguagem = models.ForeignKey(Tecnologia, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Códigos"
 
 
 class TutorialConteudo(models.Model):
@@ -59,9 +78,13 @@ class TutorialConteudo(models.Model):
     marcacao = models.ForeignKey(Marcacao, null=True, blank=True, on_delete=models.CASCADE)
     ordem = models.PositiveIntegerField()
 
+    def __str__(self):
+        return self.tutorial.titulo + ": " + str(self.ordem)
+
     class Meta:
         unique_together = (('tutorial', 'ordem'))
-        ordering = ['ordem']
+        ordering = ['tutorial', 'ordem']
+        verbose_name_plural = "Conteúdos dos Tutoriais"
 
 
 class Comentario(models.Model):
@@ -72,4 +95,7 @@ class Comentario(models.Model):
 
     def __str__(self):
         return self.autor.nome_usuario + ": " + self.texto
+
+    class Meta:
+        verbose_name_plural = "Comentários"
 
