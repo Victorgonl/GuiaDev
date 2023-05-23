@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Max
 from django.dispatch import receiver
 from django.db.models.signals import pre_delete
+from django.forms import ValidationError
 
 
 class Tecnologia(models.Model):
@@ -91,6 +92,10 @@ class TutorialConteudo(models.Model):
         return self.tutorial.titulo + ": " + str(self.ordem)
 
     def save(self, *args, **kwargs):
+        if self.codigo is None and self.marcacao is None:
+            raise ValidationError("É necessário fornecer um valor para 'código' ou 'marcação'.")
+        if self.codigo is not None and self.marcacao is not None:
+            raise ValidationError("Apenas um dos campos 'código' ou 'marcacao' pode ser preenchido.")
         if not self.ordem:
             max_ordem = TutorialConteudo.objects.filter(
                 tutorial=self.tutorial).aggregate(Max('ordem'))['ordem__max']
