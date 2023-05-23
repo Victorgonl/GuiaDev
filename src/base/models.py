@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.db.models import Max
 
 
 class Tecnologia(models.Model):
@@ -76,15 +76,24 @@ class TutorialConteudo(models.Model):
     tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
     codigo = models.ForeignKey(Codigo, null=True, blank=True, on_delete=models.CASCADE)
     marcacao = models.ForeignKey(Marcacao, null=True, blank=True, on_delete=models.CASCADE)
-    ordem = models.PositiveIntegerField()
-
-    def __str__(self):
-        return self.tutorial.titulo + ": " + str(self.ordem)
+    ordem = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta:
         unique_together = (('tutorial', 'ordem'))
         ordering = ['tutorial', 'ordem']
         verbose_name_plural = "Conteúdos dos Tutoriais"
+
+    def __str__(self):
+        return self.tutorial.titulo + ": " + str(self.ordem)
+
+    def save(self, *args, **kwargs):
+        if not self.ordem:
+            max_ordem = TutorialConteudo.objects.filter(tutorial=self.tutorial).aggregate(Max('ordem'))['ordem__max']
+            if max_ordem is not None:
+                self.ordem = max_ordem + 1
+            else:
+                self.ordem = 1
+        super(TutorialConteudo, self).save(*args, **kwargs)
 
 
 class Comentario(models.Model):
