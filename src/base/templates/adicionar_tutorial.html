@@ -37,12 +37,12 @@
                   <textarea class="input-codigo-tutorial" type="text" name="codigo"></textarea>
                 </div> -->
                 <div class="div-button-adicionar">
-                  <button class="button-adicionar" type="submit" value="Submit">
+                  <button class="button-adicionar-codigo">
                     + código
                   </button>
                 </div>
                 <div class="div-button-adicionar">
-                  <button class="button-adicionar" type="submit" value="Submit">
+                  <button class="button-adicionar-marcacao">
                     + marcação
                   </button>
                 </div>
@@ -50,43 +50,36 @@
                   <button class="button-adicionar" type="submit" value="Submit">
                     Adicionar
                   </button>
-                </div>
-                <form></form>
-    <div id="res" class="alert"></div>
-    <script type="text/javascript" src=""></script>
-
-    <script type="text/javascript" src="./deps/jquery.min.js"></script>
-    <script type="text/javascript" src="./deps/underscore.js"></script>
-    <script type="text/javascript" src="./deps/opt/jsv.js"></script>
-    <script type="text/javascript" src="./lib/jsonform.js"></script>
-    <script type="text/javascript">
-      $('form').jsonForm({
-        schema: {
-          name: {
-            type: 'string',
-            title: 'Name',
-            required: true
-          },
-          age: {
-            type: 'number',
-            title: 'Age'
-          }
-        },
-        onSubmit: function (errors, values) {
-          if (errors) {
-            $('#res').html('<p>I beg your pardon?</p>');
-          }
-          else {
-            $('#res').html('<p>Hello ' + values.name + '.' +
-              (values.age ? '<br/>You are ' + values.age + '.' : '') +
-              '</p>');
-          }
-        }
-      });
-    </script>
+                </div> 
+                <div id="inputs-codigo-marcacao">
+                  <label>Código</label>
+                  <input type="text">
+                </div>  
               </div>
             </div>
         </form>
     </div>
     </body>
+    <script>
+      const inputCodigo = "<label>Código</label><input type='text'>";
+      const inputMacacao = "<label>Marcação</label><input type='text'>";
+
+      const botaoMaisCodigo = document.querySelector('.button-adicionar-codigo');
+      const botaoMaisMarcacao = document.querySelector('.button-adicionar-marcacao');
+      const inputs = document.querySelector('#inputs-codigo-marcacao');
+
+      botaoMaisCodigo.addEventListener('click', (e) => {
+        e.preventDefault();
+        inputs.innerHTML += inputCodigo;
+      });
+      botaoMaisMarcacao.addEventListener('click', (e) => {
+        e.preventDefault();
+        inputs.innerHTML += inputMacacao;
+      });
+
+
+
+
+
+    </script>
     </html>

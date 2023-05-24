@@ -3,6 +3,7 @@
   --cor2: #393E46;
   --cor3: #0092CA;
   --cor4: #EEEEEE;
+  --cor5: #054d08;
 
   --color-app: rgb(180, 175, 175);
   --color-hover: rgb(112, 110, 110);
@@ -99,8 +100,8 @@ body {
 
 .mark-div {
   position: relative;
-  background-color: var(--cor3);
-  color: #952d2d;
+  background-color: var(--cor5);
+  color: var(--cor4);
   width: 100%;
   height: max-content;
   padding: 20px;
@@ -108,7 +109,7 @@ body {
 }
 
 .mark {
-  background-color: #ff0000;
+  background-color: #000;
   padding: 4px 20px;
   border-radius: 4px;
 }
