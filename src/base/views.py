@@ -112,3 +112,7 @@ def adicionar_tutorial(request):
         form = FormTutorial(request.POST)
 
     return render(request, 'adicionar_tutorial.html')
+
+
+def test(request):
+    return render(request, "test.html")
