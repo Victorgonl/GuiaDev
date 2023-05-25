@@ -10,38 +10,12 @@
   <title>Guia Dev</title>
 </head>
 <body>
-  <header id="header">
-    <nav id="nav-header">
-
-      <div class="details item-menu">
-        <did>
-          Guia
-        </did>
-        <div class="itens">
-          <div class="item item-details"><a href="guias/">Guias de instalação</a></div>
-          <div class="item item-details"><a href="tutoriais/">Tutoriais de programação</a></div>
-          <div class="item item-details">Ferramentas</div>
-        </div>
-      </div>
-      <span class="details item-menu">
-        <did>
-          Contribuídores
-        </did>
-        <div class="itens">
-          <div class="item item-details">Ranking </div>
-          <div class="item item-details">Contribua</div>
-        </div>
-      </span>
-
-    </nav>
-    <div id="div-pesquisa">
-      <form method="post">
+  <header id="header">    
+      <form method="post" id="form-pesquisa">
         {% csrf_token %}
         <input type="text" id="input-pesquisa" name="pesquisa" value=""/>
         <input type="submit" id="button-pesquisar" value="Pesquisar">
-      </div>
-    </form>
-    <div><a href="admin/">Admin</a></div>
+      </form>
   </header>
   <div class="button-adicionar-tutorial-content">
 
