@@ -36,45 +36,60 @@
                   <label>Código do tutorial:</label>
                   <textarea class="input-codigo-tutorial" type="text" name="codigo"></textarea>
                 </div> -->
-                <div class="div-button-adicionar">
-                  <button class="button-adicionar-codigo">
-                    + código
-                  </button>
+                <div class="buttons-codigo-marcacao">
+
+                  <div class="div-button-adicionar">
+                    <button class="button-adicionar-codigo-marcacao button-adicionar-codigo">
+                      + código
+                    </button>
+                  </div>
+                  <div class="div-button-adicionar">
+                    <button class="button-adicionar-codigo-marcacao button-adicionar-marcacao">
+                      + marcação
+                    </button>
+                  </div>
                 </div>
-                <div class="div-button-adicionar">
-                  <button class="button-adicionar-marcacao">
-                    + marcação
-                  </button>
-                </div>
+                <div id="inputs-codigo-marcacao">
+                </div> 
                 <div class="div-button-adicionar">
                   <button class="button-adicionar" type="submit" value="Submit">
-                    Adicionar
+                    Adicionar Tutorial
                   </button>
                 </div> 
-                <div id="inputs-codigo-marcacao">
-                  <label>Código</label>
-                  <input type="text">
-                </div>  
+                
               </div>
             </div>
         </form>
     </div>
     </body>
     <script>
-      const inputCodigo = "<label>Código</label><input type='text'>";
-      const inputMacacao = "<label>Marcação</label><input type='text'>";
+      const inputCodigo = `
+        <div class="div-label-input">
+          <label class="label">Código</label>
+          <input class="input-code-marcacao" type="text" />
+        </div>
+      `;
+
+      const inputMarcacao = `
+        <div class="div-label-input">
+          <label class="label">Marcação</label>
+          <input class="input-code-marcacao" type="text"/>
+        </div>
+      `;
+      
 
       const botaoMaisCodigo = document.querySelector('.button-adicionar-codigo');
       const botaoMaisMarcacao = document.querySelector('.button-adicionar-marcacao');
       const inputs = document.querySelector('#inputs-codigo-marcacao');
-
+     
       botaoMaisCodigo.addEventListener('click', (e) => {
         e.preventDefault();
-        inputs.innerHTML += inputCodigo;
+        inputs.innerHTML += inputCodigo;   
       });
+
       botaoMaisMarcacao.addEventListener('click', (e) => {
         e.preventDefault();
-        inputs.innerHTML += inputMacacao;
+        inputs.innerHTML += inputMarcacao;  
       });
 
 
