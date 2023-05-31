@@ -1,11 +1,33 @@
 from django.shortcuts import render
 import pyperclip as pc
-from .forms import FormTutorial
+from .forms import FormTutorial, FormLogin
 
 from django.http import HttpResponse
 from .models import Marcacao, Tutorial, Comentario, Autor, Codigo, TutorialConteudo
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+
+userLogado = ''
+
+def loginView(request):    
+    if request.method == 'POST':
+        form = FormLogin(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            print(data)
+
+            user = authenticate(request, username=data['login'], password=data['senha'])
+            if(user != None):
+                userLogado = user
+                print('USER', user)
+                login(request, userLogado)
+                return HttpResponseRedirect('/')
 
 
+    return render(request, 'login.html')
+
+@login_required()
 def index(request):
 
     if request.method == 'POST':
@@ -16,6 +38,11 @@ def index(request):
             like = bool(data.get('like'))
             id = data.get('id')
             tutoriais = Tutorial.objects.all()
+
+            sair = bool(data.get('sair'))
+            if(sair):
+                logout(request)
+                return render(request,'login.html')
 
             if like:
                 tutorial_like = Tutorial.objects.get(id=id)

@@ -1,0 +1,42 @@
+body {
+    width: 100vw;
+    height: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(56, 53, 53);
+}
+
+.form-login {
+    width: 250px;
+    height: 400px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid #0005;
+    border-radius: 20px;
+    background-color: antiquewhite;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    justify-content: space-evenly;
+}
+
+#login, #senha {
+    height: 40px;
+}
+
+#button-login {
+    margin-top: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: rgb(8, 72, 211);
+    color: beige;
+}
+
+label {
+    color: black;
+}

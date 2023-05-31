@@ -16,6 +16,12 @@
         <input type="text" id="input-pesquisa" name="pesquisa" value=""/>
         <input type="submit" id="button-pesquisar" value="Pesquisar">
       </form>
+      <form method="post">
+        {% csrf_token %}
+        <button class="sair" type="submit" name="sair" value="true">
+          Sair
+        </button>
+      </form>
   </header>
   <div class="button-adicionar-tutorial-content">
 
