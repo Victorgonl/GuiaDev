@@ -21,11 +21,3 @@ class FormAdicionarTutorial(forms.Form):
     descricao = forms.CharField(max_length=1000, required=False)
     conteudos = forms.CharField(widget=forms.Textarea, required=False)
     conteudos_tipo = forms.CharField(widget=forms.Textarea, required=False)
-
-
-class FormCadastrar(forms.Form):
-    nome = forms.CharField(max_length=50, required=False)
-    email = forms.CharField(max_length=50, required=False)
-    login = forms.CharField(max_length=50, required=False)
-    senha = forms.CharField(max_length=50, required=False)
-    confirmesenha = forms.CharField(max_length=50, required=False)

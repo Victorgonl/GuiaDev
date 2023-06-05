@@ -5,9 +5,6 @@ from django.db.models.signals import pre_delete
 from django.forms import ValidationError
 
 
-
-
-
 class Tecnologia(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=20)
@@ -71,7 +68,8 @@ class Marcacao(Conteudo):
 
 
 class Codigo(Conteudo):
-    linguagem = models.ForeignKey(Tecnologia, null=True, on_delete=models.CASCADE)
+    linguagem = models.ForeignKey(
+        Tecnologia, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Códigos"
@@ -96,9 +94,11 @@ class TutorialConteudo(models.Model):
 
     def save(self, *args, **kwargs):
         if self.codigo is None and self.marcacao is None:
-            raise ValidationError("É necessário fornecer um valor para 'código' ou 'marcação'.")
+            raise ValidationError(
+                "É necessário fornecer um valor para 'código' ou 'marcação'.")
         if self.codigo is not None and self.marcacao is not None:
-            raise ValidationError("Apenas um dos campos 'código' ou 'marcaçao' pode ser preenchido.")
+            raise ValidationError(
+                "Apenas um dos campos 'código' ou 'marcaçao' pode ser preenchido.")
         if not self.ordem:
             max_ordem = TutorialConteudo.objects.filter(
                 tutorial=self.tutorial).aggregate(Max('ordem'))['ordem__max']

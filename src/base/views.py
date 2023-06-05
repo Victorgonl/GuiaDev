@@ -1,17 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 import pyperclip as pc
-from .forms import FormAdicionarTutorial, FormTutorial, FormLogin, FormCadastrar
-
+from .forms import FormAdicionarTutorial, FormTutorial, FormLogin
 from django.http import HttpResponse
-from .models import Marcacao, Tutorial, Comentario, Autor, Codigo, TutorialConteudo
+from .models import Autor, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
+from django.contrib.auth.forms import UserCreationForm
 
-userLogado = ''
 
 class register(generic.CreateView):
     form_class = UserCreationForm
@@ -26,13 +25,12 @@ def inicio(request):
 
 
 def cadastrar(request):
+    form = UserCreationForm(request.POST)
     if request.method == 'POST':
-        form = FormCadastrar(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-            print(data)
-
-    return render(request, "cadastrar.html")
+            form.save()
+    context = {'form': form}
+    return render(request, 'cadastrar.html', context)
 
 
 def loginView(request):
@@ -45,9 +43,8 @@ def loginView(request):
             user = authenticate(
                 request, username=data['login'], password=data['senha'])
             if (user != None):
-                userLogado = user
                 print('USER', user)
-                login(request, userLogado)
+                login(request, user)
                 return HttpResponseRedirect('/index')
 
     return render(request, 'login.html')
