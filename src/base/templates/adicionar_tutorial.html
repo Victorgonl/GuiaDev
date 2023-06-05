@@ -66,16 +66,18 @@
     <label class="label">Código</label>
     <input class="input-code-marcacao" type="text" name="conteudos" />
     <input type="hidden" name="conteudos_tipo" value="c">
+    <button class="button-remover" type="button">X</button>
   </div>
-`;
+  `;
 
   const inputMarcacao = `
   <div class="div-label-input">
     <label class="label">Marcação</label>
     <input class="input-code-marcacao" type="text" name="conteudos" />
     <input type="hidden" name="conteudos_tipo" value="m">
+    <button class="button-remover" type="button">X</button>
   </div>
-`;
+  `;
 
   const botaoMaisCodigo = document.querySelector('.button-adicionar-codigo');
   const botaoMaisMarcacao = document.querySelector('.button-adicionar-marcacao');
@@ -94,6 +96,13 @@
     inputWrapper.innerHTML = inputMarcacao;
     inputs.appendChild(inputWrapper);
   });
+
+  inputs.addEventListener('click', (e) => {
+    if (e.target.classList.contains('button-remover')) {
+      e.target.parentNode.remove();
+    }
+  });
 </script>
+
 
 </html>

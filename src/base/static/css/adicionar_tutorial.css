@@ -11,10 +11,10 @@
   margin: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
-  
+
 }
 body {
-  
+
   background-color: var(--cor1);
 }
 
@@ -28,7 +28,7 @@ body {
 .voltar {
   margin: 20px;
 }
-  
+
 .voltar a {
   color: var(--cor3);
 }
@@ -87,7 +87,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  gap: 20px;  
+  gap: 20px;
 }
 
 #inputs-codigo-marcacao {
@@ -111,4 +111,13 @@ body {
   height: 80px;
   outline: none;
   padding-left: 20px;
+}
+
+.button-remover {
+  position: relative;
+  width: 2%;
+  color: #EEEEEE;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: #aa1b11b2;
 }
