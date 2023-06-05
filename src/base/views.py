@@ -13,7 +13,6 @@ from django.views import generic
 
 userLogado = ''
 
-
 class register(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
@@ -21,6 +20,8 @@ class register(generic.CreateView):
 
 
 def inicio(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/index')
     return render(request, "inicio.html")
 
 
@@ -47,60 +48,63 @@ def loginView(request):
                 userLogado = user
                 print('USER', user)
                 login(request, userLogado)
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/index')
 
     return render(request, 'login.html')
 
 
-@login_required()
+@login_required(login_url="../login")
 def index(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = FormTutorial(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                print(data)
+                like = bool(data.get('like'))
+                id = data.get('id')
+                tutoriais = Tutorial.objects.all()
 
-    if request.method == 'POST':
-        form = FormTutorial(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            print(data)
-            like = bool(data.get('like'))
-            id = data.get('id')
-            tutoriais = Tutorial.objects.all()
+                sair = bool(data.get('sair'))
 
-            sair = bool(data.get('sair'))
-            if (sair):
-                logout(request)
-                return render(request, 'login.html')
+                if (sair):
+                    logout(request)
+                    return render(request, 'inicio.html')
 
-            if like:
-                tutorial_like = Tutorial.objects.get(id=id)
-                likes = tutorial_like.total_likes
-                tutorial_like.__setattr__('total_likes', 1+likes)
-                tutorial_like.save()
+                if like:
+                    tutorial_like = Tutorial.objects.get(id=id)
+                    likes = tutorial_like.total_likes
+                    tutorial_like.__setattr__('total_likes', 1+likes)
+                    tutorial_like.save()
+                    context = {
+                        'tutoriais': tutoriais
+                    }
+                    return render(request, 'tutoriais_index.html', context=context)
+
+                if bool(id):
+                    return tutorial(request)
+
+                pesquisa = data.get('pesquisa')
+                tutoriais_filtrados = []
+                for tut in tutoriais:
+                    if (pesquisa.upper() in tut.titulo.upper()):
+                        tutoriais_filtrados.append(tut)
                 context = {
-                    'tutoriais': tutoriais
+                    'tutoriais': tutoriais_filtrados
                 }
                 return render(request, 'tutoriais_index.html', context=context)
-
-            if bool(id):
-                return tutorial(request)
-
-            pesquisa = data.get('pesquisa')
-            tutoriais_filtrados = []
-            for tut in tutoriais:
-                if (pesquisa.upper() in tut.titulo.upper()):
-                    tutoriais_filtrados.append(tut)
+        else:
+            tutoriais = Tutorial.objects.all()
             context = {
-                'tutoriais': tutoriais_filtrados
+                'tutoriais': tutoriais
             }
             return render(request, 'tutoriais_index.html', context=context)
     else:
-        tutoriais = Tutorial.objects.all()
-        context = {
-            'tutoriais': tutoriais
-        }
-        return render(request, 'tutoriais_index.html', context=context)
+        return render(request, 'inicio.html')
 
 
+@login_required(login_url="../login")
 def tutorial(request):
-
     if request.method == 'POST':
         form = FormTutorial(request.POST)
         if form.is_valid():
@@ -159,6 +163,7 @@ def tutorial(request):
             return render(request, 'tutorial.html', context=context)
 
 
+@login_required(login_url="../login")
 def adicionar_tutorial(request):
     if request.method == 'POST':
         form = FormAdicionarTutorial(request.POST)
