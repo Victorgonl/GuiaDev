@@ -171,8 +171,11 @@ def adicionar_tutorial(request):
             conteudos = data.getlist('conteudos')
             conteudos_tipo = data.getlist('conteudos_tipo')
             autor_username = request.user.username
-            autor = Autor.objects.get(nome_usuario=autor_username)
-
+            try:
+                autor = Autor.objects.get(nome_usuario=autor_username)
+            except:
+                autor = Autor(nome_usuario=autor_username)
+                autor.save()
             tutorial = Tutorial(
                 titulo=titulo, descricao=descricao, autor=autor)
             tutorial.save()
