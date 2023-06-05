@@ -38,7 +38,7 @@ body {
 .form {
     display: flex;
     flex-direction: column;
-    height: 50%;
+    height: 80%;
     justify-content: space-evenly;
 }
 
@@ -56,15 +56,4 @@ body {
 
 label {
     color: black;
-}
-
-.cadastre-se {
-  text-align: center;
-  margin-top: 1rem;
-  height: 50px;
-
-}
-
-.cadastre-se  a{
-  color:var(--cor3)
 }

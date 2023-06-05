@@ -5,6 +5,9 @@ from django.db.models.signals import pre_delete
 from django.forms import ValidationError
 
 
+
+
+
 class Tecnologia(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=20)

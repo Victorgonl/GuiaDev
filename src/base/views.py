@@ -1,14 +1,34 @@
 from django.shortcuts import render
 import pyperclip as pc
-from .forms import FormTutorial, FormLogin
+from .forms import FormTutorial, FormLogin, FormCadastrar
 
 from django.http import HttpResponse
 from .models import Marcacao, Tutorial, Comentario, Autor, Codigo, TutorialConteudo
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
 
 userLogado = ''
+
+class register(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'account/register.html'
+
+def inicio(request):
+    return render(request, "inicio.html")
+
+def cadastrar(request):
+  if request.method == 'POST':
+      form = FormCadastrar(request.POST)
+      if form.is_valid():
+          data = form.cleaned_data
+          print(data)
+
+  return render(request, "cadastrar.html")
 
 def loginView(request):    
     if request.method == 'POST':
@@ -26,6 +46,7 @@ def loginView(request):
 
 
     return render(request, 'login.html')
+
 
 @login_required()
 def index(request):

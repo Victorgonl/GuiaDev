@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- {% load static %} -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="{%  static 'css/cadastrar.css' %}"> -->
+  <title>Cadastrar</title>
+</head>
+<body>
+    <div class="form-login">
+      <form action="." method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="Registrar">
+    </form>
+
+        <!-- <form method="post" class="form">
+            {% csrf_token %}
+            <label for="Login">Nome *</label>
+            <input type="text" id="login" name="nome"/>
+            <label for="Senha">Email</label>
+            <input type="text" id="senha" name="email"/>
+            <label for="Senha">Login *</label>
+            <input type="text" id="senha" name="login"/>
+            <label for="Senha">Crie uma senha *</label>
+            <input type="text" id="senha" name="senha"/>
+            <label for="Senha">Confirme a senha * </label>
+            <input type="text" id="senha" name="confirmasenha"/>
+        <input type="submit" id="button-login" value="Cadastrar"> -->
+    </form>
+</div>
+</body>
+</html>
