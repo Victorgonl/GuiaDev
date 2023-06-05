@@ -2,6 +2,7 @@
 {% load static %}
 
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,90 +12,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adicionar Tutoriais</title>
 </head>
-<body>
-    <div class="body-content">
 
-        <div class="voltar">
-            <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+<body>
+  <div class="body-content">
+
+    <div class="voltar">
+      <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+    </div>
+    <form method="post" action="{% url 'adicionar_tutorial' %}">
+      {% csrf_token %}
+      <div class="card-adicionar-tutorial">
+        <div class="titulo-tutorial collumstyle">
+          <label>Título:</label>
+          <input class="input-titulo-tutorial" type="text" name="titulo">
         </div>
-        <form method="post" action="{% url 'adicionar_tutorial' %}">
-            {% csrf_token %}
-            <div class="card-adicionar-tutorial">
-                <div class="nome-autor collumstyle">
-                  <label>Seu nome:</label>
-                  <input class="input-nome-autor" type="text" name="nome_autor">
-                </div>
-                <div class="titulo-tutorial collumstyle">
-                  <label>Dê um titulo para o tutorial:</label>
-                  <input class="input-titulo-tutorial" type="text" name="titulo">
-                </div>
-                <div class="descricao-tutorial collumstyle">
-                  <label>Descrição do tutorial:</label>
-                  <textarea class="input-descricao-tutoria" type="text" name="descricao"></textarea>
-                </div>
-                <!-- <div class="codigo-tutorial collumstyle">
+        <div class="descricao-tutorial collumstyle">
+          <label>Descrição:</label>
+          <textarea class="input-descricao-tutoria" type="text" name="descricao"></textarea>
+        </div>
+        <!-- <div class="codigo-tutorial collumstyle">
                   <label>Código do tutorial:</label>
                   <textarea class="input-codigo-tutorial" type="text" name="codigo"></textarea>
                 </div> -->
-               
-                <div id="inputs-codigo-marcacao">
-                </div> 
-                <div class="buttons-codigo-marcacao">
-                  <div class="div-button-adicionar">
-                    <button class="button-adicionar-codigo-marcacao button-adicionar-codigo">
-                      + Código
-                    </button>
-                  </div>
-                  <div class="div-button-adicionar">
-                    <button class="button-adicionar-codigo-marcacao button-adicionar-marcacao">
-                      + Marcação
-                    </button>
-                  </div>
-                </div>
-                <div class="div-button-adicionar">
-                  <button class="button-adicionar" type="submit" value="Submit">
-                    Adicionar Tutorial
-                  </button>
-                </div> 
-                
-              </div>
-            </div>
-        </form>
-    </div>
-    </body>
-    <script>
-      const inputCodigo = `
+        <div id="inputs-codigo-marcacao">
+
+        </div>
+        <div class="buttons-codigo-marcacao">
+          <div class="div-button-adicionar">
+            <button class="button-adicionar-codigo-marcacao button-adicionar-codigo">
+              + Código
+            </button>
+          </div>
+          <div class="div-button-adicionar">
+            <button class="button-adicionar-codigo-marcacao button-adicionar-marcacao">
+              + Marcação
+            </button>
+          </div>
+        </div>
+        <div class="div-button-adicionar">
+          <button class="button-adicionar" type="submit" value="Submit">
+            Adicionar Tutorial
+          </button>
+        </div>
+
+      </div>
+  </div>
+  </form>
+  </div>
+</body>
+<script>
+  const inputCodigo = `
         <div class="div-label-input">
           <label class="label">Código</label>
-          <input class="input-code-marcacao" type="text" />
+          <input class="input-code-marcacao" type="text" name="conteudos" />
+          <input type="hidden" name="conteudos_tipo" value="c">
         </div>
       `;
 
-      const inputMarcacao = `
+  const inputMarcacao = `
         <div class="div-label-input">
           <label class="label">Marcação</label>
-          <input class="input-code-marcacao" type="text"/>
+          <input class="input-code-marcacao" type="text" name="conteudos" />
+          <input type="hidden" name="conteudos_tipo" value="m">
         </div>
       `;
-      
 
-      const botaoMaisCodigo = document.querySelector('.button-adicionar-codigo');
-      const botaoMaisMarcacao = document.querySelector('.button-adicionar-marcacao');
-      const inputs = document.querySelector('#inputs-codigo-marcacao');
-     
-      botaoMaisCodigo.addEventListener('click', (e) => {
-        e.preventDefault();
-        inputs.innerHTML += inputCodigo;   
-      });
+  const botaoMaisCodigo = document.querySelector('.button-adicionar-codigo');
+  const botaoMaisMarcacao = document.querySelector('.button-adicionar-marcacao');
+  const inputs = document.querySelector('#inputs-codigo-marcacao');
 
-      botaoMaisMarcacao.addEventListener('click', (e) => {
-        e.preventDefault();
-        inputs.innerHTML += inputMarcacao;  
-      });
+  botaoMaisCodigo.addEventListener('click', (e) => {
+    e.preventDefault();
+    inputs.innerHTML += inputCodigo;
+  });
 
+  botaoMaisMarcacao.addEventListener('click', (e) => {
+    e.preventDefault();
+    inputs.innerHTML += inputMarcacao;
+  });
+</script>
 
-
-
-
-    </script>
-    </html>
+</html>

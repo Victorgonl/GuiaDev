@@ -100,7 +100,7 @@ body {
 
 .mark-div {
   position: relative;
-  background-color: var(--cor5);
+  background-color: #1b1e1a;
   color: var(--cor4);
   width: 100%;
   height: max-content;
@@ -109,7 +109,6 @@ body {
 }
 
 .mark {
-  background-color: #000;
   padding: 4px 20px;
   border-radius: 4px;
 }

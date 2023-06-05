@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import pyperclip as pc
-from .forms import FormTutorial, FormLogin, FormCadastrar
+from .forms import FormAdicionarTutorial, FormTutorial, FormLogin, FormCadastrar
 
 from django.http import HttpResponse
 from .models import Marcacao, Tutorial, Comentario, Autor, Codigo, TutorialConteudo
@@ -13,37 +13,41 @@ from django.views import generic
 
 userLogado = ''
 
+
 class register(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'account/register.html'
 
+
 def inicio(request):
     return render(request, "inicio.html")
 
+
 def cadastrar(request):
-  if request.method == 'POST':
-      form = FormCadastrar(request.POST)
-      if form.is_valid():
-          data = form.cleaned_data
-          print(data)
+    if request.method == 'POST':
+        form = FormCadastrar(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            print(data)
 
-  return render(request, "cadastrar.html")
+    return render(request, "cadastrar.html")
 
-def loginView(request):    
+
+def loginView(request):
     if request.method == 'POST':
         form = FormLogin(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             print(data)
 
-            user = authenticate(request, username=data['login'], password=data['senha'])
-            if(user != None):
+            user = authenticate(
+                request, username=data['login'], password=data['senha'])
+            if (user != None):
                 userLogado = user
                 print('USER', user)
                 login(request, userLogado)
                 return HttpResponseRedirect('/')
-
 
     return render(request, 'login.html')
 
@@ -61,9 +65,9 @@ def index(request):
             tutoriais = Tutorial.objects.all()
 
             sair = bool(data.get('sair'))
-            if(sair):
+            if (sair):
                 logout(request)
-                return render(request,'login.html')
+                return render(request, 'login.html')
 
             if like:
                 tutorial_like = Tutorial.objects.get(id=id)
@@ -114,8 +118,10 @@ def tutorial(request):
                         conteudos.append(tutorial_conteudo.marcacao)
                     elif tutorial_conteudo.codigo:
                         conteudos.append(tutorial_conteudo.codigo)
-            codigos = [conteudo for conteudo in conteudos if type(conteudo) == Codigo]
-            marcacoes = [conteudo for conteudo in conteudos if type(conteudo) == Marcacao]
+            codigos = [conteudo for conteudo in conteudos if type(
+                conteudo) == Codigo]
+            marcacoes = [conteudo for conteudo in conteudos if type(
+                conteudo) == Marcacao]
 
             if like:
                 likes = tutorial.total_likes
@@ -154,12 +160,58 @@ def tutorial(request):
 
 
 def adicionar_tutorial(request):
-    print('aqui')
-
     if request.method == 'POST':
-        form = FormTutorial(request.POST)
+        form = FormAdicionarTutorial(request.POST)
+        if form.is_valid():
+            data = form.data
+            titulo = data.get('titulo')
+            descricao = data.get('descricao')
+            conteudos = data.getlist('conteudos')
+            conteudos_tipo = data.getlist('conteudos_tipo')
+            autor_username = request.user.username
+            autor = Autor.objects.get(nome_usuario=autor_username)
 
-    return render(request, 'adicionar_tutorial.html')
+            tutorial = Tutorial(
+                titulo=titulo, descricao=descricao, autor=autor)
+            tutorial.save()
+
+            for i in range(len(conteudos)):
+                texto = conteudos[i]
+                if conteudos_tipo[i] == "m":
+                    marcacao = Marcacao(texto=texto, autor=autor)
+                    marcacao.save()
+                    tutorial_conteudo = TutorialConteudo(
+                        tutorial=tutorial, marcacao=marcacao)
+                    tutorial_conteudo.save()
+                elif conteudos_tipo[i] == "c":
+                    codigo = Codigo(texto=texto, autor=autor)
+                    codigo.save()
+                    tutorial_conteudo = TutorialConteudo(
+                        tutorial=tutorial, codigo=codigo)
+                    tutorial_conteudo.save()
+
+            id = tutorial.id
+            comentarios = Comentario.objects.filter(tutorial_id=id)
+            tutoriais_conteudos = TutorialConteudo.objects.all()
+            conteudos = []
+            for tutorial_conteudo in tutoriais_conteudos:
+                if tutorial_conteudo.tutorial.id == int(id):
+                    if tutorial_conteudo.marcacao:
+                        conteudos.append(tutorial_conteudo.marcacao)
+                    elif tutorial_conteudo.codigo:
+                        conteudos.append(tutorial_conteudo.codigo)
+
+            context = {'conteudos': conteudos,
+                       'comentarios': comentarios,
+                       'tutorial': tutorial,
+                       'id': id}
+
+            return render(request, 'tutorial.html', context=context)
+
+    else:
+        form = FormAdicionarTutorial()
+
+    return render(request, 'adicionar_tutorial.html', {'form': form})
 
 
 def test(request):

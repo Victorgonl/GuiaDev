@@ -71,7 +71,7 @@ class Marcacao(Conteudo):
 
 
 class Codigo(Conteudo):
-    linguagem = models.ForeignKey(Tecnologia, on_delete=models.CASCADE)
+    linguagem = models.ForeignKey(Tecnologia, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Códigos"
