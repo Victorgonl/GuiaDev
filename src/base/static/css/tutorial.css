@@ -235,3 +235,13 @@ body {
   border-radius: 5px;
   font-size: 18px;
 }
+
+.button-remover {
+  position: relative;
+  width: 2%;
+  color: #EEEEEE;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: #aa1b11b2;
+  left: 98%;
+}

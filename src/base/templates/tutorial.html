@@ -20,6 +20,14 @@
     </div>
     <div class="body-content">
         <div class="card-tutorial">
+          {% if tutorial.usuario.username == usuario.username %}
+            <form method="post" action="{% url 'tutorial' %}">
+              {% csrf_token %}
+              <input type="text" hidden name="id" value="{{tutorial.id}}">
+              <input type="text" hidden name="delete" value='True'>
+              <button class="button-remover" type="submit" value="Submit" >X</button>
+            </form>
+          {% endif %}
             <div>
                 <h1>
                     {{tutorial.titulo}}
@@ -27,7 +35,7 @@
             </div>
             <div>
               <h3>
-                  by: {{autor.username}}
+                  by: {{tutorial.usuario.username}}
               </h3>
           </div>
             <div>
@@ -84,7 +92,7 @@
             <div class="user">
               <i class="fa fa-regular fa-user icone-user"></i>
               <div class="autor-comentario">
-                {{comentario.autor}}
+                {{comentario.usuario.username}}
               </div>
             </div>
             <div class="texto-comentario">

@@ -143,6 +143,7 @@ def tutorial_view(request):
             id = data.get('id')
             like = bool(data.get('like'))
             copy = bool(data.get('copy'))
+            delete = bool(data.get('delete'))
 
             tutorial = Tutorial.objects.get(id=id)
             tutoriais_conteudos = TutorialConteudo.objects.all()
@@ -180,6 +181,11 @@ def tutorial_view(request):
                 codigo_copy = Codigo.objects.get(id=id_codigo)
                 pc.copy(codigo_copy.texto)
 
+            if delete:
+                tutorial = Tutorial.objects.get(id=id)
+                tutorial.delete()
+                return HttpResponseRedirect('/index')
+
             comentario = data.get('comentario')
 
             if bool(comentario):
@@ -191,13 +197,15 @@ def tutorial_view(request):
                 novo_comentario.save()
 
             comentarios = Comentario.objects.filter(tutorial_id=id)
+
             context = {
+                'usuario': request.user,
                 'conteudos': conteudos,
                 'comentarios': comentarios,
                 'tutorial': tutorial,
-                'autor': tutorial.usuario,
                 'id': id
             }
+
             return render(request, 'tutorial.html', context=context)
 
 
