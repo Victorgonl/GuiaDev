@@ -49,7 +49,7 @@
                     </code>
                     <form method="post" action="{% url 'tutorial' %}">
                         {% csrf_token %}
-                        <input type="text" hidden name="id" value="{{conteudo.id}}">
+                        <input type="text" hidden name="id" value="{{tutorial.id}}">
                         <input type="text" hidden name="like" value=''>
                         <input type="text" hidden name="copy" value='{{conteudo.id}}'>
                         <button class="button-copy displayFlexCenter" type="submit" value="Submit">

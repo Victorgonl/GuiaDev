@@ -48,7 +48,7 @@ def cadastrar_view(request):
                 novoUsuario.save()
                 userCadastrado = Usuario.objects.get(username=username)
                 print(userCadastrado)
-                return render(request, 'login.html')
+                return HttpResponseRedirect('/login')
         else:
             print("invalid form")
     context = {'form': form}
