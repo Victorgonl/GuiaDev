@@ -131,3 +131,17 @@ def reorder_on_delete(sender, instance, **kwargs):
     for index, obj in enumerate(remaining_objects):
         obj.ordem = index + 1
         obj.save()
+
+
+
+
+class Usuario(models.Model):
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(unique=True, max_length=50)
+    email = models.CharField(unique=True, max_length=100)
+    nome = models.CharField(max_length=100)
+    sobrenome = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.username + " " + "(" + self.nome + " " + self.sobrenome + ")"
+

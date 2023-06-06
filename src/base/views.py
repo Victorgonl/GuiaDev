@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
 import pyperclip as pc
-from .forms import FormAdicionarTutorial, FormTutorial, FormLogin
+from .forms import FormAdicionarTutorial, FormTutorial, FormLogin, FormDadosUsuario
 from django.http import HttpResponse
-from .models import Autor, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo
+from .models import Usuario, Autor, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -26,9 +26,28 @@ def inicio(request):
 
 def cadastrar(request):
     form = UserCreationForm(request.POST)
+    formDadosUsuario = FormDadosUsuario(request.POST)
     if request.method == 'POST':
         if form.is_valid():
+           
             form.save()
+            data = form.cleaned_data
+            username = data.get('username')
+            if formDadosUsuario.is_valid():
+              dataUser = formDadosUsuario.cleaned_data
+              nome  = dataUser.get('nome')
+              sobrenome = dataUser.get('sobrenome')
+              email = dataUser.get('email')
+              novoUsuario = Usuario()
+              novoUsuario.__setattr__('username', username)
+              novoUsuario.__setattr__('nome',nome )
+              novoUsuario.__setattr__('sobrenome',sobrenome)
+              novoUsuario.__setattr__('email',email)
+              novoUsuario.save()
+              userCadastrado = Usuario.objects.get(username=username)
+              print(userCadastrado)
+        else:
+          print("invalid form")
     context = {'form': form}
     return render(request, 'cadastrar.html', context)
 
@@ -53,6 +72,9 @@ def loginView(request):
 @login_required(login_url="../login")
 def index(request):
     if request.user.is_authenticated:
+        username = request.user
+        dadosUsuario = Usuario.objects.get(username=username)
+        print(dadosUsuario.nome)
         if request.method == 'POST':
             form = FormTutorial(request.POST)
             if form.is_valid():
@@ -74,7 +96,8 @@ def index(request):
                     tutorial_like.__setattr__('total_likes', 1+likes)
                     tutorial_like.save()
                     context = {
-                        'tutoriais': tutoriais
+                        'tutoriais': tutoriais,
+                        'usuario':  dadosUsuario,
                     }
                     return render(request, 'tutoriais_index.html', context=context)
 
@@ -87,13 +110,15 @@ def index(request):
                     if (pesquisa.upper() in tut.titulo.upper()):
                         tutoriais_filtrados.append(tut)
                 context = {
-                    'tutoriais': tutoriais_filtrados
+                    'tutoriais': tutoriais_filtrados,
+                    'usuario':  dadosUsuario,
                 }
                 return render(request, 'tutoriais_index.html', context=context)
         else:
             tutoriais = Tutorial.objects.all()
             context = {
-                'tutoriais': tutoriais
+                'tutoriais': tutoriais,
+                'usuario':  dadosUsuario,
             }
             return render(request, 'tutoriais_index.html', context=context)
     else:

@@ -11,6 +11,20 @@
 </head>
 <body>
   <header id="header">
+    <div class="nomeUsuario" 
+    style="display: flex; 
+    flex-direction: row;
+    width: 200px;
+    position: absolute;
+    left: 10px;
+    ">
+      <div>
+        <h3>{{usuario.nome}}</h3>
+      </div>
+      <div>
+        <h3>{{usuario.sobrenome}}</h3>
+      </div>
+    </div>
       <form method="post" id="form-pesquisa">
         {% csrf_token %}
         <input type="text" id="input-pesquisa" name="pesquisa" value=""/>

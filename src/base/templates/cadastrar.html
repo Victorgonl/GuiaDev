@@ -16,6 +16,12 @@
     <form method="post" class="form">
       {% csrf_token %}
       <!-- {{ form.as_p }} -->
+      <label for="id_first_name">Nome</label>
+      <input type="text" id="id_first_name" name="nome">
+      <label for="id_last_name">Sobrenome</label>
+      <input type="text" id="id_last_name" name="sobrenome">
+      <label for="id_Emailaddress">E-mail</label>
+      <input type="text" id="id_Emailaddress" name="email">
       <label for="id_username">Crie um nome de usuário</label>
       <input type="text" id="id_username" name="username" required>
       <label for="id_password1">Crie uma senha</label>
@@ -24,7 +30,7 @@
       <input type="password" id="id_password2" name="password2" required>
       <input type="submit" id="button-login" value="Cadastrar">
     </form>
-  </div>
+  </div >
   {% endblock %}
 </body>
 
