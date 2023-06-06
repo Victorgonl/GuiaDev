@@ -37,20 +37,20 @@ def cadastrar(request):
             data = form.cleaned_data
             username = data.get('username')
             if formDadosUsuario.is_valid():
-              dataUser = formDadosUsuario.cleaned_data
-              nome  = dataUser.get('nome')
-              sobrenome = dataUser.get('sobrenome')
-              email = dataUser.get('email')
-              novoUsuario = Usuario()
-              novoUsuario.__setattr__('username', username)
-              novoUsuario.__setattr__('nome',nome )
-              novoUsuario.__setattr__('sobrenome',sobrenome)
-              novoUsuario.__setattr__('email',email)
-              novoUsuario.save()
-              userCadastrado = Usuario.objects.get(username=username)
-              print(userCadastrado)
+                dataUser = formDadosUsuario.cleaned_data
+                nome  = dataUser.get('nome')
+                sobrenome = dataUser.get('sobrenome')
+                email = dataUser.get('email')
+                novoUsuario = Usuario(username=username,
+                                      nome=nome,
+                                      sobrenome=sobrenome,
+                                      email=email)
+                novoUsuario.save()
+                userCadastrado = Usuario.objects.get(username=username)
+                print(userCadastrado)
+                return render(request, 'login.html')
         else:
-          print("invalid form")
+            print("invalid form")
     context = {'form': form}
     return render(request, 'cadastrar.html', context)
 
