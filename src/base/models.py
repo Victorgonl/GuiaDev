@@ -17,31 +17,30 @@ class Tecnologia(models.Model):
         verbose_name_plural = "Tecnologias"
 
 
-class Autor(models.Model):
+class Usuario(models.Model):
     id = models.AutoField(primary_key=True)
-    nome_usuario = models.CharField(unique=True, max_length=50)
+    username = models.CharField(unique=True, max_length=50)
     email = models.CharField(unique=True, max_length=100)
     nome = models.CharField(max_length=100)
     sobrenome = models.CharField(max_length=200)
-    total_contribuicoes = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.nome_usuario + " " + "(" + self.nome + " " + self.sobrenome + ")"
+        return self.username + " " + "(" + self.nome + " " + self.sobrenome + ")"
 
     class Meta:
-        verbose_name_plural = "Autores"
+        verbose_name_plural = "Usuários"
 
 
 class Tutorial(models.Model):
     id = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=100)
     descricao = models.CharField(max_length=1000)
-    autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     total_likes = models.IntegerField(default=0)
     tecnologias = models.ManyToManyField(Tecnologia)
 
     def __str__(self):
-        return self.titulo + " (by: " + self.autor.nome_usuario + ")"
+        return self.titulo + " (by: " + self.usuario.username + ")"
 
     class Meta:
         verbose_name_plural = "Tutoriais"
@@ -50,7 +49,7 @@ class Tutorial(models.Model):
 class Conteudo(models.Model):
     id = models.AutoField(primary_key=True)
     texto = models.CharField(max_length=10000)
-    autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.texto
@@ -112,11 +111,11 @@ class TutorialConteudo(models.Model):
 class Comentario(models.Model):
     id = models.AutoField(primary_key=True)
     texto = models.CharField(max_length=500)
-    autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.autor.nome_usuario + ": " + self.texto
+        return self.usuario.username + ": " + self.texto
 
     class Meta:
         verbose_name_plural = "Comentários"
@@ -135,13 +134,5 @@ def reorder_on_delete(sender, instance, **kwargs):
 
 
 
-class Usuario(models.Model):
-    id = models.AutoField(primary_key=True)
-    username = models.CharField(unique=True, max_length=50)
-    email = models.CharField(unique=True, max_length=100)
-    nome = models.CharField(max_length=100)
-    sobrenome = models.CharField(max_length=200)
 
-    def __str__(self):
-        return self.username + " " + "(" + self.nome + " " + self.sobrenome + ")"
 

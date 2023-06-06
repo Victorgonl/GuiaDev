@@ -2,7 +2,6 @@ from django.shortcuts import redirect, render
 import pyperclip as pc
 from .forms import AdicionarTutorialForm, FormDadosUsuario
 from django.http import HttpResponse
-from .models import Usuario, Autor, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -14,7 +13,7 @@ from django.contrib.auth.forms import UserCreationForm
 import pyperclip as pc
 
 from .forms import AdicionarTutorialForm, TutorialForm, LoginForm
-from .models import Autor, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo
+from .models import Usuario, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo
 
 
 class register(generic.CreateView):
@@ -34,7 +33,6 @@ def cadastrar(request):
     formDadosUsuario = FormDadosUsuario(request.POST)
     if request.method == 'POST':
         if form.is_valid():
-           
             form.save()
             data = form.cleaned_data
             username = data.get('username')
@@ -74,7 +72,7 @@ def loginView(request):
 @login_required(login_url="../login")
 def index(request):
     if request.user.is_authenticated:
-        username = request.user
+        username = request.user.username
         dadosUsuario = Usuario.objects.get(username=username)
         print(dadosUsuario.nome)
         if request.method == 'POST':
@@ -161,20 +159,14 @@ def tutorial(request):
                 codigo_copy = Codigo.objects.get(id=id_codigo)
                 pc.copy(codigo_copy.texto)
 
-            nome_autor = data.get('nome_autor')
-            if (bool(nome_autor)):
-                comentario = data.get('comentario')
+            comentario = data.get('comentario')
 
-                novo_autor = Autor()
-                novo_autor.nome = nome_autor
-                novo_autor.email = ""
-                novo_autor.total_contribuicoes = 0
-                novo_autor.save()
-
-                novo_comentario = Comentario()
-                novo_comentario.autor = novo_autor
-                novo_comentario.texto = comentario
-                novo_comentario.tutorial = tutorial
+            if bool(comentario):
+                username = request.user.username
+                usuario = Usuario.objects.get(username=username)
+                novo_comentario = Comentario(usuario=usuario,
+                                             tutorial=tutorial,
+                                             texto=comentario)
                 novo_comentario.save()
 
             comentarios = Comentario.objects.filter(tutorial_id=id)
@@ -197,31 +189,26 @@ def adicionar_tutorial(request):
             descricao = data.get('descricao')
             conteudos = data.getlist('conteudos')
             conteudos_tipo = data.getlist('conteudos_tipo')
-            autor_username = request.user.username
-            try:
-                autor = Autor.objects.get(nome_usuario=autor_username)
-            except:
-                autor = Autor(nome_usuario=autor_username)
-                autor.save()
-            tutorial = Tutorial(
-                titulo=titulo, descricao=descricao, autor=autor)
+            username = request.user.username
+            usuario = Usuario.objects.get(username=username)
+            tutorial = Tutorial(titulo=titulo,
+                                descricao=descricao,
+                                usuario=usuario)
             tutorial.save()
-
             for i in range(len(conteudos)):
                 texto = conteudos[i]
                 if conteudos_tipo[i] == "m":
-                    marcacao = Marcacao(texto=texto, autor=autor)
+                    marcacao = Marcacao(texto=texto, usuario=usuario)
                     marcacao.save()
                     tutorial_conteudo = TutorialConteudo(
                         tutorial=tutorial, marcacao=marcacao)
                     tutorial_conteudo.save()
                 elif conteudos_tipo[i] == "c":
-                    codigo = Codigo(texto=texto, autor=autor)
+                    codigo = Codigo(texto=texto, usuario=usuario)
                     codigo.save()
                     tutorial_conteudo = TutorialConteudo(
                         tutorial=tutorial, codigo=codigo)
                     tutorial_conteudo.save()
-
             id = tutorial.id
             comentarios = Comentario.objects.filter(tutorial_id=id)
             tutoriais_conteudos = TutorialConteudo.objects.all()
@@ -237,9 +224,7 @@ def adicionar_tutorial(request):
                        'comentarios': comentarios,
                        'tutorial': tutorial,
                        'id': id}
-
             return render(request, 'tutorial.html', context=context)
-
     else:
         form = AdicionarTutorialForm()
     return render(request, 'adicionar_tutorial.html', {'form': form})
