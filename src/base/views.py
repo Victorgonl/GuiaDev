@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 import pyperclip as pc
-from .forms import FormAdicionarTutorial, FormTutorial, FormLogin, FormDadosUsuario
+from .forms import AdicionarTutorialForm, FormDadosUsuario
 from django.http import HttpResponse
 from .models import Usuario, Autor, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo
 from django.contrib.auth import authenticate, login, logout
