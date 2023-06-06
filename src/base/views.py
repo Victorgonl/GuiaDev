@@ -250,7 +250,8 @@ def adicionar_tutorial_view(request):
                     elif tutorial_conteudo.codigo:
                         conteudos.append(tutorial_conteudo.codigo)
 
-            context = {'conteudos': conteudos,
+            context = {'usuario': request.user,
+                       'conteudos': conteudos,
                        'comentarios': comentarios,
                        'tutorial': tutorial,
                        'id': id}

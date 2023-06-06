@@ -14,8 +14,9 @@
   {% block content %}
   <div class="form-login">
     <form method="post" class="form">
+      <h1 style="text-align: center;">GuiaDev</h1>
+      <br>
       {% csrf_token %}
-      <!-- {{ form.as_p }} -->
       <label for="id_first_name">Nome</label>
       <input type="text" id="id_first_name" name="nome">
       <label for="id_last_name">Sobrenome</label>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,21 +9,23 @@
   <link rel="stylesheet" href="{%  static 'css/login.css' %}">
   <title>Login</title>
 </head>
+
 <body>
-    <div class="form-login">
-
-        <form method="post" class="form">
-            {% csrf_token %}
-            <label for="Login">Login</label>
-            <input type="text" id="login" name="login"/>
-            <label for="Senha">Senha</label>
-            <input type="password" id="senha" name="senha"/>
-            <input type="submit" id="button-login" value="Login">
-            <div class="cadastre-se">
-
-              <a href="/cadastrar">Cadastre-se</a>
-            </div>
+  <div class="form-login">
+    <form method="post" class="form">
+      <h1 style="text-align: center;">GuiaDev</h1>
+      <br><br><br>
+      {% csrf_token %}
+      <label for="Login">Login</label>
+      <input type="text" id="login" name="login" />
+      <label for="Senha">Senha</label>
+      <input type="password" id="senha" name="senha" />
+      <input type="submit" id="button-login" value="Login">
+      <div class="cadastre-se">
+        <a href="/cadastrar">Cadastrar</a>
+      </div>
     </form>
-</div>
+  </div>
 </body>
+
 </html>

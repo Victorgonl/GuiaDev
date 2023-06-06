@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,31 +10,26 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Guia Dev</title>
 </head>
+
 <body>
   <header id="header">
     <div class="nomeUsuario"
-    style="display: flex;
-    flex-direction: row;
-    width: 200px;
-    position: absolute;
-    left: 10px;
-    gap: 10px;
-    ">
+      style="display: flex; flex-direction: row; width: 200px; position: absolute; left: 10px; gap: 10px;">
       <div>
-        <h4>{{usuario.nome}} {{usuario.sobrenome}}</h4>
+        <h4>{{usuario.username}}</h4>
       </div>
     </div>
-      <form method="post" id="form-pesquisa">
-        {% csrf_token %}
-        <input type="text" id="input-pesquisa" name="pesquisa" value=""/>
-        <input type="submit" id="button-pesquisar" value="Pesquisar">
-      </form>
-      <form method="post">
-        {% csrf_token %}
-        <button class="sair" type="submit" name="sair" value="true">
-          Sair
-        </button>
-      </form>
+    <form method="post" id="form-pesquisa">
+      {% csrf_token %}
+      <input type="text" id="input-pesquisa" name="pesquisa" value="" />
+      <input type="submit" id="button-pesquisar" value="Pesquisar">
+    </form>
+    <form method="post">
+      {% csrf_token %}
+      <button class="sair" type="submit" name="sair" value="true">
+        Sair
+      </button>
+    </form>
   </header>
   <div class="button-adicionar-tutorial-content">
 
@@ -44,9 +40,10 @@
       </button>
     </a>
   </div>
-    <div id="body-content">
-      {% block tutoriais_index%}
-      {% endblock %}
+  <div id="body-content">
+    {% block tutoriais_index%}
+    {% endblock %}
   </div>
 </body>
+
 </html>
