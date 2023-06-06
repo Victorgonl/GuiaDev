@@ -22,13 +22,13 @@ class register(generic.CreateView):
     template_name = 'account/register.html'
 
 
-def inicio(request):
+def inicio_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/index')
     return render(request, "inicio.html")
 
 
-def cadastrar(request):
+def cadastrar_view(request):
     form = UserCreationForm(request.POST)
     formDadosUsuario = FormDadosUsuario(request.POST)
     if request.method == 'POST':
@@ -55,7 +55,7 @@ def cadastrar(request):
     return render(request, 'cadastrar.html', context)
 
 
-def loginView(request):
+def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -70,7 +70,7 @@ def loginView(request):
 
 
 @login_required(login_url="../login")
-def index(request):
+def index_view(request):
     if request.user.is_authenticated:
         username = request.user.username
         dadosUsuario = Usuario.objects.get(username=username)
@@ -111,7 +111,7 @@ def index(request):
                     return render(request, 'tutoriais_index.html', context=context)
 
                 if bool(id):
-                    return tutorial(request)
+                    return tutorial_view(request)
 
                 pesquisa = data.get('pesquisa')
                 tutoriais_filtrados = []
@@ -135,7 +135,7 @@ def index(request):
 
 
 @login_required(login_url="../login")
-def tutorial(request):
+def tutorial_view(request):
     if request.method == 'POST':
         form = TutorialForm(request.POST)
         if form.is_valid():
@@ -158,9 +158,21 @@ def tutorial(request):
             marcacoes = [conteudo for conteudo in conteudos if type(
                 conteudo) == Marcacao]
 
+            username = request.user.username
+
             if like:
-                likes = tutorial.total_likes
-                tutorial.__setattr__('total_likes', 1+likes)
+                usuario = Usuario.objects.get(username=username)
+                tutorial = Tutorial.objects.get(id=id)
+                if Like.objects.filter(usuario=usuario, tutorial=tutorial).exists():
+                    like = Like.objects.get(usuario=usuario,
+                                            tutorial=tutorial)
+                    like.delete()
+                    tutorial.__setattr__('total_likes', tutorial.total_likes - 1)
+                else:
+                    like = Like(usuario=usuario,
+                                tutorial=tutorial)
+                    like.save()
+                    tutorial.__setattr__('total_likes', tutorial.total_likes + 1)
                 tutorial.save()
 
             if copy:
@@ -183,13 +195,14 @@ def tutorial(request):
                 'conteudos': conteudos,
                 'comentarios': comentarios,
                 'tutorial': tutorial,
+                'autor': tutorial.usuario,
                 'id': id
             }
             return render(request, 'tutorial.html', context=context)
 
 
 @login_required(login_url="../login")
-def adicionar_tutorial(request):
+def adicionar_tutorial_view(request):
     if request.method == 'POST':
         form = AdicionarTutorialForm(request.POST)
         if form.is_valid():
