@@ -115,10 +115,25 @@ class Comentario(models.Model):
     tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.usuario.username + ": " + self.texto
+        return self.tutorial.titulo + " - " + self.usuario.username + ": "+ self.texto
 
     class Meta:
         verbose_name_plural = "Comentários"
+        ordering = ['tutorial', 'usuario']
+
+
+class Like(models.Model):
+    id = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.tutorial.titulo + " - " +  self.usuario.username
+
+    class Meta:
+        unique_together = (('usuario', 'tutorial'))
+        verbose_name_plural = "Likes"
+        ordering = ['tutorial', 'usuario']
 
 
 @receiver(pre_delete, sender=TutorialConteudo)

@@ -13,7 +13,7 @@ from django.contrib.auth.forms import UserCreationForm
 import pyperclip as pc
 
 from .forms import AdicionarTutorialForm, TutorialForm, LoginForm
-from .models import Usuario, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo
+from .models import Usuario, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo, Like
 
 
 class register(generic.CreateView):
@@ -91,10 +91,19 @@ def index(request):
                     return render(request, 'inicio.html')
 
                 if like:
-                    tutorial_like = Tutorial.objects.get(id=id)
-                    likes = tutorial_like.total_likes
-                    tutorial_like.__setattr__('total_likes', 1+likes)
-                    tutorial_like.save()
+                    usuario = Usuario.objects.get(username=username)
+                    tutorial = Tutorial.objects.get(id=id)
+                    if Like.objects.filter(usuario=usuario, tutorial=tutorial).exists():
+                        like = Like.objects.get(usuario=usuario,
+                                                tutorial=tutorial)
+                        like.delete()
+                        tutorial.__setattr__('total_likes', tutorial.total_likes - 1)
+                    else:
+                        like = Like(usuario=usuario,
+                                    tutorial=tutorial)
+                        like.save()
+                        tutorial.__setattr__('total_likes', tutorial.total_likes + 1)
+                    tutorial.save()
                     context = {
                         'tutoriais': tutoriais,
                         'usuario':  dadosUsuario,
