@@ -37,7 +37,7 @@ class Tutorial(models.Model):
     descricao = models.CharField(max_length=1000)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     total_likes = models.IntegerField(default=0)
-    tecnologias = models.ManyToManyField(Tecnologia)
+    tecnologias = models.ForeignKey(Tecnologia, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.titulo + " (by: " + self.usuario.username + ")"
