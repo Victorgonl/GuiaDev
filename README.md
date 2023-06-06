@@ -1,4 +1,4 @@
-# GuideDev
+# GuiaDev
 
 Um projeto de Programação WEB
 
@@ -30,7 +30,7 @@ Um projeto de Programação WEB
 
 # Aplicação
 
-    cd guidedev
+    cd guiadev
 
 ## Execução do servidor
 
@@ -52,6 +52,6 @@ Um projeto de Programação WEB
 
     ./manage.py graph_models base -g -o relational_model.png
 
-<img src="./guidedev/relational_model.png">
+<img src="./guiadev/relational_model.png">
 
 https://github.com/jsonform/jsonform
