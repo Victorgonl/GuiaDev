@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<!-- {% load class_tag %} -->
+{% load class_tag %}
 
 <html lang="en">
 
@@ -39,7 +39,6 @@
                         <input type="text" hidden name="id" value="{{conteudo.id}}">
                         <input type="text" hidden name="like" value=''>
                         <input type="text" hidden name="copy" value='{{conteudo.id}}'>
-
                         <button class="button-copy displayFlexCenter" type="submit" value="Submit">
                             <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
                         </button>
@@ -55,8 +54,6 @@
                         <input type="text" hidden name="id" value="{{tutorial.id}}">
                         <input type="text" hidden name="like" value=''>
                         <input type="text" hidden name="copy" value=''>
-
-                       
                     </form>
                 </div>
               {% endif %}
@@ -75,7 +72,7 @@
                 </form>
             </div>
         </div>
-        
+
         {% for comentario in comentarios %}
       <div id="comentarios">
           <span class="card-comentario">
@@ -110,7 +107,7 @@
           </div>
           </div>
         </form>
-        
+
       </div>
     </div>
     </body>

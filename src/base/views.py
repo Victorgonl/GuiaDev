@@ -11,6 +11,11 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 
+import pyperclip as pc
+
+from .forms import AdicionarTutorialForm, TutorialForm, LoginForm
+from .models import Autor, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo
+
 
 class register(generic.CreateView):
     form_class = UserCreationForm
@@ -54,18 +59,15 @@ def cadastrar(request):
 
 def loginView(request):
     if request.method == 'POST':
-        form = FormLogin(request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            print(data)
-
-            user = authenticate(
-                request, username=data['login'], password=data['senha'])
-            if (user != None):
-                print('USER', user)
+            user = authenticate(request,
+                                username=data['login'],
+                                password=data['senha'])
+            if user != None:
                 login(request, user)
                 return HttpResponseRedirect('/index')
-
     return render(request, 'login.html')
 
 
@@ -76,7 +78,7 @@ def index(request):
         dadosUsuario = Usuario.objects.get(username=username)
         print(dadosUsuario.nome)
         if request.method == 'POST':
-            form = FormTutorial(request.POST)
+            form = TutorialForm(request.POST)
             if form.is_valid():
                 data = form.cleaned_data
                 print(data)
@@ -128,7 +130,7 @@ def index(request):
 @login_required(login_url="../login")
 def tutorial(request):
     if request.method == 'POST':
-        form = FormTutorial(request.POST)
+        form = TutorialForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             id = data.get('id')
@@ -188,7 +190,7 @@ def tutorial(request):
 @login_required(login_url="../login")
 def adicionar_tutorial(request):
     if request.method == 'POST':
-        form = FormAdicionarTutorial(request.POST)
+        form = AdicionarTutorialForm(request.POST)
         if form.is_valid():
             data = form.data
             titulo = data.get('titulo')
@@ -239,10 +241,5 @@ def adicionar_tutorial(request):
             return render(request, 'tutorial.html', context=context)
 
     else:
-        form = FormAdicionarTutorial()
-
+        form = AdicionarTutorialForm()
     return render(request, 'adicionar_tutorial.html', {'form': form})
-
-
-def test(request):
-    return render(request, "test.html")
