@@ -28,7 +28,7 @@
 
 # Aplicação
 
-    cd src
+    cd guidedev
 
 ## Execução do servidor
 
@@ -50,6 +50,6 @@
 
     ./manage.py graph_models base -g -o relational_model.png
 
-<img src="./src/relational_model.png">
+<img src="./guidedev/relational_model.png">
 
 https://github.com/jsonform/jsonform
