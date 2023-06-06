@@ -1,7 +1,7 @@
 from django import forms
 
 
-class FormTutorial(forms.Form):
+class TutorialForm(forms.Form):
     id = forms.CharField(max_length=20, required=False)
     like = forms.CharField(required=False)
     copy = forms.CharField(required=False)
@@ -11,12 +11,12 @@ class FormTutorial(forms.Form):
     sair = forms.CharField(max_length=20, required=False)
 
 
-class FormLogin(forms.Form):
+class LoginForm(forms.Form):
     login = forms.CharField(max_length=50, required=False)
     senha = forms.CharField(max_length=50, required=False)
 
 
-class FormAdicionarTutorial(forms.Form):
+class AdicionarTutorialForm(forms.Form):
     titulo = forms.CharField(max_length=100, required=True)
     descricao = forms.CharField(max_length=1000, required=False)
     conteudos = forms.CharField(widget=forms.Textarea, required=False)
