@@ -89,7 +89,12 @@ class TutorialConteudo(models.Model):
         verbose_name_plural = "Conteúdos dos Tutoriais"
 
     def __str__(self):
-        return self.tutorial.titulo + ": " + str(self.ordem)
+        texto = ""
+        if not self.codigo is None:
+            texto += self.codigo.texto
+        if not self.marcacao is None:
+            texto += self.marcacao.texto
+        return self.tutorial.titulo + " - " + str(self.ordem) + ": " + texto
 
     def save(self, *args, **kwargs):
         if self.codigo is None and self.marcacao is None:
