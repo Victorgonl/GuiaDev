@@ -5,6 +5,27 @@
   --cor4: #EEEEEE;
   --color-app: rgb(180, 175, 175);
   --color-hover: rgb(112, 110, 110);
+  --blue: #4e73df;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #e74a3b;
+  --orange: #fd7e14;
+  --yellow: #f6c23e;
+  --green: #1cc88a;
+  --teal: #20c9a6;
+  --cyan: #36b9cc;
+  --white: #fff;
+  --gray: #858796;
+  --gray-dark: #5a5c69;
+  --primary: #4e73df;
+  --secondary: #858796;
+  --success: #1cc88a;
+  --info: #36b9cc;
+  --warning: #f6c23e;
+  --danger: #e74a3b;
+  --light: #f8f9fc;
+  --dark: #5a5c69;
 }
 
 *{
@@ -27,7 +48,7 @@ body {
 
 /* HEARDER  ==========================\ */
 #header {
-  color: var(--cor4);
+  color: var(--white);
   background-color: var(--cor2);
   width: 100%;
   height: 50px;
