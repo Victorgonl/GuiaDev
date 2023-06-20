@@ -79,16 +79,17 @@
                         </button>
                     </form>
                 </div>
+                <br>
                 {% for comentario in comentarios %}
-                <div class="col-auto" style="display: flex; flex-direction: row; margin: 20px; text-align: center;">
-                    <div class="col-auto" style="align-items: center;">
+                <div class="col-auto">
+                    <div class="col-auto">
                         <img class="img-profile rounded-circle" src="{% static 'img/undraw_profile.svg' %}" style="width: 50px;">
 
                         <div>
                             {{comentario.usuario.username}}
                         </div>
                     </div>
-                    <div>
+                    <div class="col-auto">
                         {{comentario.texto}}
                     </div>
                 </div>

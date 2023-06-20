@@ -118,13 +118,14 @@ class Comentario(models.Model):
     texto = models.CharField(max_length=500)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
+    data_publicacao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.tutorial.titulo + " - " + self.usuario.username + ": "+ self.texto
 
     class Meta:
         verbose_name_plural = "Comentários"
-        ordering = ['tutorial', 'usuario']
+        ordering = ['data_publicacao']
 
 
 class Like(models.Model):
