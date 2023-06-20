@@ -80,10 +80,13 @@
                     </form>
                 </div>
                 {% for comentario in comentarios %}
-                <div class="col-auto">
-                    <img class="img-profile rounded-circle" src="{% static 'img/undraw_profile.svg' %}">
-                    <div>
-                        {{comentario.usuario.username}}
+                <div class="col-auto" style="display: flex; flex-direction: row; margin: 20px; text-align: center;">
+                    <div class="col-auto" style="align-items: center;">
+                        <img class="img-profile rounded-circle" src="{% static 'img/undraw_profile.svg' %}" style="width: 50px;">
+
+                        <div>
+                            {{comentario.usuario.username}}
+                        </div>
                     </div>
                     <div>
                         {{comentario.texto}}
