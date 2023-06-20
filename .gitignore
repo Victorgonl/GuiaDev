@@ -3,3 +3,4 @@
 
 # ambiente
 .venv/
+.ignore/

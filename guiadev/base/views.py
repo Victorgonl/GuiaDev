@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.shortcuts import redirect, render
 import pyperclip as pc
 from .forms import AdicionarTutorialForm, FormDadosUsuario
@@ -12,69 +13,42 @@ from django.contrib.auth.forms import UserCreationForm
 
 import pyperclip as pc
 
-from .forms import AdicionarTutorialForm, TutorialForm, LoginForm
+from .forms import AdicionarTutorialForm, FormDadosUsuario, TutorialForm, LoginForm
 from .models import Usuario, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo, Like
 
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['login']
+        password = request.POST['senha']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            return render(request, 'login.html', {'error': 'Login inválido'})
+    else:
+        return render(request, 'login.html')
 
-class register(generic.CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'account/register.html'
-
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
 
 def inicio_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/index')
     return render(request, "inicio.html")
 
-
-def cadastrar_view(request):
-    form = UserCreationForm(request.POST)
-    formDadosUsuario = FormDadosUsuario(request.POST)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            data = form.cleaned_data
-            username = data.get('username')
-            if formDadosUsuario.is_valid():
-                dataUser = formDadosUsuario.cleaned_data
-                nome  = dataUser.get('nome')
-                sobrenome = dataUser.get('sobrenome')
-                email = dataUser.get('email')
-                novoUsuario = Usuario(username=username,
-                                      nome=nome,
-                                      sobrenome=sobrenome,
-                                      email=email)
-                novoUsuario.save()
-                userCadastrado = Usuario.objects.get(username=username)
-                print(userCadastrado)
-                return HttpResponseRedirect('/login')
-        else:
-            print("invalid form")
-    context = {'form': form}
-    return render(request, 'cadastrar.html', context)
-
-
-def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            user = authenticate(request,
-                                username=data['login'],
-                                password=data['senha'])
-            if user != None:
-                login(request, user)
-                return HttpResponseRedirect('/index')
-    return render(request, 'login.html')
-
-
-@login_required(login_url="../login")
+@login_required(login_url="login/")
 def index_view(request):
     if request.user.is_authenticated:
         username = request.user.username
         dadosUsuario = Usuario.objects.get(username=username)
-        print(dadosUsuario.nome)
         if request.method == 'POST':
             form = TutorialForm(request.POST)
             if form.is_valid():
@@ -83,12 +57,10 @@ def index_view(request):
                 like = bool(data.get('like'))
                 id = data.get('id')
                 tutoriais = Tutorial.objects.all()
-
                 sair = bool(data.get('sair'))
-
                 if (sair):
                     logout(request)
-                    return render(request, 'inicio.html')
+                    return redirect('login')
 
                 if like:
                     usuario = Usuario.objects.get(username=username)
@@ -131,10 +103,23 @@ def index_view(request):
             }
             return render(request, 'tutoriais_index.html', context=context)
     else:
-        return render(request, 'inicio.html')
+        return HttpResponseRedirect('/index')
 
 
-@login_required(login_url="../login")
+@login_required(login_url="login/")
+def tutoriais_view(request):
+    if request.method == 'GET':
+        tutoriais = Tutorial.objects.all()
+        usuario = request.user
+        context = {
+            'tutoriais': tutoriais,
+            'usuario': usuario
+        }
+        return render(request, 'tutoriais.html', context=context)
+    return render(request, 'tutoriais.html')
+
+
+@login_required(login_url="login/")
 def tutorial_view(request):
     if request.method == 'POST':
         form = TutorialForm(request.POST)
@@ -209,7 +194,7 @@ def tutorial_view(request):
             return render(request, 'tutorial.html', context=context)
 
 
-@login_required(login_url="../login")
+@login_required(login_url="login/")
 def adicionar_tutorial_view(request):
     if request.method == 'POST':
         form = AdicionarTutorialForm(request.POST)
@@ -259,3 +244,4 @@ def adicionar_tutorial_view(request):
     else:
         form = AdicionarTutorialForm()
     return render(request, 'adicionar_tutorial.html', {'form': form})
+

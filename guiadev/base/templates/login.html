@@ -36,12 +36,13 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">GuiaDev</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">GuiaDev - Login</h1>
                                     </div>
+                                    {% block content %}
                                     <form method="post" class="form">
                                         {% csrf_token %}
                                         <div class="form-group">
@@ -59,12 +60,12 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <input type="submit" class="btn btn-primary btn-user btn-block" id="button-login"
-                                            value="Login">
+                                        <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
                                     </form>
+                                    {% endblock content%}
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="/cadastrar/">Registrar!</a>
+                                        <a class="small" href="{% url 'register' %}">Cadastrar!</a>
                                     </div>
                                 </div>
                             </div>

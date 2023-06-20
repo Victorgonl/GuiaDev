@@ -1,0 +1,35 @@
+{% extends "index.html" %}
+
+{% block tutoriais %}
+
+{% for tutorial in tutoriais %}
+
+{% load static %}
+
+<div class="col-xl-3 col-md-6 mb-4">
+    <form method="post" action="{% url 'tutorial' %}">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ tutorial.id }}">
+        <button type="submit" style="text-decoration: none; border: none; background-color: transparent;">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <input type="text" hidden name="id" value="{{tutorial.id}}">
+                                {{tutorial.titulo}}
+                            </div>
+                            <div class="text-xs font-weight-bold text-primary text-gray-800 ">
+                                {{tutorial.usuario.nome}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </button>
+    </form>
+</div>
+
+{% endfor %}
+
+{% endblock tutoriais%}
