@@ -22,7 +22,7 @@ class AdicionarTutorialForm(forms.Form):
     conteudos = forms.CharField(widget=forms.Textarea, required=False)
     conteudos_tipo = forms.CharField(widget=forms.Textarea, required=False)
 
-class FormDadosUsuario(forms.Form):
+class UsuarioForm(forms.Form):
     nome = forms.CharField(max_length=100, required=False)
     sobrenome = forms.CharField(max_length=1000, required=False)
     email = forms.CharField(widget=forms.Textarea, required=False)

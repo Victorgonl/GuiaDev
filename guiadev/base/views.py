@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect, render
 import pyperclip as pc
-from .forms import AdicionarTutorialForm, FormDadosUsuario
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -13,7 +12,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 import pyperclip as pc
 
-from .forms import AdicionarTutorialForm, FormDadosUsuario, TutorialForm, LoginForm
+from .forms import AdicionarTutorialForm, TutorialForm, LoginForm, UsuarioForm
 from .models import Usuario, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo, Like
 
 def login_view(request):
@@ -32,8 +31,10 @@ def login_view(request):
 def register_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
-        if form.is_valid():
+        form_usuario = UsuarioForm(request.POST)
+        if form.is_valid() and form_usuario.is_valid():
             form.save()
+            form_usuario.save()
             return redirect('login')
     else:
         form = UserCreationForm()
