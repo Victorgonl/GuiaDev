@@ -66,57 +66,57 @@
         {% endif %}
         {% endfor %}
     </div>
-        </div>
+</div>
+<div>
+    <div class="col-auto">
+        {{tutorial.total_likes}}
+        <form method="post" action="{% url 'tutorial' %}">
+            {% csrf_token %}
+            <input type="text" hidden name="id" value="{{tutorial.id}}">
+            <input type="text" hidden name="like" value=True>
+            <input type="text" hidden name="copy" value=''>
+            <button class="btn btn-sm btn-primary btn-circle" type="submit" value="Submit">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+            </button>
+        </form>
+    </div>
+
+    <div class=" mb-4"></div>
+
+    {% for comentario in comentarios %}
+    <div class="col-auto">
+        <div class="col-auto">
+            <img class="img-profile rounded-circle" src="{% static 'img/undraw_profile.svg' %}" style="width: 40px;">
             <div>
-                <div class="col-auto">
-                    {{tutorial.total_likes}}
-                    <form method="post" action="{% url 'tutorial' %}">
-                        {% csrf_token %}
-                        <input type="text" hidden name="id" value="{{tutorial.id}}">
-                        <input type="text" hidden name="like" value=True>
-                        <input type="text" hidden name="copy" value=''>
-                        <button class="btn btn-primary btn-circle" type="submit" value="Submit">
-                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                        </button>
-                    </form>
-                </div>
-
-                <div class=" mb-4"></div>
-
-                {% for comentario in comentarios %}
-                <div class="col-auto">
-                    <div class="col-auto">
-                        <img class="img-profile rounded-circle" src="{% static 'img/undraw_profile.svg' %}" style="width: 50px;">
-
-                        <div>
-                            {{comentario.usuario.username}}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        {{comentario.texto}}
-                    </div>
-                    <div class=" mb-4"></div>
-                </div>
-                {% endfor %}
-                <div class="col-auto">
-                    <form method="post" class="form-comentario" action="{% url 'tutorial' %}">
-                        {% csrf_token %}
-                        <input type="text" hidden name="id" value="{{tutorial.id}}">
-                        <div class="card-adicionar-comentario">
-                            <div class="input-group">
-                                <input type="text" name="comentario" class="form-control bg-light" placeholder="Comentário">
-                                <div class="input-group-append">
-                                    <button class="btn btn-success btn-icon-split" type="submit" value="Submit">
-                                        <span class="text">Comentar</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                {{comentario.usuario.username}}
             </div>
         </div>
+        <div class="col-auto">
+            {{comentario.texto}}
+        </div>
+        <div class=" mb-4"></div>
     </div>
+    {% endfor %}
+
+    <div class="col-auto">
+        <form method="post" class="form-comentario" action="{% url 'tutorial' %}">
+            {% csrf_token %}
+            <input type="text" hidden name="id" value="{{tutorial.id}}">
+            <div class="card-adicionar-comentario">
+                <div class="input-group">
+                    <input type="text" name="comentario" class="form-control bg-light" placeholder="Digite um comentário...">
+                    <div class="input-group-append">
+                        <button class="btn btn-success btn-icon-split" type="submit" value="Submit">
+                            <span class="text">Comentar</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
 </div>
 
 {% endblock tutorial %}
