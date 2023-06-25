@@ -1,108 +1,112 @@
-<!DOCTYPE html>
+{% extends "index.html" %}
+
+{% block adicionar_tutorial %}
+
 {% load static %}
 
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="stylesheet" href="{%  static 'css/adicionar_tutorial.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adicionar Tutoriais</title>
-</head>
-
-<body>
-  <div class="body-content">
+<div class="body-content">
 
     <div class="voltar">
-      <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+        <a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
     </div>
+
     <form method="post" action="{% url 'adicionar_tutorial' %}">
-      {% csrf_token %}
-      <div class="card-adicionar-tutorial">
-        <div class="titulo-tutorial collumstyle">
-          <label>Título:</label>
-          <input class="input-titulo-tutorial" type="text" name="titulo">
+        {% csrf_token %}
+
+        <div class="mb-4"></div>
+
+        <div class="input-group">
+            <input type="text" name="titulo" class="form-control bg-light" placeholder="Título">
         </div>
-        <div class="descricao-tutorial collumstyle">
-          <label>Descrição:</label>
-          <textarea class="input-descricao-tutoria" type="text" name="descricao"></textarea>
+
+        <div class=" mb-2">
         </div>
-        <!-- <div class="codigo-tutorial collumstyle">
-                  <label>Código do tutorial:</label>
-                  <textarea class="input-codigo-tutorial" type="text" name="codigo"></textarea>
-                </div> -->
+
+        <div class=" input-group">
+            <input type="text" name="descricao" class="form-control bg-light" placeholder="Descrição">
+        </div>
+
+        <div class="mb-4"></div>
+
         <div id="inputs-codigo-marcacao">
 
-        </div>
-        <div class="buttons-codigo-marcacao">
-          <div class="div-button-adicionar">
-            <button class="button-adicionar-codigo-marcacao button-adicionar-codigo">
-              + Código
-            </button>
-          </div>
-          <div class="div-button-adicionar">
-            <button class="button-adicionar-codigo-marcacao button-adicionar-marcacao">
-              + Marcação
-            </button>
-          </div>
-        </div>
-        <div class="div-button-adicionar">
-          <button class="button-adicionar" type="submit" value="Submit">
-            Adicionar Tutorial
-          </button>
+            <div class="button-adicionar-codigo">
+                <a href="#" class="btn btn-secondary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <span class="text">Código</span>
+                </a>
+            </div>
+
+            <div class="mb-2"></div>
+
+            <div class="button-adicionar-marcacao">
+                <a href="#" class="btn btn-light btn-icon-split">
+                    <span class="icon text-gray-600">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <span class="text">Marcação</span>
+                </a>
+            </div>
+
+            <div class="mb-4"></div>
+
         </div>
 
-      </div>
-  </div>
-  </form>
-  </div>
-</body>
+        <div class="mb-4"></div>
+
+        <button class="btn btn-success btn-icon-split" type="submit" value="Submit">
+            <span class="icon text-white-50">
+                <i class="fas fa-check"></i>
+            </span>
+            <span class="text" >Adicionar Tutorial</span>
+        </button>
+
+    </form>
+
 <script>
-  const inputCodigo = `
-  <div class="div-label-input">
-    <label class="label">Código</label>
-    <input class="input-code-marcacao" type="text" name="conteudos" />
-    <input type="hidden" name="conteudos_tipo" value="c">
-    <button class="button-remover" type="button">X</button>
-  </div>
-  `;
+    const inputCodigo = `
+    <div class="input-group">
+        <input type="text" name="conteudos" class="form-control bg-light" placeholder="Código">
+        <input type="hidden" name="conteudos_tipo" value="c">
+        <button class="button-remover btn-sm btn-danger" type="button">X</button>
+    </div>
+    <div class="mb-2"></div>
+    `;
 
-  const inputMarcacao = `
-  <div class="div-label-input">
-    <label class="label">Marcação</label>
-    <input class="input-code-marcacao" type="text" name="conteudos" />
-    <input type="hidden" name="conteudos_tipo" value="m">
-    <button class="button-remover" type="button">X</button>
-  </div>
-  `;
+    const inputMarcacao = `
+    <div class="input-group">
+        <input type="text" name="conteudos" class="form-control bg-light" placeholder="Marcação">
+        <input type="hidden" name="conteudos_tipo" value="m">
+        <button class="button-remover btn-sm btn-danger" type="button">X</button>
+    </div>
+    <div class="mb-2"></div>
+    `;
 
-  const botaoMaisCodigo = document.querySelector('.button-adicionar-codigo');
-  const botaoMaisMarcacao = document.querySelector('.button-adicionar-marcacao');
-  const inputs = document.querySelector('#inputs-codigo-marcacao');
+    const botaoMaisCodigo = document.querySelector('.button-adicionar-codigo');
+    const botaoMaisMarcacao = document.querySelector('.button-adicionar-marcacao');
+    const inputs = document.querySelector('#inputs-codigo-marcacao');
 
-  botaoMaisCodigo.addEventListener('click', (e) => {
-    e.preventDefault();
-    const inputWrapper = document.createElement('div');
-    inputWrapper.innerHTML = inputCodigo;
-    inputs.appendChild(inputWrapper);
-  });
+    botaoMaisCodigo.addEventListener('click', (e) => {
+        e.preventDefault();
+        const inputWrapper = document.createElement('div');
+        inputWrapper.innerHTML = inputCodigo;
+        inputs.appendChild(inputWrapper);
+    });
 
-  botaoMaisMarcacao.addEventListener('click', (e) => {
-    e.preventDefault();
-    const inputWrapper = document.createElement('div');
-    inputWrapper.innerHTML = inputMarcacao;
-    inputs.appendChild(inputWrapper);
-  });
+    botaoMaisMarcacao.addEventListener('click', (e) => {
+        e.preventDefault();
+        const inputWrapper = document.createElement('div');
+        inputWrapper.innerHTML = inputMarcacao;
+        inputs.appendChild(inputWrapper);
+    });
 
-  inputs.addEventListener('click', (e) => {
-    if (e.target.classList.contains('button-remover')) {
-      e.target.parentNode.remove();
-    }
-  });
+    inputs.addEventListener('click', (e) => {
+        if (e.target.classList.contains('button-remover')) {
+            e.target.parentNode.remove();
+        }
+    });
 </script>
 
-
-</html>
+{% endblock adicionar_tutorial %}
