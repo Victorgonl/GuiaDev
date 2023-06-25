@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 import pyperclip as pc
 
@@ -34,11 +35,13 @@ def register_view(request):
         form_usuario = UsuarioForm(request.POST)
         if form.is_valid() and form_usuario.is_valid():
             form.save()
-            form_usuario.save()
+            usuario = Usuario()
+            usuario.username = form.cleaned_data['username']
+            usuario.nome = form_usuario.cleaned_data['nome']
+            usuario.sobrenome = form_usuario.cleaned_data['sobrenome']
+            usuario.save()
             return redirect('login')
-    else:
-        form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'register.html')
 
 def inicio_view(request):
     if request.user.is_authenticated:
