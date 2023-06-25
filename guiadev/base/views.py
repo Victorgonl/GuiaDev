@@ -61,7 +61,7 @@ def index_view(request):
                 sair = bool(data.get('sair'))
                 if (sair):
                     logout(request)
-                    return redirect('login')
+                    return redirect('inicio')
 
                 if like:
                     usuario = Usuario.objects.get(username=username)
