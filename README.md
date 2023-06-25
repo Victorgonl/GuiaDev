@@ -50,8 +50,6 @@ Um projeto de Programação WEB
 
 # Diagrama Relacional dos Modelos
 
-    ./manage.py graph_models base -g -o relational_model.png
+    ./guiadev/manage.py graph_models base -g -o relational_model.png
 
-<img src="./guiadev/relational_model.png">
-
-https://github.com/jsonform/jsonform
+<img src="./relational_model.png">
