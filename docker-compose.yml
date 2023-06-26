@@ -1,0 +1,10 @@
+version: "3.10"
+services: 
+  guidedev:
+    build:
+      context: "./"
+      dockerfile: Dockerfile
+    container_name: guidedev-container
+    ports:
+      - "8050:8000"
+    restart: always
