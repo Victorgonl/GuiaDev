@@ -3,7 +3,20 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "runserver/worker",
+            "configurations": ["runserver", "worker"]
+        }
+    ],
     "configurations": [
+        {
+            "name": "worker",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/guiadev_email/worker.py",
+            "justMyCode": true
+        },
         {
             "name": "runserver",
             "type": "python",
@@ -51,6 +64,6 @@
             ],
             "django": true,
             "justMyCode": true
-        }
-    ]
+        },
+    ],
 }
