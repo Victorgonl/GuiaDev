@@ -18,7 +18,8 @@ from .models import Usuario, Marcacao, Tutorial, Comentario, Codigo, TutorialCon
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
+import pika
+import sys
 
 
 
@@ -326,4 +327,25 @@ def disparaEmail(msg):
   remetente = 'guiadev2023@gmail.com'
   senha = 'plvsnjrovjhozzvs'
   enviar_email(destinatario, assunto, mensagem, remetente, senha)
-  print(msg['email'])
+
+
+  #!/usr/bin/env python
+
+
+credentials = pika.PlainCredentials('guest', 'guest')
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=credentials))
+
+channel = connection.channel()
+
+channel.queue_declare(queue='fila_de_emails', durable=True)
+
+message = ' '.join(sys.argv[1:]) or "MSG PARA FILA!"
+channel.basic_publish(
+    exchange='',
+    routing_key='fila_de_emails',
+    body=message,
+    properties=pika.BasicProperties(
+        delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
+    ))
+print(" [x] Sent %r" % message)
+connection.close()

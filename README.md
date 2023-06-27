@@ -36,6 +36,20 @@ Um projeto de Programação WEB
 
     python3 manage.py runserver
 
+## Habbitmq
+  
+  #Start server 
+
+    sudo systemctl start rabbitmq-server
+  
+  #Stop server 
+
+    sudo systemctl stop rabbitmq-server
+
+  #Criar fila
+
+    rabbitmqadmin -u {user} -p {password} -V {vhost} declare queue name={name}
+
 ## Banco de dados
 
     python3 manage.py makemigrations
