@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
+import json
 import pyperclip as pc
 
 from .forms import AdicionarTutorialForm, TutorialForm, LoginForm, UsuarioForm
@@ -285,7 +285,7 @@ def solicitarEnvioEmail(id, email):
         "body": conteudo
     }
 
-    disparaEmail(msg)
+    colocar_email_na_fila(msg)
 
 
 
@@ -316,36 +316,22 @@ def enviar_email(destinatario, assunto, mensagem, remetente, senha):
 
 
 
+def colocar_email_na_fila(msg):
+  print(json.dumps(msg))
+  credentials = pika.PlainCredentials('guest', 'guest')
+  connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=credentials))
 
+  channel = connection.channel()
 
+  channel.queue_declare(queue='fila_de_emails', durable=True)
 
-
-def disparaEmail(msg):
-  destinatario = msg['email']
-  assunto = 'Tuturial do GuiaDev'
-  mensagem = msg['body']
-  remetente = 'guiadev2023@gmail.com'
-  senha = 'plvsnjrovjhozzvs'
-  enviar_email(destinatario, assunto, mensagem, remetente, senha)
-
-
-  #!/usr/bin/env python
-
-
-credentials = pika.PlainCredentials('guest', 'guest')
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=credentials))
-
-channel = connection.channel()
-
-channel.queue_declare(queue='fila_de_emails', durable=True)
-
-message = ' '.join(sys.argv[1:]) or "MSG PARA FILA!"
-channel.basic_publish(
-    exchange='',
-    routing_key='fila_de_emails',
-    body=message,
-    properties=pika.BasicProperties(
-        delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
-    ))
-print(" [x] Sent %r" % message)
-connection.close()
+  message =  json.dumps(msg)
+  channel.basic_publish(
+      exchange='',
+      routing_key='fila_de_emails',
+      body=message,
+      properties=pika.BasicProperties(
+          delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
+      ))
+  print(" [x] Sent %r" % message)
+  connection.close()
