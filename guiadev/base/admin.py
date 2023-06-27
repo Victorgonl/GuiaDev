@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Comentario,Tecnologia,Tutorial, Codigo, Marcacao, TutorialConteudo, Usuario, Like
+from .models import Comentario, Tecnologia, Tutorial, Codigo, Marcacao, TutorialConteudo, Usuario, Like
 
 admin.site.register(Usuario)
 admin.site.register(Comentario)

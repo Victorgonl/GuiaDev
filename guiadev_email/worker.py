@@ -13,6 +13,7 @@ load_dotenv()
 REMETENTE = os.getenv('REMETENTE')
 SENHA = os.getenv('SENHA')
 
+
 def enviar_email(destinatario, assunto, mensagem, remetente, senha):
     smtp_host = 'smtp.gmail.com'
     smtp_port = 587
@@ -47,18 +48,18 @@ def enviar_email(destinatario, assunto, mensagem, remetente, senha):
 
 
 def disparaEmail(msg):
-  destinatario = msg['destinatario']
-  assunto = "Tutorial do GuiaDev: " + msg['titulo'] + " by " + msg["autor"]
-  conteudos = ""
-  for conteudo in msg['conteudos']:
-      conteudos += conteudo + "\n"
-  mensagem = msg['titulo'] + "\n"
-  mensagem += "by: " + msg['autor'] + '\n\n'
-  mensagem += msg['descricao'] + '\n\n'
-  mensagem += conteudos
-  remetente = REMETENTE
-  senha = SENHA
-  enviar_email(destinatario, assunto, mensagem, remetente, senha)
+    destinatario = msg['destinatario']
+    assunto = "Tutorial do GuiaDev: " + msg['titulo'] + " by " + msg["autor"]
+    conteudos = ""
+    for conteudo in msg['conteudos']:
+        conteudos += conteudo + "\n"
+    mensagem = msg['titulo'] + "\n"
+    mensagem += "by: " + msg['autor'] + '\n\n'
+    mensagem += msg['descricao'] + '\n\n'
+    mensagem += conteudos
+    remetente = REMETENTE
+    senha = SENHA
+    enviar_email(destinatario, assunto, mensagem, remetente, senha)
 
 
 def callback(ch, method, properties, body):
@@ -71,7 +72,8 @@ def callback(ch, method, properties, body):
 
 
 credentials = pika.PlainCredentials('guest', 'guest')
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=credentials))
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost', credentials=credentials))
 channel = connection.channel()
 channel.queue_declare(queue='fila', durable=True)
 print(' [*] Waiting for messages. To exit press CTRL+C')

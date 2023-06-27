@@ -37,7 +37,10 @@ class Tutorial(models.Model):
     descricao = models.CharField(max_length=1000)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     total_likes = models.IntegerField(default=0)
-    tecnologias = models.ForeignKey(Tecnologia, null=True, blank=True, on_delete=models.SET_NULL)
+    tecnologias = models.ForeignKey(Tecnologia,
+                                    null=True,
+                                    blank=True,
+                                    on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.titulo + " (by: " + self.usuario.username + ")"
@@ -67,8 +70,9 @@ class Marcacao(Conteudo):
 
 
 class Codigo(Conteudo):
-    linguagem = models.ForeignKey(
-        Tecnologia, null=True, on_delete=models.CASCADE)
+    linguagem = models.ForeignKey(Tecnologia,
+                                  null=True,
+                                  on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Códigos"
@@ -77,10 +81,14 @@ class Codigo(Conteudo):
 class TutorialConteudo(models.Model):
     id = models.AutoField(primary_key=True)
     tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
-    codigo = models.ForeignKey(
-        Codigo, null=True, blank=True, on_delete=models.CASCADE)
-    marcacao = models.ForeignKey(
-        Marcacao, null=True, blank=True, on_delete=models.CASCADE)
+    codigo = models.ForeignKey(Codigo,
+                               null=True,
+                               blank=True,
+                               on_delete=models.CASCADE)
+    marcacao = models.ForeignKey(Marcacao,
+                                 null=True,
+                                 blank=True,
+                                 on_delete=models.CASCADE)
     ordem = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta:
@@ -102,7 +110,8 @@ class TutorialConteudo(models.Model):
                 "É necessário fornecer um valor para 'código' ou 'marcação'.")
         if self.codigo is not None and self.marcacao is not None:
             raise ValidationError(
-                "Apenas um dos campos 'código' ou 'marcaçao' pode ser preenchido.")
+                "Apenas um dos campos 'código' ou 'marcaçao' pode ser preenchido."
+            )
         if not self.ordem:
             max_ordem = TutorialConteudo.objects.filter(
                 tutorial=self.tutorial).aggregate(Max('ordem'))['ordem__max']
@@ -121,7 +130,7 @@ class Comentario(models.Model):
     data_publicacao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.tutorial.titulo + " - " + self.usuario.username + ": "+ self.texto
+        return self.tutorial.titulo + " - " + self.usuario.username + ": " + self.texto
 
     class Meta:
         verbose_name_plural = "Comentários"
@@ -134,7 +143,7 @@ class Like(models.Model):
     tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.tutorial.titulo + " - " +  self.usuario.username
+        return self.tutorial.titulo + " - " + self.usuario.username
 
     class Meta:
         unique_together = (('usuario', 'tutorial'))
@@ -151,9 +160,3 @@ def reorder_on_delete(sender, instance, **kwargs):
     for index, obj in enumerate(remaining_objects):
         obj.ordem = index + 1
         obj.save()
-
-
-
-
-
-

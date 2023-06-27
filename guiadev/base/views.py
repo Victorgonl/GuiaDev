@@ -22,8 +22,6 @@ import pika
 import sys
 
 
-
-
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['login']
@@ -36,6 +34,7 @@ def login_view(request):
             return render(request, 'login.html', {'error': 'Login inválido'})
     else:
         return render(request, 'login.html')
+
 
 def register_view(request):
     if request.method == 'POST':
@@ -51,10 +50,12 @@ def register_view(request):
             return redirect('login')
     return render(request, 'register.html')
 
+
 def inicio_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/index')
     return render(request, "inicio.html")
+
 
 @login_required(login_url="login/")
 def index_view(request):
@@ -77,22 +78,26 @@ def index_view(request):
                 if like:
                     usuario = Usuario.objects.get(username=username)
                     tutorial = Tutorial.objects.get(id=id)
-                    if Like.objects.filter(usuario=usuario, tutorial=tutorial).exists():
+                    if Like.objects.filter(usuario=usuario,
+                                           tutorial=tutorial).exists():
                         like = Like.objects.get(usuario=usuario,
                                                 tutorial=tutorial)
                         like.delete()
-                        tutorial.__setattr__('total_likes', tutorial.total_likes - 1)
+                        tutorial.__setattr__('total_likes',
+                                             tutorial.total_likes - 1)
                     else:
-                        like = Like(usuario=usuario,
-                                    tutorial=tutorial)
+                        like = Like(usuario=usuario, tutorial=tutorial)
                         like.save()
-                        tutorial.__setattr__('total_likes', tutorial.total_likes + 1)
+                        tutorial.__setattr__('total_likes',
+                                             tutorial.total_likes + 1)
                     tutorial.save()
                     context = {
                         'tutoriais': tutoriais,
-                        'usuario':  dadosUsuario,
+                        'usuario': dadosUsuario,
                     }
-                    return render(request, 'tutoriais_index.html', context=context)
+                    return render(request,
+                                  'tutoriais_index.html',
+                                  context=context)
 
                 if bool(id):
                     return tutorial_view(request)
@@ -104,14 +109,14 @@ def index_view(request):
                         tutoriais_filtrados.append(tut)
                 context = {
                     'tutoriais': tutoriais_filtrados,
-                    'usuario':  dadosUsuario,
+                    'usuario': dadosUsuario,
                 }
                 return render(request, 'tutoriais_index.html', context=context)
         else:
             tutoriais = Tutorial.objects.all()
             context = {
                 'tutoriais': tutoriais,
-                'usuario':  dadosUsuario,
+                'usuario': dadosUsuario,
             }
             return render(request, 'tutoriais_index.html', context=context)
     else:
@@ -123,10 +128,7 @@ def tutoriais_view(request):
     if request.method == 'GET':
         tutoriais = Tutorial.objects.all()
         usuario = request.user
-        context = {
-            'tutoriais': tutoriais,
-            'usuario': usuario
-        }
+        context = {'tutoriais': tutoriais, 'usuario': usuario}
         return render(request, 'tutoriais.html', context=context)
     return render(request, 'tutoriais.html')
 
@@ -145,7 +147,7 @@ def tutorial_view(request):
             delete = bool(data.get('delete'))
             email = bool(data.get('email'))
 
-            if(email):
+            if (email):
                 usuario = Usuario.objects.get(username=request.user.username)
                 email_destinatario = usuario.email
                 solicitarEnvioEmail(id, email_destinatario)
@@ -158,26 +160,30 @@ def tutorial_view(request):
                         conteudos.append(tutorial_conteudo.marcacao)
                     elif tutorial_conteudo.codigo:
                         conteudos.append(tutorial_conteudo.codigo)
-            codigos = [conteudo for conteudo in conteudos if type(
-                conteudo) == Codigo]
-            marcacoes = [conteudo for conteudo in conteudos if type(
-                conteudo) == Marcacao]
+            codigos = [
+                conteudo for conteudo in conteudos if type(conteudo) == Codigo
+            ]
+            marcacoes = [
+                conteudo for conteudo in conteudos
+                if type(conteudo) == Marcacao
+            ]
 
             username = request.user.username
 
             if like:
                 usuario = Usuario.objects.get(username=username)
                 tutorial = Tutorial.objects.get(id=id)
-                if Like.objects.filter(usuario=usuario, tutorial=tutorial).exists():
-                    like = Like.objects.get(usuario=usuario,
-                                            tutorial=tutorial)
+                if Like.objects.filter(usuario=usuario,
+                                       tutorial=tutorial).exists():
+                    like = Like.objects.get(usuario=usuario, tutorial=tutorial)
                     like.delete()
-                    tutorial.__setattr__('total_likes', tutorial.total_likes - 1)
+                    tutorial.__setattr__('total_likes',
+                                         tutorial.total_likes - 1)
                 else:
-                    like = Like(usuario=usuario,
-                                tutorial=tutorial)
+                    like = Like(usuario=usuario, tutorial=tutorial)
                     like.save()
-                    tutorial.__setattr__('total_likes', tutorial.total_likes + 1)
+                    tutorial.__setattr__('total_likes',
+                                         tutorial.total_likes + 1)
                 tutorial.save()
 
             if copy:
@@ -234,14 +240,14 @@ def adicionar_tutorial_view(request):
                 if conteudos_tipo[i] == "m":
                     marcacao = Marcacao(texto=texto, usuario=usuario)
                     marcacao.save()
-                    tutorial_conteudo = TutorialConteudo(
-                        tutorial=tutorial, marcacao=marcacao)
+                    tutorial_conteudo = TutorialConteudo(tutorial=tutorial,
+                                                         marcacao=marcacao)
                     tutorial_conteudo.save()
                 elif conteudos_tipo[i] == "c":
                     codigo = Codigo(texto=texto, usuario=usuario)
                     codigo.save()
-                    tutorial_conteudo = TutorialConteudo(
-                        tutorial=tutorial, codigo=codigo)
+                    tutorial_conteudo = TutorialConteudo(tutorial=tutorial,
+                                                         codigo=codigo)
                     tutorial_conteudo.save()
             id = tutorial.id
             comentarios = Comentario.objects.filter(tutorial_id=id)
@@ -254,11 +260,13 @@ def adicionar_tutorial_view(request):
                     elif tutorial_conteudo.codigo:
                         conteudos.append(tutorial_conteudo.codigo)
 
-            context = {'usuario': request.user,
-                       'conteudos': conteudos,
-                       'comentarios': comentarios,
-                       'tutorial': tutorial,
-                       'id': id}
+            context = {
+                'usuario': request.user,
+                'conteudos': conteudos,
+                'comentarios': comentarios,
+                'tutorial': tutorial,
+                'id': id
+            }
             return render(request, 'tutorial.html', context=context)
     else:
         form = AdicionarTutorialForm()
@@ -288,21 +296,21 @@ def solicitarEnvioEmail(id, email):
 
 
 def colocar_email_na_fila(msg):
-  print(json.dumps(msg))
-  credentials = pika.PlainCredentials('guest', 'guest')
-  connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=credentials))
+    print(json.dumps(msg))
+    credentials = pika.PlainCredentials('guest', 'guest')
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(host='localhost', credentials=credentials))
 
-  channel = connection.channel()
+    channel = connection.channel()
 
-  channel.queue_declare(queue='fila', durable=True)
+    channel.queue_declare(queue='fila', durable=True)
 
-  message =  json.dumps(msg)
-  channel.basic_publish(
-      exchange='',
-      routing_key='fila',
-      body=message,
-      properties=pika.BasicProperties(
-          delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
-      ))
-  print(" [x] Sent %r" % message)
-  connection.close()
+    message = json.dumps(msg)
+    channel.basic_publish(
+        exchange='',
+        routing_key='fila',
+        body=message,
+        properties=pika.BasicProperties(
+            delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE))
+    print(" [x] Sent %r" % message)
+    connection.close()
