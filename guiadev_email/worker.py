@@ -39,6 +39,7 @@ def enviar_email(destinatario, assunto, mensagem, remetente, senha):
         print("===========================")
         print()
     except Exception as e:
+        print(destinatario, assunto, mensagem, remetente)
         print("Erro ao enviar e-mail:", str(e))
     finally:
         server.quit()

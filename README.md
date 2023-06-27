@@ -37,18 +37,20 @@ Um projeto de Programação WEB
     python3 manage.py runserver
 
 ## Habbitmq
-  
-  #Start server 
 
-    sudo systemctl start rabbitmq-server
-  
-  #Stop server 
+    #Rodar arquivo rabbit.sh
 
-    sudo systemctl stop rabbitmq-server
+        chmod +x filename.sh
 
-  #Criar fila
+        sudo ./filename.sh
 
-    rabbitmqadmin -u {user} -p {password} -V {vhost} declare queue name={name}
+    #Start server
+
+        sudo systemctl start rabbitmq-server
+
+    #Stop server
+
+        sudo systemctl stop rabbitmq-server
 
 ## Banco de dados
 
