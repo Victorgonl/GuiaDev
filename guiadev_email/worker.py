@@ -1,10 +1,11 @@
 #!/usr/bin/env python
+import os
 import pika
 import time
+import json
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -38,18 +39,18 @@ def enviar_email(destinatario, assunto, mensagem, remetente, senha):
     
 
 def disparaEmail(msg):
-  destinatario = 'fabio.furtado@estudante.ufla.br'
+  destinatario = msg['email']
   assunto = 'Tuturial do GuiaDev'
-  mensagem = msg
+  mensagem = msg['body']
   remetente = REMETENTE
   senha = SENHA
-  print(REMETENTE, SENHA)
-  # enviar_email(destinatario, assunto, mensagem, remetente, senha)
+  enviar_email(destinatario, assunto, mensagem, remetente, senha)
  
  
 def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body.decode())
-    disparaEmail(body.decode())
+    
+    msg = json.loads(body.decode()) 
+    disparaEmail(msg)
     time.sleep(body.count(b'.'))
     print(" [x] Done")
     ch.basic_ack(delivery_tag=method.delivery_tag)
