@@ -4,3 +4,4 @@
 # ambiente
 .venv/
 .ignore/
+.env

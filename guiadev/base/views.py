@@ -323,12 +323,12 @@ def colocar_email_na_fila(msg):
 
   channel = connection.channel()
 
-  channel.queue_declare(queue='fila_de_emails', durable=True)
+  channel.queue_declare(queue='fila', durable=True)
 
   message =  json.dumps(msg)
   channel.basic_publish(
       exchange='',
-      routing_key='fila_de_emails',
+      routing_key='fila',
       body=message,
       properties=pika.BasicProperties(
           delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
