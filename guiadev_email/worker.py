@@ -13,8 +13,6 @@ load_dotenv()
 REMETENTE = os.getenv('REMETENTE')
 SENHA = os.getenv('SENHA')
 
- 
-
 def enviar_email(destinatario, assunto, mensagem, remetente, senha):
     smtp_host = 'smtp.gmail.com'
     smtp_port = 587
@@ -30,31 +28,46 @@ def enviar_email(destinatario, assunto, mensagem, remetente, senha):
         server.starttls()
         server.login(remetente, senha)
         server.sendmail(remetente, destinatario, msg.as_string())
+        print()
+        print("From:", msg['From'])
+        print("To:", msg['To'])
+        print("Subject:", msg['Subject'])
+        print()
+        print(mensagem)
+        print("===========================")
         print("E-mail enviado com sucesso!")
+        print("===========================")
+        print()
     except Exception as e:
         print("Erro ao enviar e-mail:", str(e))
     finally:
         server.quit()
     return
-    
+
 
 def disparaEmail(msg):
-  destinatario = msg['email']
-  assunto = 'Tuturial do GuiaDev'
-  mensagem = msg['body']
+  destinatario = msg['destinatario']
+  assunto = "Tutorial do GuiaDev: " + msg['titulo'] + " by " + msg["autor"]
+  conteudos = ""
+  for conteudo in msg['conteudos']:
+      conteudos += conteudo + "\n"
+  mensagem = msg['titulo'] + "\n"
+  mensagem += "by: " + msg['autor'] + '\n\n'
+  mensagem += msg['descricao'] + '\n\n'
+  mensagem += conteudos
   remetente = REMETENTE
   senha = SENHA
   enviar_email(destinatario, assunto, mensagem, remetente, senha)
- 
- 
+
+
 def callback(ch, method, properties, body):
-    
-    msg = json.loads(body.decode()) 
+
+    msg = json.loads(body.decode())
     disparaEmail(msg)
     time.sleep(body.count(b'.'))
     print(" [x] Done")
     ch.basic_ack(delivery_tag=method.delivery_tag)
-    
+
 
 credentials = pika.PlainCredentials('guest', 'guest')
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=credentials))

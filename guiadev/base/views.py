@@ -131,22 +131,24 @@ def tutoriais_view(request):
     return render(request, 'tutoriais.html')
 
 
-
 @login_required(login_url="login/")
 def tutorial_view(request):
     if request.method == 'POST':
         form = TutorialForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            enviarEmail = bool(data.get('email_destinatario'))
+            #enviarEmail = bool(data.get('email_destinatario'))
+
             id = data.get('id')
-            if(enviarEmail):
-                email_destinatario = data.get('email_destinatario')
-                solicitarEnvioEmail(id, email_destinatario)
             like = bool(data.get('like'))
             copy = bool(data.get('copy'))
             delete = bool(data.get('delete'))
+            email = bool(data.get('email'))
 
+            if(email):
+                usuario = Usuario.objects.get(username=request.user.username)
+                email_destinatario = usuario.email
+                solicitarEnvioEmail(id, email_destinatario)
             tutorial = Tutorial.objects.get(id=id)
             tutoriais_conteudos = TutorialConteudo.objects.all()
             conteudos = []
@@ -263,57 +265,26 @@ def adicionar_tutorial_view(request):
     return render(request, 'adicionar_tutorial.html', {'form': form})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 def solicitarEnvioEmail(id, email):
     tutorial = Tutorial.objects.get(id=id)
-    conteudo = tutorial.titulo + "\n" + tutorial.descricao
+    tutoriais_conteudos = TutorialConteudo.objects.all()
+    conteudos = []
+    for tutorial_conteudo in tutoriais_conteudos:
+        if tutorial_conteudo.tutorial.id == int(id):
+            if tutorial_conteudo.marcacao:
+                conteudos.append(str(tutorial_conteudo.marcacao))
+            elif tutorial_conteudo.codigo:
+                conteudos.append("\t" + str(tutorial_conteudo.codigo))
 
     msg = {
-        "email": email,
-        "body": conteudo
+        "destinatario": email,
+        "autor": tutorial.usuario.username,
+        "titulo": tutorial.titulo,
+        "descricao": tutorial.descricao,
+        "conteudos": conteudos
     }
 
     colocar_email_na_fila(msg)
-
-
-
-
-
-def enviar_email(destinatario, assunto, mensagem, remetente, senha):
-    smtp_host = 'smtp.gmail.com'
-    smtp_port = 587
-
-    msg = MIMEMultipart()
-    msg['Subject'] = assunto
-    msg['From'] = remetente
-    msg['To'] = destinatario
-    msg.attach(MIMEText(mensagem, "plain"))
-
-    try:
-        server = smtplib.SMTP(smtp_host, smtp_port)
-        server.starttls()
-        server.login(remetente, senha)
-        server.sendmail(remetente, destinatario, msg.as_string())
-        print("E-mail enviado com sucesso!")
-    except Exception as e:
-        print("Erro ao enviar e-mail:", str(e))
-    finally:
-        server.quit()
-
-    return
-
 
 
 def colocar_email_na_fila(msg):

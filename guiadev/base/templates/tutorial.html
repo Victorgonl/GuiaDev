@@ -36,50 +36,52 @@
     <p class="mb-4">{{tutorial.descricao}}</p>
 
     <form method="post" class="form-comentario" action="{% url 'tutorial' %}">
-      {% csrf_token %}
-    <div class="div-form-envio-email" 
-    style="display: flex; align-items: center; ">
+        {% csrf_token %}
+        <div class="div-form-envio-email" style="display: flex; align-items: center; ">
+            <input type="text" hidden name="id" value="{{tutorial.id}}">
+            <input type="text" hidden name="email" value='True'>
+            <button style="height: 40px; width: 300px;" class="btn btn-success btn-icon-split" type="submit"
+                value="Submit">
+                <span class="text">Receber tutorial em seu e-mail</span>
+            </button>
+        </div>
+    </form>
 
-      <input style="display: none;" type="text" hidden name="id" value="{{tutorial.id}}">
-      <input type="text" name="email_destinatario" class="form-control bg-light" placeholder="Insira seu e-mail">
-            <button style="height: 40px; width: 300px;" class="btn btn-success btn-icon-split" type="submit" value="Submit">
-              <span class="text">Receber por e-mail</span>
-      </button>
-      </div>
-    </div>
-  </form>
+    <div class=" mb-4"></div>
 
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        {% for conteudo in conteudos %}
-        {% if conteudo|get_class == 'Codigo' %}
-        <div class="card-body bg-gray-900">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    {{conteudo.texto}}
-                </div>
-                <div class="col-auto">
-                    <form method="post" action="{% url 'tutorial' %}">
-                        {% csrf_token %}
-                        <input type="text" hidden name="id" value="{{tutorial.id}}">
-                        <input type="text" hidden name="like" value=''>
-                        <input type="text" hidden name="copy" value='{{conteudo.id}}'>
-                        <button class="btn btn-sm btn-secondary" type="submit" value="Submit">
-                            <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
-                        </button>
-                    </form>
-                </div>
+</div>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    {% for conteudo in conteudos %}
+    {% if conteudo|get_class == 'Codigo' %}
+    <div class="card-body bg-gray-900">
+        <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+                {{conteudo.texto}}
             </div>
-
+            <div class="col-auto">
+                <form method="post" action="{% url 'tutorial' %}">
+                    {% csrf_token %}
+                    <input type="text" hidden name="id" value="{{tutorial.id}}">
+                    <input type="text" hidden name="like" value=''>
+                    <input type="text" hidden name="copy" value='{{conteudo.id}}'>
+                    <button class="btn btn-sm btn-secondary" type="submit" value="Submit">
+                        <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </div>
         </div>
 
-        {% elif conteudo|get_class == 'Marcacao' %}
-        <div class="card-body border-left-dark">
-            {{conteudo.texto}}
-        </div>
-        {% endif %}
-        {% endfor %}
     </div>
+
+    {% elif conteudo|get_class == 'Marcacao' %}
+    <div class="card-body border-left-dark">
+        {{conteudo.texto}}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
 </div>
 <div>
     <div class="col-auto">
@@ -94,7 +96,7 @@
             </button>
         </form>
     </div>
-    
+
 
     <div class=" mb-4"></div>
 
@@ -117,23 +119,24 @@
         <form method="post" class="form-comentario" action="{% url 'tutorial' %}">
             {% csrf_token %}
             <input type="text" hidden name="id" value="{{tutorial.id}}">
-            <div  class="card-adicionar-comentario">
+            <div class="card-adicionar-comentario">
                 <div class="input-group">
-                    <input type="text" name="comentario" class="form-control bg-light" placeholder="Digite um comentário...">
+                    <input type="text" name="comentario" class="form-control bg-light"
+                        placeholder="Digite um comentário...">
                     <div class="input-group-append">
                         <button class="btn btn-success btn-icon-split" type="submit" value="Submit">
                             <span class="text">Comentar</span>
                         </button>
                     </div>
                 </div>
-                
+
             </div>
         </form>
-       
-       
+
+
     </div>
 
-   
+
 </div>
 </div>
 </div>
