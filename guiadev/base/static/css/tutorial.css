@@ -190,7 +190,7 @@ body {
   border-radius: 5px;
   background-color: var(--cor2);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   padding: 20px;
   position: relative;
@@ -244,4 +244,8 @@ body {
   font-weight: bold;
   background-color: #aa1b11b2;
   left: 98%;
+}
+
+.div-form-envio-email {
+  background-color: red;
 }

@@ -9,7 +9,8 @@ class TutorialForm(forms.Form):
     pesquisa = forms.CharField(max_length=500, required=False)
     comentario = forms.CharField(max_length=500, required=False)
     sair = forms.CharField(max_length=20, required=False)
-
+    email_destinatario = forms.CharField(max_length=500, required=False)
+  
 
 class LoginForm(forms.Form):
     login = forms.CharField(max_length=50, required=False)

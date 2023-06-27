@@ -35,6 +35,20 @@
     <h1 class="h5 mb-2 text-gray-800">by: {{tutorial.usuario.username}}</h1>
     <p class="mb-4">{{tutorial.descricao}}</p>
 
+    <form method="post" class="form-comentario" action="{% url 'tutorial' %}">
+      {% csrf_token %}
+    <div class="div-form-envio-email" 
+    style="display: flex; align-items: center; ">
+
+      <input style="display: none;" type="text" hidden name="id" value="{{tutorial.id}}">
+      <input type="text" name="email_destinatario" class="form-control bg-light" placeholder="Insira seu e-mail">
+            <button style="height: 40px; width: 300px;" class="btn btn-success btn-icon-split" type="submit" value="Submit">
+              <span class="text">Receber por e-mail</span>
+      </button>
+      </div>
+    </div>
+  </form>
+
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         {% for conteudo in conteudos %}
@@ -80,6 +94,7 @@
             </button>
         </form>
     </div>
+    
 
     <div class=" mb-4"></div>
 
@@ -102,7 +117,7 @@
         <form method="post" class="form-comentario" action="{% url 'tutorial' %}">
             {% csrf_token %}
             <input type="text" hidden name="id" value="{{tutorial.id}}">
-            <div class="card-adicionar-comentario">
+            <div  class="card-adicionar-comentario">
                 <div class="input-group">
                     <input type="text" name="comentario" class="form-control bg-light" placeholder="Digite um comentário...">
                     <div class="input-group-append">
@@ -111,9 +126,14 @@
                         </button>
                     </div>
                 </div>
+                
             </div>
         </form>
+       
+       
     </div>
+
+   
 </div>
 </div>
 </div>

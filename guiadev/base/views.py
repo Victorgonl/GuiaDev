@@ -15,6 +15,13 @@ import pyperclip as pc
 
 from .forms import AdicionarTutorialForm, TutorialForm, LoginForm, UsuarioForm
 from .models import Usuario, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo, Like
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+
+
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -123,13 +130,18 @@ def tutoriais_view(request):
     return render(request, 'tutoriais.html')
 
 
+
 @login_required(login_url="login/")
 def tutorial_view(request):
     if request.method == 'POST':
         form = TutorialForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
+            enviarEmail = bool(data.get('email_destinatario'))
             id = data.get('id')
+            if(enviarEmail):
+                email_destinatario = data.get('email_destinatario')
+                solicitarEnvioEmail(id, email_destinatario)
             like = bool(data.get('like'))
             copy = bool(data.get('copy'))
             delete = bool(data.get('delete'))
@@ -249,3 +261,69 @@ def adicionar_tutorial_view(request):
         form = AdicionarTutorialForm()
     return render(request, 'adicionar_tutorial.html', {'form': form})
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def solicitarEnvioEmail(id, email):
+    tutorial = Tutorial.objects.get(id=id)
+    conteudo = tutorial.titulo + "\n" + tutorial.descricao
+
+    msg = {
+        "email": email,
+        "body": conteudo
+    }
+
+    disparaEmail(msg)
+
+
+
+
+
+def enviar_email(destinatario, assunto, mensagem, remetente, senha):
+    smtp_host = 'smtp.gmail.com'
+    smtp_port = 587
+
+    msg = MIMEMultipart()
+    msg['Subject'] = assunto
+    msg['From'] = remetente
+    msg['To'] = destinatario
+    msg.attach(MIMEText(mensagem, "plain"))
+
+    try:
+        server = smtplib.SMTP(smtp_host, smtp_port)
+        server.starttls()
+        server.login(remetente, senha)
+        server.sendmail(remetente, destinatario, msg.as_string())
+        print("E-mail enviado com sucesso!")
+    except Exception as e:
+        print("Erro ao enviar e-mail:", str(e))
+    finally:
+        server.quit()
+
+    return
+
+
+
+
+
+
+
+def disparaEmail(msg):
+  destinatario = msg['email']
+  assunto = 'Tuturial do GuiaDev'
+  mensagem = msg['body']
+  remetente = 'guiadev2023@gmail.com'
+  senha = 'plvsnjrovjhozzvs'
+  enviar_email(destinatario, assunto, mensagem, remetente, senha)
+  print(msg['email'])
