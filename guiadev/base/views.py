@@ -96,7 +96,7 @@ def index_view(request):
                         'usuario': dadosUsuario,
                     }
                     return render(request,
-                                  'tutoriais_index.html',
+                                  'index.html',
                                   context=context)
 
                 if bool(id):
@@ -111,14 +111,14 @@ def index_view(request):
                     'tutoriais': tutoriais_filtrados,
                     'usuario': dadosUsuario,
                 }
-                return render(request, 'tutoriais_index.html', context=context)
+                return render(request, 'index.html', context=context)
         else:
             tutoriais = Tutorial.objects.all()
             context = {
                 'tutoriais': tutoriais,
                 'usuario': dadosUsuario,
             }
-            return render(request, 'tutoriais_index.html', context=context)
+            return render(request, 'index.html', context=context)
     else:
         return HttpResponseRedirect('/index')
 
