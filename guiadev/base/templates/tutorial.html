@@ -6,7 +6,6 @@
 
 {% load class_tag %}
 
-
 <div class="col-auto">
     <a href="{% url 'tutoriais' %}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 </div>
@@ -26,11 +25,10 @@
 </div>
 {% endif %}
 
-<br><br>
+<div class=" mb-6"></div>
 
 <div class="container-fluid">
 
-    <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">{{tutorial.titulo}}</h1>
     <h1 class="h5 mb-2 text-gray-800">by: {{tutorial.usuario.username}}</h1>
     <p class="mb-4">{{tutorial.descricao}}</p>
@@ -51,7 +49,6 @@
 
 </div>
 
-<!-- DataTales Example -->
 <div class="card shadow mb-4">
     {% for conteudo in conteudos %}
     {% if conteudo|get_class == 'Codigo' %}
@@ -72,7 +69,6 @@
                 </form>
             </div>
         </div>
-
     </div>
 
     {% elif conteudo|get_class == 'Marcacao' %}
@@ -81,6 +77,9 @@
     </div>
     {% endif %}
     {% endfor %}
+
+</div>
+
 </div>
 
 <div>
@@ -96,7 +95,6 @@
             </button>
         </form>
     </div>
-
 
     <div class=" mb-4"></div>
 
@@ -132,11 +130,6 @@
 
             </div>
         </form>
-
-
     </div>
-
-</div>
-
 
 {% endblock tutorial %}
