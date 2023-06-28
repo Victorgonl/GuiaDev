@@ -194,7 +194,7 @@ def tutorial_view(request):
             if delete:
                 tutorial = Tutorial.objects.get(id=id)
                 tutorial.delete()
-                return HttpResponseRedirect('/index')
+                return HttpResponseRedirect('/tutoriais')
 
             comentario = data.get('comentario')
 
@@ -296,21 +296,26 @@ def solicitarEnvioEmail(id, email):
 
 
 def colocar_email_na_fila(msg):
-    print(json.dumps(msg))
-    credentials = pika.PlainCredentials('guest', 'guest')
-    connection = pika.BlockingConnection(
-        pika.ConnectionParameters(host='localhost', credentials=credentials))
+    try:
+        credentials = pika.PlainCredentials('guest', 'guest')
+        connection = pika.BlockingConnection(
+            pika.ConnectionParameters(host='localhost', credentials=credentials))
 
-    channel = connection.channel()
+        channel = connection.channel()
 
-    channel.queue_declare(queue='fila', durable=True)
+        channel.queue_declare(queue='fila', durable=True)
 
-    message = json.dumps(msg)
-    channel.basic_publish(
-        exchange='',
-        routing_key='fila',
-        body=message,
-        properties=pika.BasicProperties(
-            delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE))
-    print(" [x] Sent %r" % message)
-    connection.close()
+        message = json.dumps(msg)
+        channel.basic_publish(
+            exchange='',
+            routing_key='fila',
+            body=message,
+            properties=pika.BasicProperties(
+                delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE))
+        print(" [x] Sent %r" % message)
+        connection.close()
+    except:
+        print("==============================================")
+        print("Falha ao conectar com sistema de mensageria...")
+        print("==============================================")
+    return
