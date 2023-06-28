@@ -5,6 +5,7 @@
 {% load static %}
 
 {% load class_tag %}
+{% load texto_tag %}
 
 <div class="col-auto">
     <a href="{% url 'tutoriais' %}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
@@ -49,36 +50,44 @@
 
 </div>
 
-<div class="card shadow mb-4">
-    {% for conteudo in conteudos %}
-    {% if conteudo|get_class == 'Codigo' %}
-    <div class="card-body bg-gray-900">
-        <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-                {{conteudo.texto}}
-            </div>
+<div class="container-fluid">
+
+    <div class="card shadow mb-4">
+        {% for conteudo in conteudos %}
+        {% if conteudo|get_class == 'Codigo' %}
+        <div class="card-body bg-gray-900">
             <div class="col-auto">
-                <form method="post" action="{% url 'tutorial' %}">
-                    {% csrf_token %}
-                    <input type="text" hidden name="id" value="{{tutorial.id}}">
-                    <input type="text" hidden name="like" value=''>
-                    <input type="text" hidden name="copy" value='{{conteudo.id}}'>
-                    <button class="btn btn-sm btn-secondary" type="submit" value="Submit">
-                        <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
-                    </button>
-                </form>
+                <div style="width:100%; display: flex; justify-content: end;">
+                    <form method="post" action="{% url 'tutorial' %}">
+                        {% csrf_token %}
+                        <input type="text" hidden name="id" value="{{tutorial.id}}">
+                        <input type="text" hidden name="like" value=''>
+                        <input type="text" hidden name="copy" value='{{conteudo.id}}'>
+                        <button class="btn btn-sm btn-secondary" type="submit" value="Submit">
+                            <i class="fa fa-copy icone-copy" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
+            {% for texto in conteudo|get_texto %}
+            <div class="row no-gutters align-items-center text-white-500">
+                <div style="white-space: pre-wrap;" class="col mr-2">{{texto}}</div>
+            </div>
+            {% endfor %}
+            </div>
+
+            {% elif conteudo|get_class == 'Marcacao' %}
+            {% for texto in conteudo|get_texto %}
+            <div class="card-body border-left-dark row no-gutters align-items-center text-white-500">
+                <div style="white-space: pre-wrap;" class="col mr-2">{{texto}}</div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+
         </div>
-    </div>
 
-    {% elif conteudo|get_class == 'Marcacao' %}
-    <div class="card-body border-left-dark">
-        {{conteudo.texto}}
     </div>
-    {% endif %}
-    {% endfor %}
-
-</div>
 
 </div>
 
@@ -132,4 +141,4 @@
         </form>
     </div>
 
-{% endblock tutorial %}
+    {% endblock tutorial %}
