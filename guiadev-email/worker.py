@@ -72,7 +72,7 @@ def callback(ch, method, properties, body):
 
 credentials = pika.PlainCredentials('guest', 'guest')
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='172.19.0.2',port=5672, credentials=credentials)) #Docker
+    pika.ConnectionParameters(host='172.21.0.2',port=5672, credentials=credentials)) #Docker
 # connection = pika.BlockingConnection(
     # pika.ConnectionParameters(host='0.0.0.0', port=5672, credentials=credentials)) #local
 channel = connection.channel()
@@ -83,4 +83,3 @@ channel.basic_consume(queue='fila', on_message_callback=callback)
 channel.start_consuming()
 
 
-# docker run -it --hostname localhost --name local-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
