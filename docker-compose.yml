@@ -50,3 +50,5 @@ services:
 
 
 # docker run -it --hostname localhost --name local-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+
+# docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' \CONTAINER-ID   #Verifica ip do container
