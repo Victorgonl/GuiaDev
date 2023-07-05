@@ -1,10 +1,48 @@
 version: "3.10"
 services: 
+  
+  rabbitmq:
+    build: 
+      "./rabbitmq"      
+    image: rabbit
+    container_name: guiadev-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
+
+  mailSender:
+    build: 
+      "./guiadev-email"      
+    image: email
+    container_name: guiadev-email
+    restart: always
+    depends_on:
+      - rabbitmq
+
   guidedev:
     build:
-      context: "./"
-      dockerfile: Dockerfile
-    container_name: guidedev-container
+      "./guiadev"      
+    image: guiadev
+    container_name: guidedev-django
     ports:
-      - "8050:8000"
+      - "8061:8000"
     restart: always
+    depends_on:
+      - rabbitmq
+
+
+ 
+
+
+    # postgres:
+    # image: postgres:9.5
+    # container_name: "postgres"
+    # volumes:
+    #   - ./postgres:/var/lib/postgres
+    # environment:
+    #   - POSTGRES_DB=your_db
+    #   - POSTGRES_USER=your_user
+    #   - POSTGRES_PASSWORD=your_secret
+    # ports:
+    #   - "5432:5432"

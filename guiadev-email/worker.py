@@ -70,13 +70,17 @@ def callback(ch, method, properties, body):
     print(" [x] Done")
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
-
 credentials = pika.PlainCredentials('guest', 'guest')
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='localhost', credentials=credentials))
+    pika.ConnectionParameters(host='172.19.0.2',port=5672, credentials=credentials)) #Docker
+# connection = pika.BlockingConnection(
+    # pika.ConnectionParameters(host='0.0.0.0', port=5672, credentials=credentials)) #local
 channel = connection.channel()
 channel.queue_declare(queue='fila', durable=True)
 print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(queue='fila', on_message_callback=callback)
 channel.start_consuming()
+
+
+# docker run -it --hostname localhost --name local-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management

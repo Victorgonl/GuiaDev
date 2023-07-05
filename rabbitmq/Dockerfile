@@ -1,4 +1,5 @@
-FROM rabbitmq
-EXPOSE 3333
+FROM rabbitmq:3-management
+
+
 
 
