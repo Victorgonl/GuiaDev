@@ -72,7 +72,7 @@ def callback(ch, method, properties, body):
 
 credentials = pika.PlainCredentials('guest', 'guest')
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='172.18.0.2',port=5672, credentials=credentials)) #Docker
+    pika.ConnectionParameters(host='172.22.0.2',port=5672, credentials=credentials)) #Docker
 # connection = pika.BlockingConnection(
  #    pika.ConnectionParameters(host='0.0.0.0', credentials=credentials)) #local
 channel = connection.channel()
