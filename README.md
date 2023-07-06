@@ -52,6 +52,12 @@ Um projeto de Programação WEB
 
         sudo systemctl stop rabbitmq-server
 
+## Rodar o projetor com docker
+    docker compose -f docker-compose.yml up
+
+## Comando docker para ver ip do container 
+   docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' \CONTAINER-ID   #Verifica ip do container
+
 ## Banco de dados
 
     python3 manage.py makemigrations
