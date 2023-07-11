@@ -1,8 +1,5 @@
 version: "3.10"
 
-networks:
-  local:
-    driver: bridge
 
 services: 
   
@@ -10,7 +7,7 @@ services:
     image: rabbitmq:3
     container_name: guiadev-rabbitmq
     networks:
-      - local
+      - net
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -23,7 +20,7 @@ services:
       dockerfile: ./Dockerfile
     container_name: guiadev-email
     networks:
-      - local
+      - net
     restart: always
     depends_on:
       - rabbitmq
@@ -35,13 +32,16 @@ services:
       dockerfile: ./Dockerfile
     container_name: guidedev-django
     networks:
-      - local
+      - net
     ports:
       - "8061:8000"
     restart: always
     depends_on:
       - rabbitmq
 
+networks:
+  net:
+    driver: bridge
 
  
 

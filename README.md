@@ -53,9 +53,29 @@ Um projeto de Programação WEB
         sudo systemctl stop rabbitmq-server
 
 ## Rodar o projetor com docker
+
     docker compose -f docker-compose.yml up
 
+## Lista network
+
+  docker network ls
+## Verificar info da network no docker
+
+    docker newteork inspec [nome_network]
+## Listar containes
+
+    docker container ls
+## Listat imagens
+
+    docker images
+## Deletar imagens 
+
+    docker rmi
+## Apagar cache do docker 
+
+    docker system prune
 ## Comando docker para ver ip do container 
+
    docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [CONTAINER-ID]   #Verifica ip do container
 
 ## Banco de dados

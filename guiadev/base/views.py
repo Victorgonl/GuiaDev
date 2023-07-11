@@ -299,7 +299,7 @@ def colocar_email_na_fila(msg):
     try:
         credentials = pika.PlainCredentials('guest', 'guest')
         connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='172.21.0.2', credentials=credentials)) #Docker
+            pika.ConnectionParameters(host='172.31.0.2', credentials=credentials)) #Docker
             # pika.ConnectionParameters(host='localhost', credentials=credentials))  #Local
         channel = connection.channel()
 
