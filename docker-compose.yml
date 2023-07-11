@@ -7,7 +7,7 @@ networks:
 services: 
   
   rabbitmq:
-    image: rabbit
+    image: rabbitmq:3
     container_name: guiadev-rabbitmq
     networks:
       - local
