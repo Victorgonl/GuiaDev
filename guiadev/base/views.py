@@ -299,9 +299,8 @@ def colocar_email_na_fila(msg):
     try:
         credentials = pika.PlainCredentials('guest', 'guest')
         connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='172.22.0.2',port=5672, credentials=credentials)) #Docker
-        # connection = pika.BlockingConnection(
-        #     pika.ConnectionParameters(host='0.0.0.0', credentials=credentials))  #Local
+            # pika.ConnectionParameters(host='172.18.0.2', credentials=credentials)) #Docker
+            pika.ConnectionParameters(host='localhost', credentials=credentials))  #Local
         channel = connection.channel()
 
         channel.queue_declare(queue='fila', durable=True)
@@ -317,6 +316,6 @@ def colocar_email_na_fila(msg):
         connection.close()
     except:
         print("==============================================")
-        print("Falha ao conectar com sistema de mensageria...")
+        print("Falha ao conectar com sistema de mensageria....")
         print("==============================================")
     return
