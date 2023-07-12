@@ -72,8 +72,8 @@ def callback(ch, method, properties, body):
 
 credentials = pika.PlainCredentials('guest', 'guest')
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='172.31.0.2',port=5672, credentials=credentials)) #Docker
-    # pika.ConnectionParameters(host='localhost', port=5672, credentials=credentials)) #local
+    # pika.ConnectionParameters(host='172.31.0.2',port=5672, credentials=credentials)) #Docker
+    pika.ConnectionParameters(host='172.18.0.22', port=5672, credentials=credentials)) #local
 channel = connection.channel()
 channel.queue_declare(queue='fila', durable=True)
 print(' [*] Waiting for messages. To exit press CTRL+C')
