@@ -52,11 +52,50 @@ Um projeto de Programação WEB
 
         sudo systemctl stop rabbitmq-server
 
-## Rodar o projetor com docker
+## Rodar o projeto com docker container por container
 
-    docker compose -f docker-compose.yml up
+  # Criar subnet 
+  
+    docker network create --subnet=172.18.0.0/16 guiadevnet 
 
-## Lista network
+  # Fazer build da imagem do rabbitmq
+
+    Na pasta ./rabbitmq
+    docker build -t rabbitmq . 
+  # Subir container com o Rabbitmq na network criada com ip statico
+
+    docker run --net=guiadevnet --ip=172.18.0.22 -it rabbitmq 
+
+  # Fazer build da imagem do enviador de email
+
+    Na pasta ./guiadev-email
+
+    docker build -t email
+
+  # Subir o container com o email
+
+    docker run -it email
+  
+  # Fazer build da imagem do guiadev-web
+
+    Na pasta ./guiadev
+    docker build -t guidev .
+
+    # Subir o container com a imagem guiadev mapeando a 
+    porta 8080 do localhost com a porta 8000 do container
+
+    docker run -it -p 8080:800 guiadev
+
+
+    
+## Rodar o projetor com docker compose
+
+  #Especificando o arquivo compose com -f
+    docker compose -f docker-compose.yml up 
+
+  #Utilizando o .yml no diretório local
+    docker compose up
+## Lista networks
 
   docker network ls
 ## Verificar info da network no docker
@@ -78,6 +117,12 @@ Um projeto de Programação WEB
 
    docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [CONTAINER-ID]   #Verifica ip do container
 
+## Curiosidades sobre docker
+  Arquivos .yml e .yaml tem a mesma função, é dito na internet que 
+  antigos programadores não gostam de extenções com mais de 3 caracteres
+  por isso não utilizam o .yaml
+
+  o Docker é feito na linguam Go.
 ## Banco de dados
 
     python3 manage.py makemigrations
