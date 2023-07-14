@@ -88,26 +88,31 @@ Um projeto de Programação WEB
     
 ## Rodar o projetor com docker compose
 
-  #Especificando o arquivo compose com -f
-    docker compose -f docker-compose.yml up 
+    #Especificando o arquivo compose com -f
+      docker compose -f docker-compose.yml up 
 
-  #Utilizando o .yml no diretório local
-    docker compose up
-## Lista networks
+    #Utilizando o .yml no diretório local
+      docker compose up
+## Listar networks
 
-  docker network ls
+    docker network ls
+
 ## Verificar info da network no docker
 
     docker newteork inspec [nome_network]
+
 ## Listar containes
 
     docker container ls
-## Listat imagens
+
+## Listar imagens
 
     docker images
+
 ## Deletar imagens 
 
     docker rmi
+
 ## Apagar cache do docker 
 
     docker system prune
@@ -116,6 +121,7 @@ Um projeto de Programação WEB
    docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [CONTAINER-ID]   #Verifica ip do container
 
 ## Curiosidades sobre docker
+
   Arquivos .yml e .yaml tem a mesma função, é dito na internet que 
   antigos programadores não gostam de extenções com mais de 3 caracteres
   por isso não utilizam o .yaml
