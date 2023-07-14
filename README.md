@@ -84,9 +84,7 @@ Um projeto de Programação WEB
     # Subir o container com a imagem guiadev mapeando a 
     porta 8080 do localhost com a porta 8000 do container
 
-    docker run -it -p 8080:800 guiadev
-
-
+    docker run -it -p 8080:8000 guiadev
     
 ## Rodar o projetor com docker compose
 
