@@ -62,6 +62,7 @@ Um projeto de Programação WEB
 
     Na pasta ./rabbitmq
     docker build -t rabbitmq . 
+    
   # Subir container com o Rabbitmq na network criada com ip statico
 
     docker run --net=guiadevnet --ip=172.18.0.22 -it rabbitmq 
@@ -79,9 +80,11 @@ Um projeto de Programação WEB
   # Fazer build da imagem do guiadev-web
 
     Na pasta ./guiadev
+    
     docker build -t guidev .
 
     # Subir o container com a imagem guiadev mapeando a 
+    
     porta 8080 do localhost com a porta 8000 do container
 
     docker run -it -p 8080:8000 guiadev
@@ -89,10 +92,13 @@ Um projeto de Programação WEB
 ## Rodar o projetor com docker compose
 
     #Especificando o arquivo compose com -f
-      docker compose -f docker-compose.yml up 
+    
+    docker compose -f docker-compose.yml up 
 
     #Utilizando o .yml no diretório local
-      docker compose up
+    
+    docker compose up
+      
 ## Listar networks
 
     docker network ls
@@ -116,6 +122,7 @@ Um projeto de Programação WEB
 ## Apagar cache do docker 
 
     docker system prune
+    
 ## Comando docker para ver ip do container 
 
    docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [CONTAINER-ID]   #Verifica ip do container
@@ -123,10 +130,13 @@ Um projeto de Programação WEB
 ## Curiosidades sobre docker
 
   Arquivos .yml e .yaml tem a mesma função, é dito na internet que 
+  
   antigos programadores não gostam de extenções com mais de 3 caracteres
+  
   por isso não utilizam o .yaml
 
   o Docker é feito na linguam Go.
+  
 ## Banco de dados
 
     python3 manage.py makemigrations
