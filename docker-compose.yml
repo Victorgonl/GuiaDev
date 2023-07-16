@@ -1,68 +1,37 @@
 version: "3.10"
 
+services:
 
-services: 
-  
-  rabbitmq:
-    image: rabbitmq:3
-    container_name: guiadev-rabbitmq
+  guiadev:
+    build:
+      context: guiadev
+      dockerfile: Dockerfile
     networks:
-      net:
-        ipv4_address: 172.18.0.22
+      - guiadev-network
+    ports:
+      - "8000:8000"
+    restart: always
+
+  guiadev-email:
+    build:
+      context: guiadev-email
+      dockerfile: Dockerfile
+    networks:
+      - guiadev-network
+    restart: always
+    depends_on:
+      - guiadev-rabbitmq
+
+  guiadev-rabbitmq:
+    build:
+      context: rabbitmq
+      dockerfile: Dockerfile
+    networks:
+      - guiadev-network
     ports:
       - "5672:5672"
       - "15672:15672"
     restart: always
 
-  mailSender:
-    image: mail
-    build: 
-      context: guiadev-email
-      dockerfile: ./Dockerfile
-    container_name: guiadev-email
-    networks:
-      - net
-    restart: always
-    depends_on:
-      - rabbitmq
-
-  guidedev:
-    image: guiadev
-    build:
-      context: guiadev
-      dockerfile: ./Dockerfile
-    container_name: guidedev-django
-    networks:
-      - net
-    ports:
-      - "8061:8000"
-    restart: always
-    depends_on:
-      - rabbitmq
-
 networks:
-  net:
-    driver: bridge
-    ipam:
-     config:
-       - subnet: 172.18.0.0/16
-
- 
-
-
-
-    # postgres:
-    # image: postgres:9.5
-    # container_name: "postgres"
-    # volumes:
-    #   - ./postgres:/var/lib/postgres
-    # environment:
-    #   - POSTGRES_DB=your_db
-    #   - POSTGRES_USER=your_user
-    #   - POSTGRES_PASSWORD=your_secret
-    # ports:
-    #   - "5432:5432"
-
-
-
-# docker run -it --hostname localhost --name local-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+  guiadev-network:

@@ -1,25 +1,17 @@
 from django.shortcuts import render
 from django.shortcuts import redirect, render
 import pyperclip as pc
-from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
-from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 import json
 import pyperclip as pc
 
-from .forms import AdicionarTutorialForm, TutorialForm, LoginForm, UsuarioForm
+from .forms import AdicionarTutorialForm, TutorialForm, UsuarioForm
 from .models import Usuario, Marcacao, Tutorial, Comentario, Codigo, TutorialConteudo, Like
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 import pika
-import sys
 
 
 def login_view(request):
@@ -297,17 +289,17 @@ def solicitarEnvioEmail(id, email):
 
 def colocar_email_na_fila(msg):
     try:
-        credentials = pika.PlainCredentials('guest', 'guest')
+        credentials = pika.PlainCredentials('guiadev', 'guiadev')
         connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='172.18.0.22', credentials=credentials))  
+            pika.ConnectionParameters(host='guiadev-rabbitmq', credentials=credentials))
         channel = connection.channel()
 
-        channel.queue_declare(queue='fila', durable=True)
+        channel.queue_declare(queue='guiadev-queue', durable=True)
 
         message = json.dumps(msg)
         channel.basic_publish(
             exchange='',
-            routing_key='fila',
+            routing_key="guiadev-queue",
             body=message,
             properties=pika.BasicProperties(
                 delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE))
