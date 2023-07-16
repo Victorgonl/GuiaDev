@@ -74,10 +74,10 @@ credentials = pika.PlainCredentials('guest', 'guest')
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='172.18.0.22', port=5672, credentials=credentials)) 
 channel = connection.channel()
-channel.queue_declare(queue='fila', durable=True)
+channel.queue_declare(queue='guiadev-queue', durable=True)
 print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.basic_qos(prefetch_count=1)
-channel.basic_consume(queue='fila', on_message_callback=callback)
+channel.basic_consume(queue='guiadev-queue', on_message_callback=callback)
 channel.start_consuming()
 
 
