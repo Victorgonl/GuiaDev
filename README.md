@@ -10,8 +10,8 @@ Um projeto de `Programação WEB`.
 
 **Alunos:**
 
-- <a src="https://github.com/fabioVitorTavares/">Fábio Tavares</a>
-- <a src="https://github.com/Victorgonl">Victor Gonçalves</a>
+- <a href="https://github.com/fabioVitorTavares/">Fábio Tavares</a>
+- <a href="https://github.com/Victorgonl">Victor Gonçalves</a>
 
 ## Ambiente de desenvolvimento
 
