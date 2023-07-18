@@ -334,7 +334,7 @@ Podemos utilizar `docker-compose.yml` para criar as imagens e todas as aplicaç�
 
     docker compose up -d
 
-## Refereências
+## Referências
 
 - https://github.com/theodorosploumis/docker-presentation
 
