@@ -1,8 +1,19 @@
+<img src="./images/UFLA.png" width=500>
+
+<br>
+
 # GuiaDev
 
-Um projeto de Programação WEB
+Um projeto de `Programação WEB`
 
-# Ambiente de desenvolvimento
+**Professor:** Raphael Winckler De Bettio
+
+**Alunos:**
+
+- <a src="https://github.com/fabioVitorTavares/">Fábio Tavares</a>
+- <a src="https://github.com/Victorgonl">Victor Gonçalves</a>
+
+## Ambiente de desenvolvimento
 
 - Sistema Operacional: Linux
 
@@ -110,11 +121,103 @@ Para executar o serviço:
 
 # Docker
 
-A seguir, iremos executar nossa aplicações e o `RabbitMQ` utilizando `Docker`.
+<img src="./images/docker_logo.png">
+
+## Sobre
+
+- Criado por **Solomon Hykes**
+
+- Lançamento: 20 de março de 2013
+
+- Licença `Apache 2.0`
+
+- Implementado em `Go`
+
+A seguir, iremos executar nossas aplicações e o `RabbitMQ` utilizando `Docker`.
+
+## Benefícios
+
+- Rápido (deployment, migration, restart)
+
+- Seguro
+
+- Leve (armazenamento e processamento)
+
+- Código aberto
+
+- Portátil
+
+- Controle de versionamento
+
+## Componentes
+
+### cliente (Docker)
+
+É a interface de linha de comando (CLI) que permite aos usuários interagir com o Docker.
+
+
+### Daemon
+
+É um processo em segundo plano responsável por gerenciar os containers do Docker.
+
+### Engine
+
+É um componente que permite criar, gerenciar e executar containers dentro do sistema operacional host.
+
+### Machine
+
+Permite criar hosts Docker (VMs) na máquina local, em nuvem ou data centers, criando servidores, instalando o Docker neles e, em seguida, configurando o cliente Docker para se comunicar com eles.
+
+### Compose
+
+É uma ferramenta para definir e executar aplicativos Docker com vários containers utilizando um arquivo YAML para configurar os serviços da aplicação.
+
+### Swarm
+
+É o modo nativo do Docker para gerenciar um cluster de Engines Docker chamado de swarm.
+
+### Registry
+
+É um sistema de armazenamento e entrega de conteúdo que armazena imagens Docker nomeadas, disponíveis em diferentes versões com tags.
+
+## Docker VS Virtual Machines (VMs)
+
+Containers são ferramentas de virtualização que empacotam um aplicativo e suas dependências em uma unidade isolada e leve que roda diretamente no kernel do host. São mais rápidos, eficientes e escaláveis do que VMs, pois consomem menos espaço em disco e recursos, compartilhando o mesmo sistema operacional do host.
+
+<img src="./images/conteiners-vs-vm.webp" >
+
+## Image & Container
+
+Uma imagem do Docker é um pacote leve, autônomo e executável de software que inclui tudo o que é necessário para executar um aplicativo: código, tempo de execução, ferramentas do sistema, bibliotecas do sistema e configurações
+
+Um container é uma unidade padrão de software que empacota código e todas as suas dependências para que o aplicativo seja executado de maneira rápida e confiável em diferentes ambientes de computação
+
+O comando `docker build` é usado para criar imagens Docker a partir de um `Dockerfile` e um “contexto”. O contexto de uma construção é o conjunto de arquivos localizados no PATH ou URL especificado. O processo de construção pode se referir a qualquer um dos arquivos no contexto1. Especificando a opção `--pull`, o Docker tentará baixar a versão mais recente da imagem base, em vez de reutilizar a que já está baixada localmente.
+
+O comando `docker pull` é usado para baixar imagens do `Docker Hub` ou de outro repositório remoto. Ele permite que você obtenha uma imagem que já foi criada por outra pessoa ou organização, para ser usada em containers, sendo possível especificar a versão da imagem que desejada.
+
+### Exemplo utilizando SSH
+
+    docker pull ubuntu
+    docker run -it --name ubuntu_example ubuntu /bin/bash
+
+## Docker HUB
+
+O Docker Hub é um serviço de repositório fornecido pelo Docker para encontrar e compartilhar imagens de containers.
+
+<img src="./images/docker_hub.png" width=1000 >
+
+## Compose
+
+`Docker Compose` é uma ferramenta para definir e executar aplicativos Docker com vários containers. Com o Compose, é utilizado um arquivo `YAML` para configurar os serviços da aplicação e em seguida, com um único comando, é possível criar e iniciar todos os serviços a partir da configuração definida.
+
+<img src="./images/docker_compose.png">
+
+# Utilizando `Docker` no `GuiaDev`
 
 ## Instalação
 
-### Docker Engine & Docker Compose Plugin
+### `Docker Engine` & `Docker Compose` Plugin
 
     sudo apt-get update
 
@@ -213,6 +316,12 @@ Podemos utilizar `docker-compose.yml` para criar as imagens e todas as aplicaç�
 
     docker compose up -d
 
+## Refereências
+
+- https://github.com/theodorosploumis/docker-presentation
+
+<!--
+
 #
 
 ## Rodar o projeto com docker container por container
@@ -289,3 +398,4 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [CO
 ## Curiosidades sobre docker
 
 É feito na linguam Go.
+ -->
