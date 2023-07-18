@@ -96,7 +96,6 @@ O comando a seguir atualiza a imagem do modelo de dados:
 
 <img src="./relational_model.png">
 
-
 ## GuiaDev E-mail (Serviço de E-mail)
 
 A implementação do serviço de e-mail está disponível em `./guiadev-email`. O serviço é independente da aplicação WEB, não requerindo seu funcionamento, mas é dependendo do serviço do `RabbitMQ`.
@@ -218,29 +217,30 @@ Podemos utilizar `docker-compose.yml` para criar as imagens e todas as aplicaç�
 
 ## Rodar o projeto com docker container por container
 
-  # Criar subnet
+# Criar subnet
 
     docker network create --subnet=172.18.0.0/16 guiadevnet
 
-  # Fazer build da imagem do rabbitmq
+# Fazer build da imagem do rabbitmq
 
     Na pasta ./rabbitmq
     docker build -t rabbitmq .
-  # Subir container com o Rabbitmq na network criada com ip statico
+
+# Subir container com o Rabbitmq na network criada com ip statico
 
     docker run --net=guiadevnet --ip=172.18.0.22 -it rabbitmq
 
-  # Fazer build da imagem do enviador de email
+# Fazer build da imagem do enviador de email
 
     Na pasta ./guiadev-email
 
     docker build -t email
 
-  # Subir o container com o email
+# Subir o container com o email
 
     docker run -it email
 
-  # Fazer build da imagem do guiadev-web
+# Fazer build da imagem do guiadev-web
 
     Na pasta ./guiadev
     docker build -t guidev .
@@ -250,8 +250,6 @@ Podemos utilizar `docker-compose.yml` para criar as imagens e todas as aplicaç�
 
     docker run -it -p 8080:8000 guiadev
 
-
-
 ## Rodar o projetor com docker compose
 
     #Especificando o arquivo compose com -f
@@ -259,6 +257,7 @@ Podemos utilizar `docker-compose.yml` para criar as imagens e todas as aplicaç�
 
     #Utilizando o .yml no diretório local
       docker compose up
+
 ## Listar networks
 
     docker network ls
@@ -282,17 +281,11 @@ Podemos utilizar `docker-compose.yml` para criar as imagens e todas as aplicaç�
 ## Apagar cache do docker
 
     docker system prune
+
 ## Comando docker para ver ip do container
 
-   docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [CONTAINER-ID]   #Verifica ip do container
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [CONTAINER-ID] #Verifica ip do container
 
 ## Curiosidades sobre docker
 
-  Arquivos .yml e .yaml tem a mesma função, é dito na internet que
-  antigos programadores não gostam de extenções com mais de 3 caracteres
-  por isso não utilizam o .yaml
-
-  o Docker é feito na linguam Go.
-
-
-
+o Docker é feito na linguam Go.
