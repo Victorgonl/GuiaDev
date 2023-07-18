@@ -151,7 +151,7 @@ A seguir, iremos executar nossas aplicações e o `RabbitMQ` utilizando `Docker`
 
 ## Componentes
 
-### cliente (Docker)
+### Cliente (Docker)
 
 É a interface de linha de comando (CLI) que permite aos usuários interagir com o Docker.
 
@@ -206,6 +206,24 @@ O comando `docker pull` é usado para baixar imagens do `Docker Hub` ou de outro
 O Docker Hub é um serviço de repositório fornecido pelo Docker para encontrar e compartilhar imagens de containers.
 
 <img src="./images/docker_hub.png" width=1000 >
+
+## Dockerfile
+
+Um Dockerfile é um arquivo de texto usado para criar imagens de containers, sendo utilizado junto ao comando `docker build ` para automatizar o processo de criação de imagens de container.
+
+Algumas instruções são:
+
+- `FROM`: especifica a imagem base a partir da qual a nova imagem será criada.
+
+- `RUN`: executa comandos no shell dentro do container em construção.
+
+- `COPY`: copia arquivos e diretórios do sistema de arquivos do host para dentro do container.
+
+- `WORKDIR`: define o diretório de trabalho dentro do container.
+
+- `EXPOSE`: informa quais portas de rede devem ser expostas pelo container em execução.
+
+- `CMD`: especifica o comando padrão a ser executado quando o container for iniciado.
 
 ## Compose
 
