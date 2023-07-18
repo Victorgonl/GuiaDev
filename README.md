@@ -4,7 +4,7 @@
 
 # GuiaDev
 
-Um projeto de `Programação WEB`
+Um projeto de `Programação WEB`.
 
 **Professor:** Raphael Winckler De Bettio
 
