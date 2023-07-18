@@ -288,4 +288,4 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [CO
 
 ## Curiosidades sobre docker
 
-o Docker é feito na linguam Go.
+É feito na linguam Go.
